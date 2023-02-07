@@ -29,27 +29,22 @@ export class AppComponent {
       {
         label: 'Hire Us',
         link: './hire',
-        index: 4,
+        index: 2,
       },
       {
         label: 'Music',
         link: './music',
-        index: 2,
+        index: 3,
       },
       {
         label: 'Performances',
         link: './schedule',
-        index: 3,
-      },
-      {
-        label: 'Merchandise',
-        link: './merch',
-        index: 5,
+        index: 4,
       },
       {
         label: 'Contact',
         link: './contact',
-        index: 7,
+        index: 5,
       },
       {
         label: 'Members',
@@ -57,6 +52,16 @@ export class AppComponent {
         index: 6,
       },
     ];
+
+    /*
+    Removed Merch since we don't have any to sell yet
+
+    {
+        label: 'Merchandise',
+        link: './merch',
+        index: 5,
+      },
+      */
 
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
