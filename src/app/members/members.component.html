@@ -1,1 +1,90 @@
-<h2>Coming Soon</h2>
+<div class="container">
+    <div class="main-content">        
+          <mat-card>
+            <mat-card-header>
+                <mat-card-title>Sheet Music</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <p>
+                    This contains all the latest copies of the band's sheet music for both bagpipes and drums.  It also has as practice chanter audio recordings of the tunes.
+                </p>
+                <p>
+                    <a href="https://drive.google.com/drive/folders/1WnbNYXkCRuPs4PhI3cn4KcdfWhkYkk3p?usp=sharing" target="_blank">St. Andrew Google Drive</a>
+                </p>
+            </mat-card-content>
+        </mat-card>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Band Constitution</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <pdf-viewer [src]="pdfSrc"
+                            [render-text]="true"
+                            [original-size]="false"
+                            [autoresize]="true"
+                            style="max-width: 800px; height: 800px"
+                ></pdf-viewer>
+            </mat-card-content>
+        </mat-card>        
+    </div>
+    <div class="left-article">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Band Officers</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-list>
+                    <mat-list-item>
+                        <span matListItemTitle>Pipe Major</span>
+                        <span matListItemLine><a href="mailto:iain.j.mckee@gmail.com" target="_self">Iain McKee</a></span>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <span matListItemTitle>Pipe Sergeant</span>
+                        <span matListItemLine><a href="mailto:griffinthepiper@gmail.com" target="_self">Griffin Hall</a></span>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <span matListItemTitle>Drum Major</span>
+                        <span matListItemLine><a href="mailto:fbreshears@spectrum.net" target="_self">Frank Breshears</a></span>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <span matListItemTitle>Drum Sergeant</span>
+                        <span matListItemLine><a href="mailto:mckee.sarah.m@gmail.com" target="_self">Sarah McKee</a></span>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <span matListItemTitle>President</span>
+                        <span matListItemLine><a href="mailto:kathyburkethomas@gmail.com" target="_self">Kathy Burke-Thomas</a></span>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <span matListItemTitle>Treasurer</span>
+                        <span matListItemLine><a href="mailto:mspengler@comcast.net" target="_self">Mark Spengler</a></span>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <span matListItemTitle>Business Manager</span>
+                        <span matListItemLine><a href="mailto:rory.j.mckee@gmail.com" target="_self">Rory McKee</a></span>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <span matListItemTitle>Public Relations Manager</span>
+                        <span matListItemLine><a href="mailto:thefirm@reganlawfirm.com" target="_self">Kevin Regan</a></span>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <span matListItemTitle>Quartermaster</span>
+                        <span matListItemLine><a href="mailto:llywhite54@yahoo.com" target="_self">Susan Speck</a></span>
+                    </mat-list-item>
+                </mat-list>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="right-article">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Useful Information</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <br>TODO<br>
+                Hand Exercises<br>
+                Bagpipe maintenace<br>
+                etc.
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

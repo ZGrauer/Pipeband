@@ -11,6 +11,7 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./members.component.css']
 })
 export class MembersComponent {
+  pdfSrc = "../../assets/Kansas_City_St_Andrew_Pipe_Band_CONSTITUTION.pdf";
 
   constructor(private _authService: AuthService, private router: Router) { }
 
