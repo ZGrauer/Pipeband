@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { encryptHTML } from 'pagecrypt/core';
 
 @Component({
   selector: 'app-members',
