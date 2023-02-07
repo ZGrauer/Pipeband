@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,7 +13,12 @@ import { MusicComponent } from './music/music.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MembersComponent } from './members/members.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './auth.guard';
+import { AuthService } from './auth.service';
+
+import { TokenInterceptorService } from './token-interceptor.service';
 
 import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
@@ -19,7 +27,11 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
-import { MembersComponent } from './members/members.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+
+
+
 
 @NgModule({
   declarations: [
@@ -31,7 +43,8 @@ import { MembersComponent } from './members/members.component';
     ScheduleComponent,
     AboutComponent,
     HomeComponent,
-    MembersComponent
+    MembersComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -43,9 +56,15 @@ import { MembersComponent } from './members/members.component';
     MatIconModule,
     MatToolbarModule,
     MatMenuModule,
-    MatButtonModule
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AuthService, AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true } ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

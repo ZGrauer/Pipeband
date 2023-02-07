@@ -9,6 +9,9 @@ import { MembersComponent } from './members/members.component';
 import { MerchComponent } from './merch/merch.component';
 import { MusicComponent } from './music/music.component';
 import { ScheduleComponent } from './schedule/schedule.component';
+import { LoginComponent } from './login/login.component';
+
+import { AuthGuard } from './auth.guard';
 
 
 const routes: Routes = [
@@ -19,7 +22,8 @@ const routes: Routes = [
   { path: 'merch', component: MerchComponent },
   { path: 'music', component: MusicComponent },
   { path: 'schedule', component: ScheduleComponent },
-  { path: 'members', component: MembersComponent },
+  { path: 'members', component: MembersComponent, canActivate: [AuthGuard] },
+  { path: 'login' , component: LoginComponent},
 ];
 
 @NgModule({
