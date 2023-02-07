@@ -1,0 +1,157 @@
+
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+}
+
+
+mat-card-title {
+    font-weight: bold;
+    font-size: large;
+}
+
+mat-card {
+    margin-bottom: 25px;
+}
+
+/*.mat-mdc-card {
+    background-color: #0e5f75;
+}*/
+
+.responsive {
+    width: 75%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 35px;
+    margin-bottom: 35px;
+    display: block;
+    box-shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important;
+}
+
+
+@media only screen and (max-width: 699px) {
+    .title {
+        grid-column: 1/5;
+        grid-row: 1;
+        margin-top: 25px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background: url("../../assets/tartan.webp") repeat repeat;
+        color: white;
+        text-shadow: -1px 0 black, 0 2px black, 2px 0 black, 0 -1px black;
+    }
+    
+    #title-text {
+        font-size: large;
+        font-weight: bolder;
+    }
+    
+    #title-icon {
+        height: 90px;
+    }
+    
+    .title-icon-grid {
+        grid-column: 1;
+        grid-row: 1;
+        padding-left: 25px;
+    }
+    
+    .title-grid {
+        padding-top: 10px;
+        grid-column: 2/5;
+        grid-row: 1;
+    }
+}
+
+
+@media only screen and (min-width: 700px) {
+    .title {
+        grid-column: 1/5;
+        grid-row: 1;
+        margin-top: 15px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        background: url("../../assets/tartan.webp") repeat repeat;
+        color: white;
+        text-shadow: -1px 0 black, 0 2px black, 2px 0 black, 0 -1px black;
+    }
+    
+    #title-text {
+        font-size: xx-large;
+        font-weight: bolder;
+    }
+    
+    #title-icon {
+        height: 125px;
+    }
+    
+    .title-icon-grid {
+        grid-column: 1;
+        grid-row: 1;
+        padding-left: 30px;
+    }
+    
+    .title-grid {
+        padding-top: 30px;
+        grid-column: 2/5;
+        grid-row: 1;
+    }
+}
+
+@media only screen and (max-width: 1119px) {
+    .right-article {
+        grid-column: 1/5;
+        grid-row: 4;
+    }
+    
+    .left-article {
+        grid-column: 1/5;
+        grid-row: 3;
+    }
+    
+    .main-content {
+        grid-column: 1/5;
+        grid-row: 2;
+    }
+}
+
+@media only screen and (min-width: 1120px) {
+    .right-article {
+        grid-column: 2/5;
+        grid-row: 3;
+    }
+    
+    .left-article {
+        grid-column: 1;
+        grid-row: 2/4;
+        margin-right: 40px;
+    }
+    
+    .main-content {
+        grid-column: 2/5;
+        grid-row: 2;
+    }
+}
+
+@media only screen and (min-width: 1248px) {
+    .right-article {
+        grid-column: 4;
+        grid-row: 2/4;
+        margin-left: 40px;
+    }
+    
+    .left-article {
+        grid-column: 1;
+        grid-row: 2/4;
+        margin-right: 40px;
+    }
+    
+    .main-content {
+        grid-column: 2/4;
+        grid-row: 2;
+    }
+}

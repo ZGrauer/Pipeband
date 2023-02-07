@@ -1,0 +1,119 @@
+/* 
+https://coolors.co/0a3a09-271e5e-206590-cc0112
+https://coolors.co/palette/900916-040100-100d2a-1483a2-3f010d-130d1e
+primary: rgb(144, 9, 22);  #900916 ~ Carmine  
+accent: rgb(20, 131, 162) ~ Celadon Blue #1483A2; 
+        100D2A    ~ Dark Purple
+*/
+
+.app-content {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.mat-mdc-tab-link {
+    text-shadow: 2px 2px 5px black;
+    text-decoration: none;
+}
+
+/*.mdc-menu-surface, 
+.mat-mdc-menu-item  {
+    background-color: #1483A2;
+}*/
+
+footer {
+    text-align: center;
+    padding: 15px;
+    width: 100%;
+    background-color: var(--mdc-theme-primary, #900916);
+}
+
+footer div,
+footer a {
+    color: var(--mdc-theme-on-primary, #fff);
+    text-decoration: none;
+}
+
+.icon {
+    fill: var(--mdc-theme-on-primary, #fff); 
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(40px, auto);
+}
+
+.col-1 {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.col-2 {
+    grid-column: 2/4;
+    grid-row: 1;
+}
+
+.col-3 {
+    grid-column:4/6;
+    grid-row: 1;
+}
+
+
+
+@media only screen and (max-width: 750px) {
+    .mat-mdc-tab-link {
+        font-size: 10px;
+    }
+
+    .mat-mdc-tab-header {
+        display: none;
+    }
+
+    .mat-toolbar {
+        display:flex;
+    }
+}
+
+@media only screen and (min-width: 751px) {
+    .mat-mdc-tab-link {
+        font-size: 14px;
+    }
+    .mat-mdc-tab-header {
+        display: none;
+    }
+
+    .mat-toolbar {
+        display:flex;
+    }
+}
+
+
+@media only screen and (min-width: 900px) {
+    .mat-mdc-tab-link {
+        font-size: 14px;
+    }
+    .mat-mdc-tab-header {
+        display: block;
+    }
+
+    .mat-toolbar {
+        display:none;
+    }
+}
+
+
+@media only screen and (min-width: 1250px) {
+    .mat-mdc-tab-link {
+        font-size: 18px;
+    }
+    .mat-mdc-tab-header {
+        display: block;
+    }
+
+    .mat-toolbar {
+        display:none;
+    }
+}
+
