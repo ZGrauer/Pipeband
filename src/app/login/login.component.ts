@@ -19,9 +19,7 @@ export class LoginComponent {
 
   loginUser() {
     this.invalidPassword = false;
-    if ( this.userPassword == this.allowedPassword ) {
-      console.log('login success');
-      localStorage.setItem('token', 'secretToken');
+    if ( this._auth.login(this.userPassword)) {
       this.router.navigate(['/members']);
     } else {
       this.invalidPassword = true;
