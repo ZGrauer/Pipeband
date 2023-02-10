@@ -1,6 +1,6 @@
 <div class="container">
     <div class="main-content">        
-          <mat-card>
+        <mat-card>
             <mat-card-header>
                 <mat-card-title>Sheet Music</mat-card-title>
             </mat-card-header>
@@ -15,10 +15,47 @@
         </mat-card>
         <mat-card>
             <mat-card-header>
-                <mat-card-title>Band Constitution</mat-card-title>
+                <mat-card-title>Competition Score Sheets</mat-card-title>
             </mat-card-header>
             <mat-card-content>
-                <pdf-viewer [src]="pdfSrc"
+                <p>
+                    Coming Soon
+                </p>
+            </mat-card-content>
+        </mat-card>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Helpful Videos</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <h4>Stretches</h4>
+                <p>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/_jWxIPrBSdQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/qgIXpSup93s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </p>
+                <h4>Bagpipes</h4>
+                <p>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/ZTdY671h2io" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/ZodkXZ18F48" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </p>
+                <h4>Uniform</h4>
+                <p>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/30hRwx0kqHQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </p>
+            </mat-card-content>
+        </mat-card>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>
+                    Band Constitution 
+                    <button mat-icon-button color="primary" (click)="downloadBandConstitutionPDF()" style="display: inline-block" matTooltip="Download Band Constitution PDF" aria-label="Download Band Constitution PDF">
+                        <mat-icon>download</mat-icon>
+                    </button>
+                </mat-card-title>
+            </mat-card-header>
+            
+            <mat-card-content>
+                <pdf-viewer [src]="bandConstitutionPdfSrc"
                             [render-text]="true"
                             [original-size]="false"
                             [autoresize]="true"
@@ -27,10 +64,10 @@
             </mat-card-content>
         </mat-card>        
     </div>
-    <div class="left-article">
+    <div class="right-article">
         <mat-card>
             <mat-card-header>
-                <mat-card-title>Band Officers</mat-card-title>
+                <mat-card-title>Band Officer Emails</mat-card-title>
             </mat-card-header>
             <mat-card-content>
                 <mat-list>
@@ -74,16 +111,20 @@
             </mat-card-content>
         </mat-card>
     </div>
-    <div class="right-article">
+    <div class="left-article">
         <mat-card>
             <mat-card-header>
                 <mat-card-title>Useful Information</mat-card-title>
             </mat-card-header>
             <mat-card-content>
-                <br>TODO<br>
-                Hand Exercises<br>
-                Bagpipe maintenace<br>
-                etc.
+                <ul>
+                    <li><a href="" target="_blank" (click)="downloadDrumMajorPDF()">Download Drum Major Manual PDF</a></li>
+                    <li><a href="https://www.jhiggins.net/blog/checklist-for-a-comfortable-bagpipe/" target="_blank">Checklist for a Comfortable Bagpipe</a></li>
+                    <li><a href="https://www.jhiggins.net/blog/proper-aftersession-care-for-your-bagpipes/" target="_blank">Proper After-Session Care for your Bagpipes</a></li>
+                    <li><a href="https://www.jhiggins.net/blog/10-tips-for-a-more-fufilling-practice-on-your-bagpipes/" target="_blank">10 Tips for a more Fufilling Practice on your Bagpipes</a></li>
+                    <li><a href="https://www.jhiggins.net/blog/how-does-temperature-moisture-and-storage-affect-my-bagpipes/" target="_blank">How does Temperature, Moisture, and Storage affect my Bagpipes?</a></li>
+                    <li><a href="https://www.jhiggins.net/blog/how-should-i-wear-my-kilt-outfit/" target="_blank">How Should I Wear my Kilt Outfit?</a></li>
+                </ul>
             </mat-card-content>
         </mat-card>
     </div>
