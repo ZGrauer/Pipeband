@@ -10,6 +10,7 @@ import { MerchComponent } from './merch/merch.component';
 import { MusicComponent } from './music/music.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { LoginComponent } from './login/login.component';
+import { PhotosComponent } from './photos/photos.component';
 
 import { AuthGuard } from './auth.guard';
 
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'schedule', component: ScheduleComponent },
   { path: 'members', component: MembersComponent, canActivate: [AuthGuard] },
   { path: 'login' , component: LoginComponent},
+  { path: 'photo' , component: PhotosComponent }
 ];
 
 @NgModule({

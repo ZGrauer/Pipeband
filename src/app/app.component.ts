@@ -37,19 +37,24 @@ export class AppComponent {
         index: 3,
       },
       {
+        label: 'Photo Gallery',
+        link: './photo',
+        index: 4,
+      },
+      {
         label: 'Performances',
         link: './schedule',
-        index: 4,
+        index: 5,
       },
       {
         label: 'Contact',
         link: './contact',
-        index: 5,
+        index: 6,
       },
       {
         label: 'Members',
         link: './members',
-        index: 6,
+        index: 7,
       },
     ];
 
