@@ -30,8 +30,10 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { PhotosComponent } from './photos/photos.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     AboutComponent,
     HomeComponent,
     MembersComponent,
-    LoginComponent
+    LoginComponent,
+    PhotosComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +62,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     MatFormFieldModule,
     MatInputModule,
     MatTooltipModule,
+    MatGridListModule,
     MatButtonModule,
     HttpClientModule,
     FormsModule,
