@@ -1,5 +1,15 @@
 import { Component } from '@angular/core';
-import { Router, Event, NavigationStart, NavigationEnd, NavigationError} from '@angular/router';
+import {
+  Router,
+  Event,
+  NavigationStart,
+  NavigationEnd,
+  NavigationError,
+  ActivatedRoute,
+  Data,
+} from '@angular/router';
+import { MetaService } from './meta.service';
+import { filter, map, mergeMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +24,11 @@ export class AppComponent {
   navLinks: any[];
   activeLinkIndex = -1;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private metaService: MetaService
+  ) {
     this.navLinks = [
       {
         label: 'Home',
@@ -59,22 +73,22 @@ export class AppComponent {
     ];
 
     /*
-    Removed Merch since we don't have any to sell yet
+      Removed Merch since we don't have any to sell yet
 
-    {
-        label: 'Merchandise',
-        link: './merch',
-        index: 5,
-      },
-      */
+      {
+          label: 'Merchandise',
+          link: './merch',
+          index: 5,
+        },
+        */
 
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
-          this.currentRoute = event.url;
-          this.isMembersRoute = this.currentRoute == '/members' ? true : false;
-          console.log(event);
+        this.currentRoute = event.url;
+        this.isMembersRoute = this.currentRoute == '/members' ? true : false;
+        console.log(event);
       }
-  });
+    });
   }
 
   ngOnInit(): void {
@@ -83,5 +97,24 @@ export class AppComponent {
         this.navLinks.find((tab) => tab.link === '.' + this.router.url)
       );
     });
+
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        map(() => this.activatedRoute),
+        map((route) => {
+          while (route.firstChild) {
+            route = route.firstChild;
+          }
+          return route;
+        }),
+        filter((route) => route.outlet === 'primary'),
+        mergeMap((route) => route.data),
+        tap(({ title, description }: Data) => {
+          this.metaService.updateTitle(title);
+          this.metaService.updateDescription(description);
+        })
+      )
+      .subscribe();
   }
 }
