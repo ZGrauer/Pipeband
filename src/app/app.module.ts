@@ -31,6 +31,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { PhotosComponent } from './photos/photos.component';
@@ -62,6 +63,7 @@ import { PhotosComponent } from './photos/photos.component';
     MatFormFieldModule,
     MatInputModule,
     MatTooltipModule,
+    MatPaginatorModule,
     MatGridListModule,
     MatButtonModule,
     HttpClientModule,
