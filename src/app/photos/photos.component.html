@@ -1,114 +1,25 @@
 <div class="container">
     <div class="main-content">
         <mat-grid-list cols="{{ galleryColCount }}" rowHeight="370px">
-            <mat-grid-tile>
+            <mat-grid-tile *ngFor="let gallery of currentGalleriesPage">
                 <mat-card>
                     <mat-card-header>
-                      <mat-card-title>2021 ScotsFest Tulsa</mat-card-title>
+                        <mat-card-title>{{gallery.title}}</mat-card-title>
                     </mat-card-header>
                     <mat-card-content>
-                        <a href="https://photos.google.com/share/AF1QipOaSWg9m-WQ2BPvveEVwaH5haqIO9PRV7EhM8W_NeV0f3u8cGasRWc_DBZgJJ97fA?key=YjloZXQ3NnMwYzRwVjlVUlQwdDVHNlBFQTVIVkxn" target="_blank">
-                            <img mat-card-image src="../../assets/2021_ScotsFest_Tulsa.jpg" alt="2021 ScotsFest Tulsa">
+                        <a href={{gallery.url}} target="_blank">
+                            <img mat-card-image src={{gallery.src}} alt={{gallery.title}}>
                         </a>
                     </mat-card-content>
-                  </mat-card>
+                </mat-card>
             </mat-grid-tile>
-            <mat-grid-tile>
-                <mat-card>
-                    <mat-card-header>
-                      <mat-card-title>2021 KC Irish Fest</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <a href="https://photos.google.com/share/AF1QipPt-AYq4GMhKVbTbIA410QjMUiVE0aof4ZqmjH7qaMyH5_LvBsGiCx2BahJ12p7pA?key=RzNNRUk0cW9CbE5hS0o3RzJGa0JFVzh6UXNXeGNn" target="_blank">
-                            <img mat-card-image src="../../assets/2021_Irish_fest.jpg" alt="2021 KC Irish Fest">
-                        </a>
-                    </mat-card-content>
-                  </mat-card>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <mat-card>
-                    <mat-card-header>
-                      <mat-card-title>2021 Baker Graduation</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <a href="https://photos.google.com/share/AF1QipNWSOG_psFbb-DosyMO9eESjf0CsfNjIxIreE3tx7Sxq7a8hPv5UUof8lQ2OIBhHw?key=Rkh0dkpjUFJEUmNfY014ZVpaQUI1RVBSYTNQUEpR" target="_blank">
-                            <img mat-card-image src="../../assets/2021_Baker_Grad.jpg" alt="2021 Baker Graduation">
-                        </a>
-                    </mat-card-content>
-                  </mat-card>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <mat-card>
-                    <mat-card-header>
-                      <mat-card-title>2020 Robert Burns Dinner</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <a href="https://photos.google.com/share/AF1QipP4G08bn60p4CnfWDaBhtdbtkZKDRepo2mCl836PpkI7bE32bP4n-UOhgS7TEK0wQ?key=UlpFRm5BRWZwUjM3RkNockw0Rm1LcjVDank5SnFn" target="_blank">
-                            <img mat-card-image src="../../assets/2020_Burns_Dinner.jpg" alt="2020 Robert Burns Dinner">
-                        </a>
-                    </mat-card-content>
-                  </mat-card>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <mat-card>
-                    <mat-card-header>
-                      <mat-card-title>2019 St Patrick's Parade</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <a href="https://photos.google.com/share/AF1QipPXKnot56m7bShKGF1fb6bzTH10q2SZkyFoLFxNO_qAKdUDzLWvCwBVd7UOVwWXLQ?key=M1VURVRjM0dFNnZRWEFrS0RGdkdRd09YQy1RNmlB" target="_blank">
-                            <img mat-card-image src="../../assets/2019_St_Paddy_Parade.jpg" alt="2019 St Patrick's Parade">
-                        </a>
-                    </mat-card-content>
-                  </mat-card>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <mat-card>
-                    <mat-card-header>
-                      <mat-card-title>2019 Minnestoa Highland Games</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <a href="https://photos.google.com/share/AF1QipPpIhD9k4dncW19gKmQvuykng1UX3V7RyVa05pGNAOb5eIfojLMhJfDJmNJCr2LrA?key=RmhmVDl1ZHZpMEw4MzhMNl8tdlM0VExtOXFrZW1B" target="_blank">
-                            <img mat-card-image src="../../assets/2019_Minnesota.jpg" alt="2019 Minnestoa Highland Games">
-                        </a>
-                    </mat-card-content>
-                  </mat-card>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <mat-card>
-                    <mat-card-header>
-                      <mat-card-title>2018 Kirking of the Tartan</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <a href="https://photos.google.com/share/AF1QipME3-2XGnU44dhG5dMljkr4JDEV32n7leyhw_n4P7zPxTF83RTANRjLSR1S10YOcQ?key=REZTNmo4cGtoa21JSzVIdllqSVVIYVNXakdLOEl3" target="_blank">
-                            <img mat-card-image src="../../assets/2018_Kirking_Tartan.jpg" alt="2018 Kirking of the Tartan">
-                        </a>
-                    </mat-card-content>
-                  </mat-card>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <mat-card>
-                    <mat-card-header>
-                      <mat-card-title>2014 Special Forces Ball</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <a href="https://photos.google.com/share/AF1QipODVwOKR377fGI_fi-nkgt5KyyBlQDYCkAc0J2xNqf1XDWVpgqCoCmbQUGB8V706g?key=RXJHcXFBMlFOLWwxNzhIRUx3czBubHVCajJrRmF3" target="_blank">
-                            <img mat-card-image src="../../assets/2014_Special_Forces_Ball.jpg" alt="2014 Special Forces Ball">
-                        </a>
-                    </mat-card-content>
-                  </mat-card>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <mat-card>
-                    <mat-card-header>
-                      <mat-card-title>2012 Concert with the Chieftains</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <a href="https://photos.google.com/share/AF1QipPzXBd0_vhyNzVB9iNCErVin5F3c2vSwjDXGB5bKUXxQNxDPkSckuZO71zwcG232A?key=a2cyQzV1MUZwTW5CbURFckV0NW8zZWpBWkt4ZFR3" target="_blank">
-                            <img mat-card-image src="../../assets/2012_Chieftains.jpg" alt="2012 Concert with the Chieftains">
-                        </a>
-                    </mat-card-content>
-                  </mat-card>
-            </mat-grid-tile>
-          </mat-grid-list>
+        </mat-grid-list>
+        <mat-paginator 
+            [length]="galleries.length" 
+            [pageSize]="pageSize" 
+            [pageSizeOptions]="[3, 6, 9, 12]"
+            (page)="getServerData($event)"
+            aria-label="Select page">
+        </mat-paginator>
     </div>
 </div>
