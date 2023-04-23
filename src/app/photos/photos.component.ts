@@ -15,6 +15,11 @@ export class PhotosComponent {
   public pageSize: number = 9;
   galleries: photoGalleries = [
     {
+      url: 'https://youtu.be/LJxuIyDMtcI',
+      title: "2023 Kansas City St Patrick's Day Parade",
+      src: '../../assets/2023_KC_St_Patricks_Parade.jpg',
+    },
+    {
       url: 'https://photos.app.goo.gl/e6XY3eByAmNXE86M8',
       title: '2023 Robert Burns Dinner',
       src: '../../assets/2023_Burns_Dinner.jpg',
