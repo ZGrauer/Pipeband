@@ -13,6 +13,36 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../auth.service';
 
+export interface ResultElement {
+  date: Date;
+  highlandGames: string;
+  grade: number;
+  event: string;
+  place: number;
+  totalPoints: number;
+  pipingJudge1: number;
+  pipingJudge2: number;
+  drummingJudge: number;
+  ensembleJudge: number;
+  pdfPath: string;
+}
+
+const RESULT_DATA: ResultElement[] = [
+  {
+    date: new Date('2023-06-17 00:00:00'),
+    highlandGames: 'Chicago',
+    grade: 5,
+    event: 'QMM',
+    place: 6,
+    totalPoints: 25,
+    pipingJudge1: 9,
+    pipingJudge2: 9,
+    drummingJudge: 3,
+    ensembleJudge: 4,
+    pdfPath: '../../assets/score-sheets/2023_Chicago_Games_Results.pdf',
+  },
+];
+
 @Component({
   selector: 'app-members',
   templateUrl: './members.component.html',
@@ -24,6 +54,9 @@ export class MembersComponent {
 
   drumMajorPdfSrc = '../../assets/drum_major_manual.pdf';
   drumMajorPdfFilename = 'drum_major_manual.pdf';
+
+  displayedColumns: string[] = ['date', 'highlandGames', 'grade', 'event', 'place', 'totalPoints', 'pdfPath'];
+  dataSource = RESULT_DATA;
 
   constructor(private _authService: AuthService, private router: Router) {}
 
