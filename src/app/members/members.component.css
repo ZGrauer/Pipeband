@@ -5,6 +5,10 @@
     grid-auto-rows: minmax(100px, auto);
 }
 
+table {
+    width: 100%;
+  }
+
 mat-card-title {
     font-weight: bold;
     font-size: large;
