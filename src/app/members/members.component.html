@@ -2,6 +2,7 @@
     <div class="main-content">        
         <mat-card>
             <mat-card-header>
+                <mat-icon aria-hidden="false" aria-label="New Content" fontIcon="fiber_new"></mat-icon>
                 <mat-card-title>Competition Score Sheets</mat-card-title>
             </mat-card-header>
             <mat-card-content>
@@ -48,7 +49,7 @@
                     </ng-container>
                     <ng-container matColumnDef="pdfPath">
                         <th mat-header-cell *matHeaderCellDef> Sheets </th>
-                        <td mat-cell *matCellDef="let element"> <a href="{{element.pdfPath}}" target="_blank" >PDF</a></td>
+                        <td mat-cell *matCellDef="let element"> <a href="{{element.pdfPath}}" target="_blank" rel="noopener noreferrer" >PDF</a></td>
                     </ng-container>                  
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -149,7 +150,7 @@
             <mat-card-content>
                 <p>
                     You can download the latest copy of the band's roster here.  This file contains the active, associate, and student members of the band along with contact information. 
-                    <br><a href="../../assets/Band_Roster.xlsx" target="_blank" >Band Roster Excel Workbook</a>
+                    <br><a href="../../assets/Band_Roster.xlsx" target="_blank" rel="noopener noreferrer" >Band Roster Excel Workbook</a>
                 </p>
             </mat-card-content>
         </mat-card>
@@ -160,7 +161,7 @@
             <mat-card-content>
                 <p>
                     You can download the latest copy of the band's travel reimbursement policy.  This file details the process of how to get reimbursed for hotel and fuel expenses when traveling to competitions. 
-                    <br><a href="../../assets/KCSA Travel Reimbursement Policy 03.03.23.docx" target="_blank" >Competition Travel Reimbursement Policy Word Doc</a>
+                    <br><a href="../../assets/KCSA Travel Reimbursement Policy 03.03.23.docx" target="_blank" rel="noopener noreferrer" >Competition Travel Reimbursement Policy Word Doc</a>
                 </p>
             </mat-card-content>
         </mat-card>
@@ -172,13 +173,17 @@
             </mat-card-header>
             <mat-card-content>
                 <ul>
-                    <li><a href="https://drive.google.com/drive/folders/1WnbNYXkCRuPs4PhI3cn4KcdfWhkYkk3p?usp=sharing" target="_blank">St. Andrew Sheet Music Google Drive</a></li>
-                    <li><a href="" target="_blank" (click)="downloadDrumMajorPDF()">Download Drum Major Manual PDF</a></li>
-                    <li><a href="https://www.jhiggins.net/blog/checklist-for-a-comfortable-bagpipe/" target="_blank">Checklist for a Comfortable Bagpipe</a></li>
-                    <li><a href="https://www.jhiggins.net/blog/proper-aftersession-care-for-your-bagpipes/" target="_blank">Proper After-Session Care for your Bagpipes</a></li>
-                    <li><a href="https://www.jhiggins.net/blog/10-tips-for-a-more-fufilling-practice-on-your-bagpipes/" target="_blank">10 Tips for a more Fufilling Practice on your Bagpipes</a></li>
-                    <li><a href="https://www.jhiggins.net/blog/how-does-temperature-moisture-and-storage-affect-my-bagpipes/" target="_blank">How does Temperature, Moisture, and Storage affect my Bagpipes?</a></li>
-                    <li><a href="https://www.jhiggins.net/blog/how-should-i-wear-my-kilt-outfit/" target="_blank">How Should I Wear my Kilt Outfit?</a></li>
+                    <li>
+                        <mat-icon aria-hidden="false" aria-label="New Content" fontIcon="fiber_new"></mat-icon>
+                        <a href="https://youtube.com/playlist?list=PLQQZswSWPMSihz8F97P4Xij7SJUM_CmPo" target="_blank" rel="noopener noreferrer">2024 St Andrews Concert YouTube Playlist</a>
+                    </li>
+                    <li><a href="https://drive.google.com/drive/folders/1WnbNYXkCRuPs4PhI3cn4KcdfWhkYkk3p?usp=sharing" target="_blank" rel="noopener noreferrer">St. Andrew Sheet Music Google Drive</a></li>
+                    <li><a href="" target="_blank" rel="noopener noreferrer" (click)="downloadDrumMajorPDF()">Download Drum Major Manual PDF</a></li>
+                    <li><a href="https://www.jhiggins.net/blog/checklist-for-a-comfortable-bagpipe/" target="_blank" rel="noopener noreferrer">Checklist for a Comfortable Bagpipe</a></li>
+                    <li><a href="https://www.jhiggins.net/blog/proper-aftersession-care-for-your-bagpipes/" target="_blank" rel="noopener noreferrer">Proper After-Session Care for your Bagpipes</a></li>
+                    <li><a href="https://www.jhiggins.net/blog/10-tips-for-a-more-fufilling-practice-on-your-bagpipes/" target="_blank" rel="noopener noreferrer">10 Tips for a more Fufilling Practice on your Bagpipes</a></li>
+                    <li><a href="https://www.jhiggins.net/blog/how-does-temperature-moisture-and-storage-affect-my-bagpipes/" target="_blank" rel="noopener noreferrer">How does Temperature, Moisture, and Storage affect my Bagpipes?</a></li>
+                    <li><a href="https://www.jhiggins.net/blog/how-should-i-wear-my-kilt-outfit/" target="_blank" rel="noopener noreferrer">How Should I Wear my Kilt Outfit?</a></li>
                 </ul>
             </mat-card-content>
         </mat-card>
