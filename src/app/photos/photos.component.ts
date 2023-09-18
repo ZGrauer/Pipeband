@@ -15,6 +15,26 @@ export class PhotosComponent {
   public pageSize: number = 9;
   galleries: photoGalleries = [
     {
+      url: 'https://photos.app.goo.gl/eYvawdeiMfrFz5bb8',
+      title: "2023 Irish Festival",
+      src: '../../assets/2023_Irish_Festival.jpg',
+    },
+    {
+      url: 'https://photos.app.goo.gl/X3eD7H4GKKNXX1eD6',
+      title: "2023 Ethnic Festival",
+      src: '../../assets/2023_Ethnic_Festival.jpg',
+    },
+    {
+      url: 'https://photos.app.goo.gl/RNcsoMzd3iXxdKvR8',
+      title: "2023 Taps at the Tower",
+      src: '../../assets/2023_Taps_at_the_Tower.jpg',
+    },
+    {
+      url: 'https://photos.app.goo.gl/F8eaSSV245fAK3Km6',
+      title: "2023 Chicago Games",
+      src: '../../assets/2023_Chicago_Games.jpg',
+    },
+    {
       url: 'https://youtu.be/LJxuIyDMtcI',
       title: "2023 Kansas City St Patrick's Day Parade",
       src: '../../assets/2023_KC_St_Patricks_Parade.jpg',
