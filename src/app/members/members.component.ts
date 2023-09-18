@@ -41,6 +41,19 @@ const RESULT_DATA: ResultElement[] = [
     ensembleJudge: 4,
     pdfPath: '../../assets/score-sheets/2023_Chicago_Games_Results.pdf',
   },
+  {
+    date: new Date('2023-09-16 00:00:00'),
+    highlandGames: 'Tulsa',
+    grade: 5,
+    event: 'QMM',
+    place: 2,
+    totalPoints: 7,
+    pipingJudge1: 3,
+    pipingJudge2: 2,
+    drummingJudge: 1,
+    ensembleJudge: 1,
+    pdfPath: '../../assets/score-sheets/2023_Tulsa_Games_Results.pdf',
+  },
 ];
 
 @Component({
