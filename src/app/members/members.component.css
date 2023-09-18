@@ -36,15 +36,20 @@ mat-list-item {
         grid-column: 1/5;
         grid-row: 1;
     }
-    
+
     .left-article {
         grid-column: 1/5;
         grid-row: 2;
     }
-    
+
     .main-content {
         grid-column: 1/5;
         grid-row: 3;
+    }
+
+    .youtube-video {
+        aspect-ratio: 16 / 9;
+        width: 100%;
     }
 }
 
@@ -53,15 +58,20 @@ mat-list-item {
         grid-column: 4/5;
         grid-row: 1;
     }
-    
+
     .left-article {
         grid-column: 1/4;
         grid-row: 1;
     }
-    
+
     .main-content {
         grid-column: 1/5;
         grid-row: 2;
+    }
+
+    .youtube-video {
+        aspect-ratio: 16 / 9;
+        width: 50%;
     }
 }
 
@@ -70,14 +80,19 @@ mat-list-item {
         grid-column: 4;
         grid-row: 1;
     }
-    
+
     .left-article {
         grid-column: 1;
         grid-row: 1;
     }
-    
+
     .main-content {
         grid-column: 2/4;
         grid-row: 1;
+    }
+
+    .youtube-video {
+        aspect-ratio: 16 / 9;
+        width: 50%;
     }
 }
