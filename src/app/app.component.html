@@ -1,4 +1,14 @@
 <div class="mat-app-background">
+  <div class="title">
+    <div class="container">
+    <div class="title-icon-grid">
+        <img id="title-icon" src="../assets/band_logo.webp" alt="band logo">
+    </div>
+    <div class="title-grid">
+        <h1 id="title-text">Welcome to the Kansas City St. Andrew Pipes & Drums</h1>
+    </div>
+    </div>
+</div>
   <nav mat-tab-nav-bar id="tab-nav" backgroundColor="primary" [tabPanel]="tabPanel">
     <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.link" routerLinkActive #rla="routerLinkActive"
       [active]="rla.isActive">
