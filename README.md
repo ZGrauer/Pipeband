@@ -1,6 +1,8 @@
-# Pipeband
+# ![Kansas City St Andrew Pipes and Drums logo](./src/assets/band_logo.webp)  
 
 An Angular web app (generated with [Angular CLI](https://github.com/angular/angular-cli) v15.0.1) for the [Kansas City St Andrew Pipes and Drums](https://www.kcpipeband.org/) band.  Resources for fans, prospetive students, and current members.
+
+---
 
 ## Installation
 
