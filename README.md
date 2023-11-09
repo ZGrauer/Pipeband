@@ -19,7 +19,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build Locally Using Angular CLI
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. These files can be deployed to a hosting provider to run in production.
+Run `ng build --configuration production` to build the project. The build artifacts will be stored in the `dist/` directory. These files can be deployed to a hosting provider to run in production.
 
 ## Build and Run via Docker
 
