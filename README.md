@@ -9,6 +9,17 @@ An Angular web app (generated with [Angular CLI](https://github.com/angular/angu
 1) Follow the [Angular setup guide](https://angular.io/guide/setup-local) to configure your local environment and workspace
 2) Clone this project to your local machine
 
+## Configure Environment
+
+Set the member password in files `src/environments/environment.ts` & `src/environments/environment.development.ts`.  This controls the password members of the band use to access the restricted section of the site.
+
+```javascript
+export const environment = {
+    production: true,
+    memberPassword: "CHANGE_ME"
+};
+```
+
 ## Development Server Using Angular CLI
 
 In the project directory open a new terminal and run `ng serve` for a dev server. This will build the code and start the server. Navigate to `http://localhost:4200/` to view the site. The application will automatically reload if you change any of the source files.
