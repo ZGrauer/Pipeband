@@ -33,7 +33,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
+import {MatDialogModule} from '@angular/material/dialog';
 
+import { StlModelViewerModule } from 'angular-stl-model-viewer';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { PhotosComponent } from './photos/photos.component';
 
@@ -71,7 +73,9 @@ import { PhotosComponent } from './photos/photos.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    PdfViewerModule
+    PdfViewerModule,
+    MatDialogModule,
+    StlModelViewerModule
   ],
   providers: [AuthService, AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true } ],

@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
+import * as sha256 from 'js-sha256';
+import { environment } from './../environments/environment';
+const MEMBER_PASSWORD: string = sha256.sha256(environment.memberPassword);
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  allowedPassword = 'Andrew2023';
-
   constructor() { }
 
   login(userPassword: string): boolean {
-    if ( userPassword == this.allowedPassword ) {
+    userPassword = sha256.sha256(userPassword);
+    if ( userPassword == MEMBER_PASSWORD ) {
       console.log('login success');
       localStorage.setItem('token', 'secretToken');
       return true;

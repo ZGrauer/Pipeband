@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+
+
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -10,7 +12,6 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent {
   userPassword: string = '' ;
-  allowedPassword = 'Andrew2023';
   hide = true;
   invalidPassword = false;
 

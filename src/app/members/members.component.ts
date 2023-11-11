@@ -1,17 +1,19 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef, HostListener  } from '@angular/core';
-
-import {
-  HttpRequest,
-  HttpResponse,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef, HostListener, Inject } from '@angular/core';
+import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {FormsModule} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../auth.service';
+
+import { StlModelViewerModule } from 'angular-stl-model-viewer';
+
+export interface DialogData {
+  file_path: string;
+}
 
 export interface ResultElement {
   date: Date;
@@ -60,7 +62,7 @@ const RESULT_DATA: ResultElement[] = [
 @Component({
   selector: 'app-members',
   templateUrl: './members.component.html',
-  styleUrls: ['./members.component.css'],
+  styleUrls: ['./members.component.css']
 })
 export class MembersComponent implements AfterViewInit, OnInit {
   bandConstitutionPdfSrc = '../../assets/Kansas_City_St_Andrew_Pipe_Band_CONSTITUTION.pdf';
@@ -74,7 +76,7 @@ export class MembersComponent implements AfterViewInit, OnInit {
 
   public screenWidth: any;
 
-  constructor(private _authService: AuthService, private router: Router, private cdref: ChangeDetectorRef) {}
+  constructor(private _authService: AuthService, private router: Router, private cdref: ChangeDetectorRef, public dialog: MatDialog) {}
 
   ngOnInit() {
     this.isLoggedIn();
@@ -126,5 +128,28 @@ export class MembersComponent implements AfterViewInit, OnInit {
     document.body.appendChild(link);
     link.click();
     link.remove();
+  }
+
+  openPreviewStlDialog(filePath: string): void {
+    const dialogRef = this.dialog.open(StlDialog, {
+      data: {file_path: filePath},
+    })
+  }
+}
+
+@Component({
+  selector: 'stl-dialog',
+  templateUrl: 'stl-dialog.html',
+  standalone: true,
+  imports: [MatIconModule, MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, StlModelViewerModule],
+})
+export class StlDialog {
+  constructor(
+    public dialogRef: MatDialogRef<StlDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+  ) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

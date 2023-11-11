@@ -2,7 +2,6 @@
     <div class="main-content">        
         <mat-card>
             <mat-card-header>
-                <mat-icon aria-hidden="false" aria-label="New Content" fontIcon="fiber_new"></mat-icon>
                 <mat-card-title>Competition Score Sheets</mat-card-title>
             </mat-card-header>
             <mat-card-content>
@@ -80,6 +79,16 @@
                 </p>
             </mat-card-content>
         </mat-card>
+        <!--<mat-card>
+            <mat-card-header>
+                <mat-card-title>Kilt Pin</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <stl-model-viewer [stlModels]="['../../assets/KCSAPB_Kilt_Pin.stl']" style="height: 450px;"></stl-model-viewer>
+                <stl-model-viewer [stlModels]="['../../assets/KCSAPB_Cap_Badge.stl']"></stl-model-viewer>
+            </mat-card-content>
+        </mat-card>
+        -->
         <mat-card>
             <mat-card-header>
                 <mat-card-title>
@@ -110,47 +119,47 @@
                     <mat-list-item>
                         <span matListItemTitle>Pipe Major</span>
                         <span matListItemLine>Iain McKee</span>
-                        <span matListItemLine><a href="mailto:iain.j.mckee@gmail.com" target="_self">iain.j.mckee@gmail.com</a></span>
+                        <span matListItemLine><a href="mailto:iain.j.mckee@gmail.com" target="_self">iain.j.mckee&#64;gmail.com</a></span>
                     </mat-list-item>
                     <mat-list-item>
                         <span matListItemTitle>Pipe Sergeant</span>
                         <span matListItemLine>Griffin Hall</span>
-                        <span matListItemLine><a href="mailto:griffinthepiper@gmail.com" target="_self">griffinthepiper@gmail.com</a></span>
+                        <span matListItemLine><a href="mailto:griffinthepiper@gmail.com" target="_self">griffinthepiper&#64;gmail.com</a></span>
                     </mat-list-item>
                     <mat-list-item>
                         <span matListItemTitle>Drum Major</span>
                         <span matListItemLine>Frank Breshears</span>
-                        <span matListItemLine><a href="mailto:fbreshears@spectrum.net" target="_self">fbreshears@spectrum.net</a></span>
+                        <span matListItemLine><a href="mailto:fbreshears@spectrum.net" target="_self">fbreshears&#64;spectrum.net</a></span>
                     </mat-list-item>
                     <mat-list-item>
                         <span matListItemTitle>Drum Sergeant</span>
                         <span matListItemLine>Kyle Womelduff</span>
-                        <span matListItemLine><a href="mailto:kyle.womelduff@gmail.com" target="_self">kyle.womelduff@gmail.com</a></span>
+                        <span matListItemLine><a href="mailto:kyle.womelduff@gmail.com" target="_self">kyle.womelduff&#64;gmail.com</a></span>
                     </mat-list-item>
                     <mat-list-item>
                         <span matListItemTitle>President</span>
                         <span matListItemLine>Kathy Burke-Thomas</span>
-                        <span matListItemLine><a href="mailto:kathyburkethomas@gmail.com" target="_self">kathyburkethomas@gmail.com</a></span>
+                        <span matListItemLine><a href="mailto:kathyburkethomas@gmail.com" target="_self">kathyburkethomas&#64;gmail.com</a></span>
                     </mat-list-item>
                     <mat-list-item>
                         <span matListItemTitle>Treasurer</span>
                         <span matListItemLine>Mark Spengler</span>
-                        <span matListItemLine><a href="mailto:mspengler@comcast.net" target="_self">mspengler@comcast.net</a></span>
+                        <span matListItemLine><a href="mailto:mspengler@comcast.net" target="_self">mspengler&#64;comcast.net</a></span>
                     </mat-list-item>
                     <mat-list-item>
                         <span matListItemTitle>Business Manager</span>
                         <span matListItemLine>Rory McKee</span>
-                        <span matListItemLine><a href="mailto:rory.j.mckee@gmail.com" target="_self">rory.j.mckee@gmail.com</a></span>
+                        <span matListItemLine><a href="mailto:rory.j.mckee@gmail.com" target="_self">rory.j.mckee&#64;gmail.com</a></span>
                     </mat-list-item>
                     <mat-list-item>
                         <span matListItemTitle>Public Relations Manager</span>
                         <span matListItemLine>Kevin Regan</span>
-                        <span matListItemLine><a href="mailto:thefirm@reganlawfirm.com" target="_self">thefirm@reganlawfirm.com</a></span>
+                        <span matListItemLine><a href="mailto:thefirm@reganlawfirm.com" target="_self">thefirm&#64;reganlawfirm.com</a></span>
                     </mat-list-item>
                     <mat-list-item>
                         <span matListItemTitle>Quartermaster</span>
                         <span matListItemLine>Susan Speck</span>
-                        <span matListItemLine><a href="mailto:llywhite54@yahoo.com" target="_self">llywhite54@yahoo.com</a></span>
+                        <span matListItemLine><a href="mailto:llywhite54@yahoo.com" target="_self">llywhite54&#64;yahoo.com</a></span>
                     </mat-list-item>
                 </mat-list>
             </mat-card-content>
@@ -181,6 +190,27 @@
     <div class="left-article">
         <mat-card>
             <mat-card-header>
+                <mat-card-title>Useful Downloads</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <ul>
+                    <li><a href="https://drive.google.com/drive/folders/1WnbNYXkCRuPs4PhI3cn4KcdfWhkYkk3p?usp=sharing" target="_blank" rel="noopener noreferrer">St. Andrew Sheet Music and Recordings - Google Drive</a></li>
+                    <li>
+                        <mat-icon aria-hidden="false" aria-label="New Content" fontIcon="fiber_new"></mat-icon>
+                        <a href="../../assets/KCSAPB_Cap_Badge.stl" target="_blank" rel="noopener noreferrer">Band Cap Badge 3D File</a> 
+                        <button mat-icon-button (click)="openPreviewStlDialog('../../assets/KCSAPB_Cap_Badge.stl')" matTooltip="Preview 3D model"><mat-icon>preview</mat-icon></button>
+                    </li>
+                    <li>
+                        <mat-icon aria-hidden="false" aria-label="New Content" fontIcon="fiber_new"></mat-icon>
+                        <a href="../../assets/KCSAPB_Kilt_Pin.stl" target="_blank" rel="noopener noreferrer">Band Kilt Pin 3D File</a> 
+                        <button mat-icon-button (click)="openPreviewStlDialog('../../assets/KCSAPB_Kilt_Pin.stl')" matTooltip="Preview 3D model"><mat-icon>preview</mat-icon></button>
+                    </li>
+                    <li><a href="" target="_blank" rel="noopener noreferrer" (click)="downloadDrumMajorPDF()">Download Drum Major Manual PDF</a></li>
+                </ul>
+            </mat-card-content>
+        </mat-card>
+        <mat-card>
+            <mat-card-header>
                 <mat-card-title>Useful Information</mat-card-title>
             </mat-card-header>
             <mat-card-content>
@@ -189,8 +219,6 @@
                         <mat-icon aria-hidden="false" aria-label="New Content" fontIcon="fiber_new"></mat-icon>
                         <a href="https://youtube.com/playlist?list=PLQQZswSWPMSihz8F97P4Xij7SJUM_CmPo" target="_blank" rel="noopener noreferrer">2024 St Andrews Concert YouTube Playlist</a>
                     </li>
-                    <li><a href="https://drive.google.com/drive/folders/1WnbNYXkCRuPs4PhI3cn4KcdfWhkYkk3p?usp=sharing" target="_blank" rel="noopener noreferrer">St. Andrew Sheet Music and Recordings - Google Drive</a></li>
-                    <li><a href="" target="_blank" rel="noopener noreferrer" (click)="downloadDrumMajorPDF()">Download Drum Major Manual PDF</a></li>
                     <li><a href="https://www.jhiggins.net/blog/checklist-for-a-comfortable-bagpipe/" target="_blank" rel="noopener noreferrer">Checklist for a Comfortable Bagpipe</a></li>
                     <li><a href="https://www.jhiggins.net/blog/proper-aftersession-care-for-your-bagpipes/" target="_blank" rel="noopener noreferrer">Proper After-Session Care for your Bagpipes</a></li>
                     <li><a href="https://www.jhiggins.net/blog/10-tips-for-a-more-fufilling-practice-on-your-bagpipes/" target="_blank" rel="noopener noreferrer">10 Tips for a more Fufilling Practice on your Bagpipes</a></li>
