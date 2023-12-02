@@ -20,7 +20,7 @@
     "@angular/platform-browser": "^16.2.12",
     "@angular/platform-browser-dynamic": "^16.2.12",
     "@angular/router": "^16.2.12",
-    "angular-stl-model-viewer": "^8.0.0",
+    "angular-stl-model-viewer": "^9.0.0",
     "js-sha256": "^0.10.1",
     "ng2-pdf-viewer": "^10.0.0",
     "rxjs": "~7.5.0",
