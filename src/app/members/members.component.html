@@ -48,7 +48,7 @@
                     </ng-container>
                     <ng-container matColumnDef="pdfPath">
                         <th mat-header-cell *matHeaderCellDef> Sheets </th>
-                        <td mat-cell *matCellDef="let element"> <a href="{{element.pdfPath}}" target="_blank" rel="noopener noreferrer" >PDF</a></td>
+                        <td mat-cell *matCellDef="let element"> <a *ngFor="let file of element.files" href="{{file.path}}" target="_blank" rel="noopener noreferrer" >{{file.name}}<br></a></td>
                     </ng-container>                  
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -196,12 +196,12 @@
                 <ul>
                     <li><a href="https://drive.google.com/drive/folders/1WnbNYXkCRuPs4PhI3cn4KcdfWhkYkk3p?usp=sharing" target="_blank" rel="noopener noreferrer">St. Andrew Sheet Music and Recordings - Google Drive</a></li>
                     <li>
-                        <mat-icon aria-hidden="false" aria-label="New Content" fontIcon="fiber_new"></mat-icon>
+                        <!-- <mat-icon aria-hidden="false" aria-label="New Content" fontIcon="fiber_new"></mat-icon> -->
                         <a href="../../assets/KCSAPB_Cap_Badge.zip" target="_blank" rel="noopener noreferrer">Band Cap Badge 3D & Vector Files</a> 
                         <button mat-icon-button (click)="openPreviewStlDialog('../../assets/KCSAPB_Cap_Badge.stl')" matTooltip="Preview 3D model"><mat-icon>preview</mat-icon></button>
                     </li>
                     <li>
-                        <mat-icon aria-hidden="false" aria-label="New Content" fontIcon="fiber_new"></mat-icon>
+                        <!-- <mat-icon aria-hidden="false" aria-label="New Content" fontIcon="fiber_new"></mat-icon>  -->
                         <a href="../../assets/KCSAPB_Kilt_Pin.stl" target="_blank" rel="noopener noreferrer">Band Kilt Pin 3D File</a> 
                         <button mat-icon-button (click)="openPreviewStlDialog('../../assets/KCSAPB_Kilt_Pin.stl')" matTooltip="Preview 3D model"><mat-icon>preview</mat-icon></button>
                     </li>
@@ -216,7 +216,7 @@
             <mat-card-content>
                 <ul>
                     <li>
-                        <mat-icon aria-hidden="false" aria-label="New Content" fontIcon="fiber_new"></mat-icon>
+                        <!-- <mat-icon aria-hidden="false" aria-label="New Content" fontIcon="fiber_new"></mat-icon>  -->
                         <a href="https://youtube.com/playlist?list=PLQQZswSWPMSihz8F97P4Xij7SJUM_CmPo" target="_blank" rel="noopener noreferrer">2024 St Andrews Concert YouTube Playlist</a>
                     </li>
                     <li><a href="https://www.jhiggins.net/blog/checklist-for-a-comfortable-bagpipe/" target="_blank" rel="noopener noreferrer">Checklist for a Comfortable Bagpipe</a></li>
