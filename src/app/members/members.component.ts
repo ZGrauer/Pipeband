@@ -26,23 +26,40 @@ export interface ResultElement {
   pipingJudge2: number;
   drummingJudge: number;
   ensembleJudge: number;
-  pdfPath: string;
+  files: object[];
 }
 
 // Data for the competition results table
 const RESULT_DATA: ResultElement[] = [
   {
-    date: new Date('2023-06-17 00:00:00'),
-    highlandGames: 'Chicago',
+    date: new Date('2024-05-11 00:00:00'),
+    highlandGames: 'St Louis',
     grade: 5,
     event: 'QMM',
-    place: 6,
-    totalPoints: 25,
-    pipingJudge1: 9,
-    pipingJudge2: 9,
-    drummingJudge: 3,
-    ensembleJudge: 4,
-    pdfPath: '../../assets/score-sheets/2023_Chicago_Games_Results.pdf',
+    place: 1,
+    totalPoints: 5,
+    pipingJudge1: 2,
+    pipingJudge2: 1,
+    drummingJudge: 1,
+    ensembleJudge: 1,
+    files: [
+      {
+        path: '../../assets/score-sheets/2024_St_Louis_G5_QMM_KC_St_Andrew_PD_Drumming_Judge.mp3',
+        name: 'Drumming MP3',
+      },
+      {
+        path: '../../assets/score-sheets/2024_St_Louis_G5_QMM_KC_St_Andrew_PD_Ensemble_Judge.mp3',
+        name: 'Ensemble MP3',
+      },
+      {
+        path: '../../assets/score-sheets/2024_St_Louis_G5_QMM_KC_St_Andrew_PD_Piping_Judge_1.mp3',
+        name: 'Piping 1 MP3',
+      },
+      {
+        path: '../../assets/score-sheets/2024_St_Louis_G5_QMM_KC_St_Andrew_PD_Piping_Judge_2.mp3',
+        name: 'Piping 2 MP3',
+      },
+    ],
   },
   {
     date: new Date('2023-09-16 00:00:00'),
@@ -55,7 +72,30 @@ const RESULT_DATA: ResultElement[] = [
     pipingJudge2: 2,
     drummingJudge: 1,
     ensembleJudge: 1,
-    pdfPath: '../../assets/score-sheets/2023_Tulsa_Games_Results.pdf',
+    files: [
+      {
+        path: '../../assets/score-sheets/2023_Tulsa_Games_Results.pdf',
+        name: 'PDF',
+      },
+    ],
+  },
+  {
+    date: new Date('2023-06-17 00:00:00'),
+    highlandGames: 'Chicago',
+    grade: 5,
+    event: 'QMM',
+    place: 6,
+    totalPoints: 25,
+    pipingJudge1: 9,
+    pipingJudge2: 9,
+    drummingJudge: 3,
+    ensembleJudge: 4,
+    files: [
+      {
+        path: '../../assets/score-sheets/2023_Chicago_Games_Results.pdf',
+        name: 'PDF',
+      },
+    ],
   },
 ];
 
