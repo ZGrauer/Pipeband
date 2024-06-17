@@ -15,23 +15,39 @@ export class PhotosComponent {
   public pageSize: number = 9;
   galleries: photoGalleries = [
     {
+      url: 'https://photos.google.com/share/AF1QipMW5ZoPtMXvo_044NOaC3GfwhoOEBeohJZCjPVxZXz_IzNhgCMQCcLmdGzMlayZkA?key=ZWp2UkxUNTZPbW5BeUFsRlFBZW5XVGNVczBCTjhn',
+      title: '2023 Kansas City Ceilidh',
+      src: '../../assets/2023_Kansas_City_Ceilidh.jpg',
+    },{
+      url: 'https://photos.google.com/share/AF1QipNqq6cJUEW5SdZlAfvZV1aVHGqxFky8lL6AoHetk8rdZvFt_101GfRTeKTsM4xUxg?key=NzRLVUpMbnZ4WDFreDBNN3dqQXFwbzhLUkZXUWFB',
+      title: '2023 Ceilidh at the Crossroads',
+      src: '../../assets/2023_Crossroads_Ceilidh.JPG',
+    },{
+      url: 'https://photos.google.com/share/AF1QipOFjzdLuWzF-7AHbSxPUqHEOghkQT1aMVZVKUjgroUaN1vT3faekHUPoa3ZKmHVhg?obfsgid=114877729105713615766',
+      title: '2023 Kirking of the Tartan',
+      src: '../../assets/2023_Kirking_of_the_Tartan.JPG',
+    },{
+      url: 'https://photos.google.com/share/AF1QipMfordv4ZLQ9v5QNJ191cCXdaxVJmngbKwSSuPtLzc4Btsy3EGn8zRaPnHxkNhkuw?obfsgid=114877729105713615766',
+      title: '2023 St Andrew Day',
+      src: '../../assets/2023_St_Andrew_Day.JPG',
+    },{
       url: 'https://photos.app.goo.gl/eYvawdeiMfrFz5bb8',
-      title: "2023 Irish Festival",
+      title: '2023 Irish Festival',
       src: '../../assets/2023_Irish_Festival.jpg',
     },
     {
       url: 'https://photos.app.goo.gl/X3eD7H4GKKNXX1eD6',
-      title: "2023 Ethnic Festival",
+      title: '2023 Ethnic Festival',
       src: '../../assets/2023_Ethnic_Festival.jpg',
     },
     {
       url: 'https://photos.app.goo.gl/RNcsoMzd3iXxdKvR8',
-      title: "2023 Taps at the Tower",
+      title: '2023 Taps at the Tower',
       src: '../../assets/2023_Taps_at_the_Tower.jpg',
     },
     {
       url: 'https://photos.app.goo.gl/F8eaSSV245fAK3Km6',
-      title: "2023 Chicago Games",
+      title: '2023 Chicago Games',
       src: '../../assets/2023_Chicago_Games.jpg',
     },
     {
