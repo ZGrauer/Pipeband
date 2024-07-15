@@ -32,12 +32,41 @@ export interface ResultElement {
 // Data for the competition results table
 const RESULT_DATA: ResultElement[] = [
   {
+    date: new Date('2024-07-13 00:00:00'),
+    highlandGames: 'Minnesota',
+    grade: 5,
+    event: 'QMM',
+    place: 1,
+    totalPoints: 5,
+    pipingJudge1: 1,
+    pipingJudge2: 1,
+    drummingJudge: 2,
+    ensembleJudge: 1,
+    files: [
+      {
+        path: '../../assets/score-sheets/2024_Minnesota_G5_QMM_KC_St_Andrew_Drumming_Judge_1.mp3',
+        name: 'Drumming MP3',
+      },
+      {
+        path: '../../assets/score-sheets/2024_Minnesota_G5_QMM_KC_St_Andrew_Ensemble_Judge_1.mp3',
+        name: 'Ensemble MP3',
+      },
+      {
+        path: '../../assets/score-sheets/2024_Minnesota_G5_QMM_KC_St_Andrew_Piping_Judge_1.mp3',
+        name: 'Piping 1 MP3',
+      },
+      {
+        path: '../../assets/score-sheets/2024_Minnesota_G5_QMM_KC_St_Andrew_Piping_Judge_2.mp3',
+        name: 'Piping 2 MP3',
+      },
+    ],
+  },{
     date: new Date('2024-06-15 00:00:00'),
     highlandGames: 'Chicago',
     grade: 5,
     event: 'QMM',
     place: 1,
-    totalPoints: 5,
+    totalPoints: 11,
     pipingJudge1: 1,
     pipingJudge2: 1,
     drummingJudge: 6,
