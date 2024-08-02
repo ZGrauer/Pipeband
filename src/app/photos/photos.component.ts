@@ -15,6 +15,26 @@ export class PhotosComponent {
   public pageSize: number = 9;
   galleries: photoGalleries = [
     {
+      url: 'https://photos.app.goo.gl/B9ELcKPEATAf6k8i6',
+      title: '2024 St Paul Highland Games',
+      src: '../../assets/2024_St_Paul_Highland_Games.JPG',
+    },{
+      url: 'https://photos.app.goo.gl/E2BVrkf8bvvChPMe9',
+      title: '2024 Taps at the Tower',
+      src: '../../assets/2024_Taps_at_the_Tower.jpg',
+    },{
+      url: 'https://photos.app.goo.gl/e7wygMNtPP8UJgqN8',
+      title: '2024 Chicago Highland Games',
+      src: '../../assets/2024_Chicago_Highland_Games.jpg',
+    },{
+      url: 'https://photos.app.goo.gl/yn5sgDmApiA8UxvK8',
+      title: '2024 St Louis Highland Games',
+      src: '../../assets/2024_St_Louis_Highland_Games.JPG',
+    },{
+      url: 'https://photos.app.goo.gl/pHn3fjgB3hqykvov8',
+      title: '2024 St Patrick\'s Parades',
+      src: '../../assets/2024_St_Patricks_Parades.JPG',
+    },{
       url: 'https://photos.google.com/share/AF1QipMW5ZoPtMXvo_044NOaC3GfwhoOEBeohJZCjPVxZXz_IzNhgCMQCcLmdGzMlayZkA?key=ZWp2UkxUNTZPbW5BeUFsRlFBZW5XVGNVczBCTjhn',
       title: '2023 Kansas City Ceilidh',
       src: '../../assets/2023_Kansas_City_Ceilidh.jpg',
