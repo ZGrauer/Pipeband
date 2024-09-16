@@ -1,10 +1,12 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef, HostListener, Inject } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef, HostListener, Inject, ViewChild } from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatTableDataSource } from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../auth.service';
@@ -32,6 +34,18 @@ export interface ResultElement {
 // Data for the competition results table
 const RESULT_DATA: ResultElement[] = [
   {
+    date: new Date('2024-09-14 00:00:00'),
+    highlandGames: 'Tulsa',
+    grade: 5,
+    event: 'QMM',
+    place: 1,
+    totalPoints: 5,
+    pipingJudge1: 1,
+    pipingJudge2: 1,
+    drummingJudge: 2,
+    ensembleJudge: 1,
+    files: [ ],
+  },{
     date: new Date('2024-07-13 00:00:00'),
     highlandGames: 'Minnesota',
     grade: 5,
@@ -163,6 +177,8 @@ const RESULT_DATA: ResultElement[] = [
   styleUrls: ['./members.component.css']
 })
 export class MembersComponent implements AfterViewInit, OnInit {
+  dataSource = new MatTableDataSource<ResultElement>(RESULT_DATA);
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   bandConstitutionPdfSrc = '../../assets/Kansas_City_St_Andrew_Pipe_Band_CONSTITUTION.pdf';
   bandConstitutionPdfFilename = 'Kansas_City_St_Andrew_Pipe_Band_CONSTITUTION.pdf';
 
@@ -170,7 +186,7 @@ export class MembersComponent implements AfterViewInit, OnInit {
   drumMajorPdfFilename = 'drum_major_manual.pdf';
 
   displayedColumns: string[] = ['date', 'highlandGames', 'grade', 'event', 'place', 'totalPoints', 'pdfPath'];
-  dataSource = RESULT_DATA;
+  //dataSource = RESULT_DATA;
 
   public screenWidth: any;
 
@@ -183,6 +199,7 @@ export class MembersComponent implements AfterViewInit, OnInit {
   ngAfterViewInit() {
     this.onWindowResize();
     this.cdref.detectChanges();
+    this.dataSource.paginator = this.paginator;
   }
 
   @HostListener('window:resize', ['$event'])
