@@ -53,6 +53,7 @@
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                   </table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of results"></mat-paginator>
             </mat-card-content>
         </mat-card>
         <mat-card>
@@ -128,8 +129,8 @@
                     </mat-list-item>
                     <mat-list-item>
                         <span matListItemTitle>Drum Major</span>
-                        <span matListItemLine>Frank Breshears</span>
-                        <span matListItemLine><a href="mailto:fbreshears@spectrum.net" target="_self">fbreshears&#64;spectrum.net</a></span>
+                        <span matListItemLine>Griffin Hall</span>
+                        <span matListItemLine><a href="mailto:griffinthepiper@gmail.com" target="_self">griffinthepiper&#64;gmail.com</a></span>
                     </mat-list-item>
                     <mat-list-item>
                         <span matListItemTitle>Drum Sergeant</span>

@@ -15,6 +15,14 @@ export class PhotosComponent {
   public pageSize: number = 9;
   galleries: photoGalleries = [
     {
+      url: 'https://photos.app.goo.gl/F7DUk87Tg6kpYWrp7',
+      title: '2024 Tulsa Scotfest',
+      src: '../../assets/2024_Tulsa_Scotfest.jpg',
+    },{
+      url: 'https://photos.app.goo.gl/cByQ8uCS64bwF5qa6',
+      title: '2024 Kansas City Irish Festival',
+      src: '../../assets/2024_Irish_fest.jpg',
+    },{
       url: 'https://photos.app.goo.gl/B9ELcKPEATAf6k8i6',
       title: '2024 St Paul Highland Games',
       src: '../../assets/2024_St_Paul_Highland_Games.JPG',
