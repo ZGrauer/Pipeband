@@ -1,11 +1,17 @@
 <div class="container">
-    <div class="main-content">        
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>Competition Score Sheets</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <div class="main-content">
+        <mat-accordion class="accordion-headers-align" multi>
+            <mat-expansion-panel [expanded]="panel === 0"  (opened)="setPanel(0)" >
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Competition Score Sheets
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Judge's scores from past competitions.
+                        <mat-icon>gavel</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
                     <ng-container matColumnDef="date">
                         <th mat-header-cell *matHeaderCellDef> Date </th>
                         <td mat-cell *matCellDef="let element"> {{element.date | date}} </td>
@@ -54,13 +60,17 @@
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                   </table>
                 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of results"></mat-paginator>
-            </mat-card-content>
-        </mat-card>
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>Helpful Videos</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
+            </mat-expansion-panel>
+            <mat-expansion-panel  [expanded]="panel === 1"  (opened)="setPanel(1)">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Helpful Videos
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Info on uniform, stetches, and more.
+                        <mat-icon>smart_display</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
                 <h4>Stretches</h4>
                 <p>
                     <iframe class="youtube-video" src="https://www.youtube.com/embed/_jWxIPrBSdQ" title="Finger & Upper Extremity Stretches for Musicians" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -78,37 +88,29 @@
                     <iframe class="youtube-video" src="https://www.youtube.com/embed/zMNc1HfUSQE?si=UEE-1KN-P2Ck0Rq2" title="Where Do You Wear a Kilt Pin?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     <iframe class="youtube-video" src="https://www.youtube.com/embed/F55ogSPSF9I?si=8fNCU4SjCQIyRGgK" title="How can you avoid losing your kilt pin?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </p>
-            </mat-card-content>
-        </mat-card>
-        <!--<mat-card>
-            <mat-card-header>
-                <mat-card-title>Kilt Pin</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <stl-model-viewer [stlModels]="['../../assets/KCSAPB_Kilt_Pin.stl']" style="height: 450px;"></stl-model-viewer>
-                <stl-model-viewer [stlModels]="['../../assets/KCSAPB_Cap_Badge.stl']"></stl-model-viewer>
-            </mat-card-content>
-        </mat-card>
-        -->
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>
-                    Band Constitution 
-                    <button mat-icon-button color="primary" (click)="downloadBandConstitutionPDF()" style="display: inline-block" matTooltip="Download Band Constitution PDF" aria-label="Download Band Constitution PDF">
-                        <mat-icon>download</mat-icon>
-                    </button>
-                </mat-card-title>
-            </mat-card-header>
-            
-            <mat-card-content>
+            </mat-expansion-panel>
+            <mat-expansion-panel [expanded]="panel === 2"  (opened)="setPanel(2)">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Band Constitution
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Band rules, structure, procedures
+                        <mat-icon>picture_as_pdf</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <button mat-icon-button color="primary" (click)="downloadBandConstitutionPDF()" style="display: inline-block" matTooltip="Download Band Constitution PDF" aria-label="Download Band Constitution PDF">
+                    <mat-icon>download</mat-icon>
+                </button>
                 <pdf-viewer [src]="bandConstitutionPdfSrc"
                             [render-text]="true"
                             [original-size]="false"
                             [autoresize]="true"
                             style="max-width: 800px; height: 800px"
                 ></pdf-viewer>
-            </mat-card-content>
-        </mat-card>        
+            </mat-expansion-panel>
+        </mat-accordion>      
     </div>
     <div class="right-article">
         <mat-card>
@@ -217,9 +219,10 @@
             <mat-card-content>
                 <ul>
                     <li>
-                        <!-- <mat-icon aria-hidden="false" aria-label="New Content" fontIcon="fiber_new"></mat-icon>  -->
-                        <a href="https://youtube.com/playlist?list=PLQQZswSWPMSihz8F97P4Xij7SJUM_CmPo" target="_blank" rel="noopener noreferrer">2024 St Andrews Concert YouTube Playlist</a>
+                        <mat-icon aria-hidden="false" aria-label="New Content" fontIcon="fiber_new"></mat-icon>
+                        <a href="https://youtube.com/playlist?list=PLQQZswSWPMShDdGg9OI1XnQP00ZIuL8Os&si=f3RQdu2gpguLg0R0" target="_blank" rel="noopener noreferrer">2025 St Andrew Contest Material</a>
                     </li>
+                    <li><a href="https://youtube.com/playlist?list=PLQQZswSWPMSihz8F97P4Xij7SJUM_CmPo" target="_blank" rel="noopener noreferrer">2024 St Andrews Concert YouTube Playlist</a></li>
                     <li><a href="https://www.jhiggins.net/blog/checklist-for-a-comfortable-bagpipe/" target="_blank" rel="noopener noreferrer">Checklist for a Comfortable Bagpipe</a></li>
                     <li><a href="https://www.jhiggins.net/blog/proper-aftersession-care-for-your-bagpipes/" target="_blank" rel="noopener noreferrer">Proper After-Session Care for your Bagpipes</a></li>
                     <li><a href="https://www.jhiggins.net/blog/10-tips-for-a-more-fufilling-practice-on-your-bagpipes/" target="_blank" rel="noopener noreferrer">10 Tips for a more Fufilling Practice on your Bagpipes</a></li>

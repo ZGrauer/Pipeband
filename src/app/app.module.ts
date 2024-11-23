@@ -34,6 +34,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 import { StlModelViewerModule } from 'angular-stl-model-viewer';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
@@ -70,6 +71,7 @@ import { PhotosComponent } from './photos/photos.component';
     MatGridListModule,
     MatButtonModule,
     MatTableModule,
+    MatExpansionModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,

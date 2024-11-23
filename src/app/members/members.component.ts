@@ -7,6 +7,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatTableDataSource } from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
+import {MatAccordion} from '@angular/material/expansion';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../auth.service';
@@ -44,7 +45,12 @@ const RESULT_DATA: ResultElement[] = [
     pipingJudge2: 1,
     drummingJudge: 2,
     ensembleJudge: 1,
-    files: [ ],
+    files: [ 
+      {
+        path: '../../assets/score-sheets/2024_Tulsa_Games_Results.pdf',
+        name: 'PDF',
+      },
+     ],
   },{
     date: new Date('2024-07-13 00:00:00'),
     highlandGames: 'Minnesota',
@@ -179,6 +185,7 @@ const RESULT_DATA: ResultElement[] = [
 export class MembersComponent implements AfterViewInit, OnInit {
   dataSource = new MatTableDataSource<ResultElement>(RESULT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatAccordion) accordion: MatAccordion;
   bandConstitutionPdfSrc = '../../assets/Kansas_City_St_Andrew_Pipe_Band_CONSTITUTION.pdf';
   bandConstitutionPdfFilename = 'Kansas_City_St_Andrew_Pipe_Band_CONSTITUTION.pdf';
 
@@ -187,6 +194,8 @@ export class MembersComponent implements AfterViewInit, OnInit {
 
   displayedColumns: string[] = ['date', 'highlandGames', 'grade', 'event', 'place', 'totalPoints', 'pdfPath'];
   //dataSource = RESULT_DATA;
+
+  panel = 0;
 
   public screenWidth: any;
 
@@ -249,6 +258,10 @@ export class MembersComponent implements AfterViewInit, OnInit {
     const dialogRef = this.dialog.open(StlDialog, {
       data: {file_path: filePath},
     })
+  }
+
+  setPanel(index: number) {
+    this.panel = index;
   }
 }
 
