@@ -15,6 +15,18 @@ export class PhotosComponent {
   public pageSize: number = 9;
   galleries: photoGalleries = [
     {
+      url: 'https://photos.app.goo.gl/yACzfZtUkbTNUen97',
+      title: '2025 Robert Burns Dinner',
+      src: '../../assets/2025_Burns_Dinner_Gallery.jpg',
+    },{
+      url: 'https://photos.app.goo.gl/VMQvRYRosEAimHHi9',
+      title: '2025 Kansas City St Patrick\'s Parade',
+      src: '../../assets/2025_KC_St_Patricks_Parade.jpg',
+    },{
+      url: 'https://photos.app.goo.gl/VZ3L1rQyRkvh5xoWA',
+      title: '2025 Brookside & Emporia St Patrick\'s Day Parade',
+      src: '../../assets/2025_emporia_parade.JPG',
+    },{
       url: 'https://photos.app.goo.gl/F7DUk87Tg6kpYWrp7',
       title: '2024 Tulsa Scotfest',
       src: '../../assets/2024_Tulsa_Scotfest.jpg',

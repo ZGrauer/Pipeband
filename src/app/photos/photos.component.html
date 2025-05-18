@@ -2,7 +2,7 @@
     <div class="main-content">
         <mat-grid-list cols="{{ galleryColCount }}" rowHeight="370px">
             <mat-grid-tile *ngFor="let gallery of currentGalleriesPage">
-                <mat-card>
+                <mat-card [style.width.px]=288>
                     <mat-card-header>
                         <mat-card-title>{{gallery.title}}</mat-card-title>
                     </mat-card-header>
