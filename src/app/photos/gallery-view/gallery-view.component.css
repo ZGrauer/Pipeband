@@ -4,16 +4,24 @@
   gap: 10px;
 }
 
-.gallery-item img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 4px;
+.gallery-item {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  display: block; /* Explicitly set, though div is block by default */
 }
 
 .gallery-item a {
   text-decoration: none;
   display: block; /* Ensures the anchor tag takes up the space of the image */
+  height: 100%; /* Make anchor fill the new height of gallery-item */
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%; /* Changed from 'auto' */
+  object-fit: cover; /* Added */
+  display: block;
+  border-radius: 4px;
 }
 
 /* Basic responsive adjustments */
