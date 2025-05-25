@@ -41,6 +41,33 @@ To add a new photo gallery:
       title: '2024 My Event Name',
       src: '../../assets/2024_My_Event_Name_thumbnail.jpg',
     }
+
+// --- Helper Scripts for manifest.json ---
+// To simplify the creation of the `manifest.json` file for a new gallery,
+// you can use the provided helper scripts located in the `scripts/` directory.
+//
+// These scripts will scan a target gallery folder for images (jpg, jpeg, png, gif, webp)
+// and prompt you to enter alt text for each image. They will then generate
+// the `manifest.json` file in that gallery folder.
+//
+// If `manifest.json` already exists, the scripts will ask for confirmation before overwriting.
+//
+// **Using the Bash script (for Linux/macOS):**
+// 1. Open your terminal.
+// 2. Navigate to the project root directory.
+// 3. Make sure the script is executable: `chmod +x ./scripts/generate_manifest.sh`
+// 4. Run the script, providing the path to your gallery's asset folder:
+//    `./scripts/generate_manifest.sh ./src/assets/photos/YOUR_GALLERY_ID/`
+//    (Replace `YOUR_GALLERY_ID` with the actual ID of your gallery)
+//
+// **Using the PowerShell script (for Windows):**
+// 1. Open PowerShell.
+// 2. Navigate to the project root directory.
+// 3. You may need to adjust your execution policy to run local scripts.
+//    If so, you can run: `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` (for the current session)
+// 4. Run the script, providing the path to your gallery's asset folder:
+//    `./scripts/Generate-Manifest.ps1 -DirectoryPath ./src/assets/photos/YOUR_GALLERY_ID/`
+//    (Replace `YOUR_GALLERY_ID` with the actual ID of your gallery)
 */
 import { Component, HostListener } from '@angular/core';
 
