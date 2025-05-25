@@ -43,10 +43,11 @@ if (Test-Path -Path $ManifestFilePath -PathType Leaf) {
 Write-Host "Processing directory: $DirectoryPath"
 
 $ImageExtensions = @("*.jpg", "*.jpeg", "*.png", "*.gif", "*.webp")
-# Get-ChildItem by default is not recursive for files in the immediate directory.
-$ImageFiles = Get-ChildItem -Path $DirectoryPath -Include $ImageExtensions -File
+# Get-ChildItem -Include works on the *contents* of the path, so Path needs a wildcard.
+$JoinedPath = Join-Path -Path $DirectoryPath -ChildPath "*"
+$ImageFiles = Get-ChildItem -Path $JoinedPath -Include $ImageExtensions -File
 
-if ($ImageFiles.Count -eq 0) {
+if ($null -eq $ImageFiles -or $ImageFiles.Count -eq 0) {
   Write-Host "No image files found in $DirectoryPath (with extensions: $($ImageExtensions -join ', '))."
   $EmptyConfirmation = Read-Host "Create an empty manifest.json? (y/N)"
   if ($EmptyConfirmation -eq 'y') {
