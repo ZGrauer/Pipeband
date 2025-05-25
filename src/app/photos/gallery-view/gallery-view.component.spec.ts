@@ -88,17 +88,30 @@ describe('GalleryViewComponent', () => {
     expect(component.images).toEqual(mockManifest);
   });
 
-  it('should render img tags with correct src and alt attributes', () => {
+  it('should render anchor and img tags with correct attributes', () => {
     component.galleryId = mockGalleryId;
     component.images = mockManifest; // Set images directly to bypass ngOnInit for this specific test
     fixture.detectChanges(); // Trigger change detection to render the template
 
-    const imgDebugElements = fixture.debugElement.queryAll(By.css('.gallery-item img'));
-    expect(imgDebugElements.length).toBe(mockManifest.length);
+    const galleryItemElements = fixture.debugElement.queryAll(By.css('.gallery-item'));
+    expect(galleryItemElements.length).toBe(mockManifest.length);
 
-    imgDebugElements.forEach((imgEl, index) => {
-      const expectedSrc = `assets/photos/${mockGalleryId}/${mockManifest[index].filename}`;
-      expect(imgEl.nativeElement.src).toContain(expectedSrc);
+    galleryItemElements.forEach((itemEl, index) => {
+      const anchorEl = itemEl.query(By.css('a'));
+      expect(anchorEl).toBeTruthy('Each gallery item should contain an anchor tag.');
+
+      const imgEl = anchorEl.query(By.css('img'));
+      expect(imgEl).toBeTruthy('Each anchor tag should contain an img tag.');
+
+      const expectedHrefAndSrc = `assets/photos/${mockGalleryId}/${mockManifest[index].filename}`;
+      
+      // Verify anchor tag attributes
+      expect(anchorEl.nativeElement.getAttribute('href')).toBe(expectedHrefAndSrc);
+      expect(anchorEl.nativeElement.getAttribute('target')).toBe('_blank');
+      expect(anchorEl.nativeElement.getAttribute('rel')).toBe('noopener noreferrer');
+
+      // Verify img tag attributes
+      expect(imgEl.nativeElement.src).toContain(expectedHrefAndSrc); // For src, toContain is safer due to potential full URL
       expect(imgEl.nativeElement.alt).toBe(mockManifest[index].alt);
     });
   });

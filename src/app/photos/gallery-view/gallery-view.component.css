@@ -11,6 +11,11 @@
   border-radius: 4px;
 }
 
+.gallery-item a {
+  text-decoration: none;
+  display: block; /* Ensures the anchor tag takes up the space of the image */
+}
+
 /* Basic responsive adjustments */
 @media (min-width: 600px) {
   .gallery-grid {

@@ -102,11 +102,11 @@ export class PhotosComponent {
       title: '2024 Tulsa Scotfest',
       src: '../../assets/2024_Tulsa_Scotfest.jpg',
     },{
-      galleryId: '2024_KC_Irish_Festival',
+      galleryId: '2024_Irish_fest',
       title: '2024 Kansas City Irish Festival',
       src: '../../assets/2024_Irish_fest.jpg',
     },{
-      galleryId: '2024_St_Paul_Competition',
+      galleryId: '2024_St_Paul_Highland_Games',
       title: '2024 St Paul Highland Games',
       src: '../../assets/2024_St_Paul_Highland_Games.JPG',
     },{
@@ -114,15 +114,15 @@ export class PhotosComponent {
       title: '2024 Taps at the Tower',
       src: '../../assets/2024_Taps_at_the_Tower.jpg',
     },{
-      galleryId: '2024_Chicago_Games',
+      galleryId: '2024_Chicago_Highland_Games',
       title: '2024 Chicago Highland Games',
       src: '../../assets/2024_Chicago_Highland_Games.jpg',
     },{
-      galleryId: '2024_St_Louis_Competition',
+      galleryId: '2024_St_Louis_Highland_Games',
       title: '2024 St Louis Highland Games',
       src: '../../assets/2024_St_Louis_Highland_Games.JPG',
     },{
-      galleryId: '2024_St_Patrick_Parades',
+      galleryId: '2024_St_Patricks_Parades',
       title: '2024 St Patrick\'s Parades',
       src: '../../assets/2024_St_Patricks_Parades.JPG',
     },{
@@ -130,11 +130,11 @@ export class PhotosComponent {
       title: '2023 Kansas City Ceilidh',
       src: '../../assets/2023_Kansas_City_Ceilidh.jpg',
     },{
-      galleryId: '2023_Ceilidh_at_the_Crossroads',
+      galleryId: '2023_Crossroads_Ceilidh',
       title: '2023 Ceilidh at the Crossroads',
       src: '../../assets/2023_Crossroads_Ceilidh.JPG',
     },{
-      galleryId: '2023_Kirking_of_the_Tartans',
+      galleryId: '2023_Kirking_of_the_Tartan',
       title: '2023 Kirking of the Tartan',
       src: '../../assets/2023_Kirking_of_the_Tartan.JPG',
     },{
@@ -162,7 +162,7 @@ export class PhotosComponent {
       src: '../../assets/2023_Chicago_Games.jpg',
     },
     {
-      galleryId: '2023_KC_St_Patricks_Parade', // Start Here
+      galleryId: '2023_KC_St_Patricks_Parade',
       title: "2023 Kansas City St Patrick's Day Parade",
       src: '../../assets/2023_KC_St_Patricks_Parade.jpg',
     },
