@@ -77,6 +77,36 @@ Use 'docker scan' to run Snyk tests against images to find vulnerabilities and l
 
 Then run this command to start a container `docker run --name pipeband-container -d -p 8080:80 pipeband-image`.  The site should now be available at http://localhost:8080/.
 
+## Generating Gallery Thumbnails
+
+To improve website performance and loading times for photo galleries, this project uses thumbnails for image previews. The full-size images are loaded only when a user clicks on a thumbnail.
+
+Thumbnails are generated in WEBP format with a maximum dimension of 400x400 pixels (maintaining aspect ratio). They are named by taking the original filename, removing its extension, and appending `_thumb.webp` (e.g., `my_image.jpg` becomes `my_image_thumb.webp`). These thumbnails are stored in a `thumbs/` subdirectory within each specific gallery's asset folder (i.e., `src/assets/photos/YOUR_GALLERY_ID/thumbs/`).
+
+To generate these thumbnails, a Python script is provided.
+
+**Prerequisites:**
+- Python 3 installed.
+- Pillow library installed. You can install it using pip:
+  ```bash
+  pip install Pillow
+  ```
+
+**Usage:**
+
+1.  Navigate to the project's root directory.
+2.  Run the script using the following command, replacing `YOUR_GALLERY_ID` with the actual ID (folder name) of the gallery located in `src/assets/photos/`:
+
+    ```bash
+    python scripts/generate_thumbnails.py YOUR_GALLERY_ID
+    ```
+    For example, if you have a gallery at `src/assets/photos/2024_Highland_Games/`, the command would be:
+    ```bash
+    python scripts/generate_thumbnails.py 2024_Highland_Games
+    ```
+
+It is recommended to run this script after adding new images to a gallery. This ensures that thumbnails are available for all images, providing a consistent and optimized user experience.
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).

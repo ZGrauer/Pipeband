@@ -1,0 +1,38 @@
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.gallery-item {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  display: block; /* Explicitly set, though div is block by default */
+}
+
+.gallery-item a {
+  text-decoration: none;
+  display: block; /* Ensures the anchor tag takes up the space of the image */
+  height: 100%; /* Make anchor fill the new height of gallery-item */
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%; /* Changed from 'auto' */
+  object-fit: cover; /* Added */
+  display: block;
+  border-radius: 4px;
+}
+
+/* Basic responsive adjustments */
+@media (min-width: 600px) {
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}

@@ -39,6 +39,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { StlModelViewerModule } from 'angular-stl-model-viewer';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { PhotosComponent } from './photos/photos.component';
+import { GalleryViewComponent } from './photos/gallery-view/gallery-view.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { PhotosComponent } from './photos/photos.component';
     HomeComponent,
     MembersComponent,
     LoginComponent,
-    PhotosComponent
+    PhotosComponent,
+    GalleryViewComponent
   ],
   imports: [
     BrowserModule,

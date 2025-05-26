@@ -11,6 +11,7 @@ import { MusicComponent } from './music/music.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { LoginComponent } from './login/login.component';
 import { PhotosComponent } from './photos/photos.component';
+import { GalleryViewComponent } from './photos/gallery-view/gallery-view.component';
 
 import { AuthGuard } from './auth.guard';
 
@@ -96,7 +97,15 @@ const routes: Routes = [
     data: {
       title: "Photo - Gallery - Kansas City St. Andrew Pipes & Drums",
       description: "Photo galleries of the band's past performances."
-    } 
+    }
+  },
+  {
+    path: 'photos/:galleryId',
+    component: GalleryViewComponent,
+    data: {
+      title: "Photo Gallery - Kansas City St. Andrew Pipes & Drums",
+      description: "View photos from our events."
+    }
   }
 ];
 

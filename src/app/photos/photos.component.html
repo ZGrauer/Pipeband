@@ -2,13 +2,13 @@
     <div class="main-content">
         <mat-grid-list cols="{{ galleryColCount }}" rowHeight="370px">
             <mat-grid-tile *ngFor="let gallery of currentGalleriesPage">
-                <mat-card>
+                <mat-card [style.width.px]=288>
                     <mat-card-header>
                         <mat-card-title>{{gallery.title}}</mat-card-title>
                     </mat-card-header>
                     <mat-card-content>
-                        <a href={{gallery.url}} target="_blank" rel="noopener noreferrer">
-                            <img mat-card-image src={{gallery.src}} alt={{gallery.title}}>
+                        <a [routerLink]="['/photos', gallery.galleryId]">
+                            <img mat-card-image src={{gallery.src}} alt={{gallery.title}} style="width: 256px; height: 256px; object-fit: cover;">
                         </a>
                     </mat-card-content>
                 </mat-card>

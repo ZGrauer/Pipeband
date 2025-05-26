@@ -38,6 +38,7 @@ yarn-error.log
 testem.log
 /typings
 /src/assets/Jim_Photos
+/src/assets/photos/*
 
 # System files
 .DS_Store
