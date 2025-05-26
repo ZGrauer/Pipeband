@@ -1,7 +1,7 @@
 <div class="gallery-grid" *ngIf="images.length > 0; else noImages">
   <div *ngFor="let image of images" class="gallery-item">
     <a [href]="'assets/photos/' + galleryId + '/' + image.filename" target="_blank" rel="noopener noreferrer">
-      <img [src]="'assets/photos/' + galleryId + '/' + image.filename" [alt]="image.alt">
+      <img [src]="'assets/photos/' + galleryId + '/thumbs/' + image.filename.split('.').slice(0, -1).join('.') + '_thumb.webp'" [alt]="image.alt">
     </a>
   </div>
 </div>

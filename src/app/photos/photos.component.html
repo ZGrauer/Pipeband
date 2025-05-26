@@ -8,7 +8,7 @@
                     </mat-card-header>
                     <mat-card-content>
                         <a [routerLink]="['/photos', gallery.galleryId]">
-                            <img mat-card-image src={{gallery.src}} alt={{gallery.title}}>
+                            <img mat-card-image src={{gallery.src}} alt={{gallery.title}} style="width: 256px; height: 256px; object-fit: cover;">
                         </a>
                     </mat-card-content>
                 </mat-card>

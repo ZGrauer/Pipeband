@@ -162,12 +162,7 @@ export class PhotosComponent {
       src: '../../assets/2023_Chicago_Games.jpg',
     },
     {
-      galleryId: '2023_KC_St_Patricks_Parade', // Start Here
-      title: "2023 Kansas City St Patrick's Day Parade",
-      src: '../../assets/2023_KC_St_Patricks_Parade.jpg',
-    },
-    {
-      galleryId: '2023_Burns_Dinner',
+      galleryId: '2023_Robert_Burns_Dinner',
       title: '2023 Robert Burns Dinner',
       src: '../../assets/2023_Burns_Dinner.jpg',
     },
@@ -212,7 +207,7 @@ export class PhotosComponent {
       src: '../../assets/2021_ScotsFest_Tulsa.jpg',
     },
     {
-      galleryId: '2021_Irish_fest',
+      galleryId: '2021_KC_Irish_Festival',
       title: '2021 KC Irish Fest',
       src: '../../assets/2021_Irish_fest.jpg',
     },
@@ -227,22 +222,22 @@ export class PhotosComponent {
       src: '../../assets/2020_Burns_Dinner.jpg',
     },
     {
-      galleryId: '2019_St_Paddy_Parade',
+      galleryId: '2019_St_Pattys_Parade',
       title: "2019 St Patrick's Parade",
       src: '../../assets/2019_St_Paddy_Parade.jpg',
     },
     {
-      galleryId: '2019_Minnesota',
+      galleryId: '2019_Minnesota_Highland_Games',
       title: '2019 Minnestoa Highland Games',
       src: '../../assets/2019_Minnesota.jpg',
     },
     {
-      galleryId: '2019_Burns_Dinner',
+      galleryId: '2019_Burns_Dinner', 
       title: '2019 Burns Dinner',
       src: '../../assets/2019_Burns_Dinner.jpg',
     },
     {
-      galleryId: '2018_Kirking_Tartan',
+      galleryId: '2018_Kirking_Tartan', 
       title: '2018 Kirking of the Tartan',
       src: '../../assets/2018_Kirking_Tartan.jpg',
     },
@@ -272,9 +267,24 @@ export class PhotosComponent {
       src: '../../assets/2017_Chicago_Games.jpg',
     },
     {
-      galleryId: '2017_Burns_dinner',
+      galleryId: '2017_Burns_Dinner',
       title: '2017 Burns Dinner',
       src: '../../assets/2017_Burns_dinner.jpg',
+    },
+    {
+      galleryId: '2015_Burns_Dinner',
+      title: '2015 Burns Dinner',
+      src: '../../assets/photos/2015_Burns_Dinner/thumbs/150124_001  a_thumb.webp',
+    },
+    {
+      galleryId: '2015_Chieftains',
+      title: '2015 Chieftains Concert',
+      src: '../../assets/photos/2015_Chieftains/thumbs/220317 01_thumb.webp',
+    },
+    {
+      galleryId: '2015_Kirking_of_the_Tartan',
+      title: '2015 Kirking of the Tartan',
+      src: '../../assets/photos/2015_Kirking_of_the_Tartan/thumbs/151115_27 a_thumb.webp',
     },
     {
       galleryId: '2014_Special_Forces_Ball',
@@ -287,9 +297,104 @@ export class PhotosComponent {
       src: '../../assets/2012_Chieftains.jpg',
     },
     {
+      galleryId: '1999',
+      title: '1999',
+      src: '../../assets/photos/1999/thumbs/1999 KC Highlan Games 01_thumb.webp',
+    },
+    {
+      galleryId: '1998',
+      title: '1998',
+      src: '../../assets/photos/1998/thumbs/1998-01 Kansas City St Andrew Robert Burns Dinner_thumb.webp',
+    },
+    {
+      galleryId: '1997',
+      title: '1997',
+      src: '../../assets/photos/1997/thumbs/1997 Alma Highland Games Grade 3 1st Place - 1st ever win in any grade_thumb.webp',
+    },
+    {
+      galleryId: '1996',
+      title: '1996',
+      src: '../../assets/photos/1996/thumbs/1996 Kansas City Ethnic Festival_thumb.webp',
+    },
+    {
+      galleryId: '1995',
+      title: '1995',
+      src: '../../assets/photos/1995/thumbs/1995 Baker University Commencement - Rick Southall, Billie McKee, Lee Wilson_thumb.webp',
+    },
+    {
+      galleryId: '1994',
+      title: '1994',
+      src: '../../assets/photos/1994/thumbs/1994 Burns Dinner Adams Mark Hotel12_thumb.webp',
+    },
+    {
+      galleryId: '1993',
+      title: '1993',
+      src: '../../assets/photos/1993/thumbs/1993 American Royal Parade_thumb.webp',
+    },
+    {
+      galleryId: '1992',
+      title: '1992',
+      src: '../../assets/photos/1992/thumbs/1992-08 Kansas City Ethnic Festival, Swope Park Mo - Steve Chandler_thumb.webp',
+    },
+    {
+      galleryId: '1991',
+      title: '1991',
+      src: '../../assets/photos/1991/thumbs/1991 Kansas City Highland Games at the Turners Club_thumb.webp',
+    },
+    {
+      galleryId: '1983',
+      title: '1983',
+      src: '../../assets/photos/1983/thumbs/1983 Glasgow_thumb.webp',
+    },
+    {
+      galleryId: '1982',
+      title: '1982',
+      src: '../../assets/photos/1982/thumbs/1982 Grant Park Chicago Highland Games - Grade 2 - Won 1st Place_thumb.webp',
+    },
+    {
+      galleryId: '1978',
+      title: '1978',
+      src: '../../assets/photos/1978/thumbs/1978-8-20 Toronto - G2 Comp 4_thumb.webp',
+    },
+    {
+      galleryId: '1976',
+      title: '1976',
+      src: '../../assets/photos/1976/thumbs/1976-2-27 Oklahoma City - Charlie McKee_thumb.webp',
+    },
+    {
+      galleryId: '1974',
+      title: '1974',
+      src: '../../assets/photos/1974/thumbs/1974-6-8 Midlothian - 12_thumb.webp',
+    },
+    {
+      galleryId: '1973',
+      title: '1973',
+      src: '../../assets/photos/1973/thumbs/1973-5-26 Alma - First Massed Bands 2_thumb.webp',
+    },
+    {
+      galleryId: '1972',
+      title: '1972',
+      src: '../../assets/photos/1972/thumbs/1972-5-27 Alma - Band Comp_thumb.webp',
+    },
+    {
+      galleryId: '1971',
+      title: '1971',
+      src: '../../assets/photos/1971/thumbs/1971-5-21 Alma - Always Practicing_thumb.webp',
+    },
+    {
       galleryId: '1970_Highland_Games',
       title: '1970 Highland Games',
       src: '../../assets/1970_Highland_Games.jpg',
+    },
+    {
+      galleryId: '1969',
+      title: '1969',
+      src: '../../assets/photos/1969/thumbs/1969-5-7 Churchill Memorial Dedication - Band Members_thumb.webp',
+    },
+    {
+      galleryId: '1966',
+      title: '1966',
+      src: '../../assets/photos/1966/thumbs/1966 - Austin TX HG 1_thumb.webp',
     },
     {
       galleryId: '1964_KC_Memorial_Day_Parade',
@@ -297,7 +402,7 @@ export class PhotosComponent {
       src: '../../assets/1964_KC_Memorial_Day_Parade.jpg',
     },
     {
-      galleryId: '1963_Band_Rehersal',
+      galleryId: '1963_St_Andrew_Pipes_Drums',
       title: '1963 Band Rehersal',
       src: '../../assets/1963_Band_Rehersal.jpg',
     },
