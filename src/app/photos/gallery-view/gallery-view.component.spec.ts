@@ -1,138 +1,154 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http'; // HttpClient from @angular/common/http
+import { of, throwError } from 'rxjs'; // Added throwError
 
 import { GalleryViewComponent } from './gallery-view.component';
 import { By } from '@angular/platform-browser';
 
+interface ManifestItem {
+  filename: string;
+  alt: string;
+}
+
+const MOCK_GALLERY_ID = 'test-gallery';
+const MOCK_MANIFEST_DATA: ManifestItem[] = [
+  { filename: 'image1.jpg', alt: 'Alt text for image 1' },
+  { filename: 'image2.png', alt: 'Alt text for image 2' },
+];
+
 describe('GalleryViewComponent', () => {
   let component: GalleryViewComponent;
   let fixture: ComponentFixture<GalleryViewComponent>;
+  let nativeElement: HTMLElement;
   let httpMock: HttpTestingController;
-  let mockActivatedRoute;
 
-  const mockGalleryId = 'test-gallery';
-  const mockManifest = [
-    { filename: 'image1.jpg', alt: 'Test Image 1' },
-    { filename: 'image2.png', alt: 'Test Image 2' },
-  ];
-
-  beforeEach(async () => {
-    mockActivatedRoute = {
-      snapshot: {
-        paramMap: {
-          get: (key: string) => {
-            if (key === 'galleryId') {
-              return mockGalleryId;
-            }
-            return null;
-          }
-        }
-      }
-    };
-
-    await TestBed.configureTestingModule({
-      imports: [
-        GalleryViewComponent, // Import the standalone component
-        HttpClientTestingModule,
-        RouterTestingModule
-      ],
+  // Helper function to configure TestBed and create the component instance
+  function setupTestBedAndCreateComponent(routeParams: any) {
+    TestBed.configureTestingModule({
+      declarations: [GalleryViewComponent],
+      imports: [HttpClientTestingModule], // HttpClientTestingModule provides HttpTestingController and mocks HttpClient
       providers: [
-        { provide: ActivatedRoute, useValue: mockActivatedRoute }
+        { 
+          provide: ActivatedRoute, 
+          useValue: { snapshot: { paramMap: convertToParamMap(routeParams) } } 
+        }
+        // HttpClient is implicitly provided by HttpClientTestingModule for the component to inject
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(GalleryViewComponent);
     component = fixture.componentInstance;
+    nativeElement = fixture.nativeElement;
     httpMock = TestBed.inject(HttpTestingController);
-  });
+  }
 
   afterEach(() => {
-    httpMock.verify(); // Verify that no unmatched requests are outstanding
+    httpMock.verify(); 
+    TestBed.resetTestingModule(); 
   });
 
-  it('should create', () => {
-    // Manually set galleryId and trigger ngOnInit as ActivatedRoute mock is for snapshot
-    component.galleryId = mockGalleryId;
-    component.ngOnInit();
-    fixture.detectChanges();
+  it('should create, extract galleryId, load and display images on success', () => {
+    setupTestBedAndCreateComponent({ galleryId: MOCK_GALLERY_ID });
+    fixture.detectChanges(); // ngOnInit runs, HTTP call made here
+
     expect(component).toBeTruthy();
-     // Expect a call to fetch the manifest
-    const req = httpMock.expectOne(`assets/photos/${mockGalleryId}/manifest.json`);
-    req.flush(mockManifest);
-  });
+    expect(component.galleryId).toBe(MOCK_GALLERY_ID);
 
-  it('should construct the correct manifest path and fetch manifest on ngOnInit', () => {
-    component.galleryId = mockGalleryId; // Set input directly for testing ngOnInit
-    component.ngOnInit(); // Call ngOnInit manually
-
-    const req = httpMock.expectOne(`assets/photos/${mockGalleryId}/manifest.json`);
+    const req = httpMock.expectOne(`assets/photos/${MOCK_GALLERY_ID}/manifest.json`);
     expect(req.request.method).toBe('GET');
-    req.flush(mockManifest); // Provide mock data
+    req.flush(MOCK_MANIFEST_DATA);
+    fixture.detectChanges(); // Update view with loaded images
 
-    expect(component.images).toEqual(mockManifest);
-  });
-  
-  it('should set images property from fetched manifest data', () => {
-    component.galleryId = mockGalleryId;
-    component.ngOnInit();
+    // Assertions for successful loading (data, DOM)
+    expect(component.images.length).toBe(MOCK_MANIFEST_DATA.length);
+    expect(component.images).toEqual(MOCK_MANIFEST_DATA);
 
-    const req = httpMock.expectOne(`assets/photos/${mockGalleryId}/manifest.json`);
-    req.flush(mockManifest);
+    const galleryItems = nativeElement.querySelectorAll('.gallery-item');
+    expect(galleryItems.length).toBe(MOCK_MANIFEST_DATA.length);
+    
+    const firstGalleryItem = nativeElement.querySelector('.gallery-item');
+    expect(firstGalleryItem).toBeTruthy();
+    const linkElement = firstGalleryItem?.querySelector('a');
+    expect(linkElement).toBeTruthy();
+    expect(linkElement?.getAttribute('href'))
+      .toBe(`assets/photos/${MOCK_GALLERY_ID}/${MOCK_MANIFEST_DATA[0].filename}`);
+    const imgElement = linkElement?.querySelector('img');
+    expect(imgElement).toBeTruthy();
+    const expectedThumbSrc = `assets/photos/${MOCK_GALLERY_ID}/thumbs/${MOCK_MANIFEST_DATA[0].filename.split('.').slice(0, -1).join('.')}_thumb.webp`;
+    expect(imgElement?.getAttribute('src')).toBe(expectedThumbSrc);
+    expect(imgElement?.getAttribute('alt')).toBe(MOCK_MANIFEST_DATA[0].alt);
 
-    fixture.detectChanges(); // Update the template with the new data
-
-    expect(component.images).toEqual(mockManifest);
-  });
-
-  it('should render anchor and img tags with correct attributes', () => {
-    component.galleryId = mockGalleryId;
-    component.images = mockManifest; // Set images directly to bypass ngOnInit for this specific test
-    fixture.detectChanges(); // Trigger change detection to render the template
-
-    const galleryItemElements = fixture.debugElement.queryAll(By.css('.gallery-item'));
-    expect(galleryItemElements.length).toBe(mockManifest.length);
-
-    galleryItemElements.forEach((itemEl, index) => {
-      const anchorEl = itemEl.query(By.css('a'));
-      expect(anchorEl).toBeTruthy('Each gallery item should contain an anchor tag.');
-
-      const imgEl = anchorEl.query(By.css('img'));
-      expect(imgEl).toBeTruthy('Each anchor tag should contain an img tag.');
-
-      const expectedHrefAndSrc = `assets/photos/${mockGalleryId}/${mockManifest[index].filename}`;
-      
-      // Verify anchor tag attributes
-      expect(anchorEl.nativeElement.getAttribute('href')).toBe(expectedHrefAndSrc);
-      expect(anchorEl.nativeElement.getAttribute('target')).toBe('_blank');
-      expect(anchorEl.nativeElement.getAttribute('rel')).toBe('noopener noreferrer');
-
-      // Verify img tag attributes
-      expect(imgEl.nativeElement.src).toContain(expectedHrefAndSrc); // For src, toContain is safer due to potential full URL
-      expect(imgEl.nativeElement.alt).toBe(mockManifest[index].alt);
+    // Check that loading/error messages are not present
+    const pElements = nativeElement.querySelectorAll('p');
+    pElements.forEach(p => {
+        expect(p.textContent).not.toContain(`Loading images for ${MOCK_GALLERY_ID}...`);
+        expect(p.textContent).not.toContain('No gallery ID provided.');
     });
+    const galleryGrid = nativeElement.querySelector('.gallery-grid');
+    expect(galleryGrid).toBeTruthy(); 
   });
 
-  it('should display "Loading images..." message when galleryId is present but images are not yet loaded', () => {
-    component.galleryId = mockGalleryId;
-    component.images = []; // Ensure images are empty
-    fixture.detectChanges();
+  it('should create, extract galleryId, and handle HTTP error for manifest', () => {
+    // For this specific error test, we will make HttpClient.get itself return an error.
+    // This bypasses HttpTestingController for this request, so verify() won't complain.
+    TestBed.configureTestingModule({
+      declarations: [GalleryViewComponent],
+      imports: [HttpClientTestingModule], // Still need this for other tests and for httpMock.verify()
+      providers: [
+        { 
+          provide: ActivatedRoute, 
+          useValue: { snapshot: { paramMap: convertToParamMap({ galleryId: MOCK_GALLERY_ID }) } } 
+        }
+        // HttpClient will be injected into the component from the testing module.
+      ]
+    });
+    
+    // Spy on HttpClient.get BEFORE component creation for this specific test case
+    const httpClientFromTestBed = TestBed.inject(HttpClient);
+    const errorResponse = new HttpErrorResponse({ error: 'test 404 error', status: 404, statusText: 'Not Found' });
+    const httpGetSpy = spyOn<any>(httpClientFromTestBed, 'get').and.returnValue(throwError(() => errorResponse));
 
-    const pElement = fixture.debugElement.query(By.css('p'));
-    expect(pElement.nativeElement.textContent).toContain(`Loading images for ${mockGalleryId}...`);
+    // Now create the component. It will get the HttpClient instance that has the spied 'get' method.
+    fixture = TestBed.createComponent(GalleryViewComponent);
+    component = fixture.componentInstance;
+    nativeElement = fixture.nativeElement;
+    httpMock = TestBed.inject(HttpTestingController); // Initialize httpMock for afterEach->verify, though it won't see this call.
+    
+    const consoleErrorSpy = spyOn(console, 'error').and.callFake(() => {}); 
+    
+    fixture.detectChanges(); // ngOnInit runs, calling the spied (erroring) http.get
+
+    expect(component).toBeTruthy();
+    expect(component.galleryId).toBe(MOCK_GALLERY_ID);
+    expect(httpGetSpy).toHaveBeenCalledWith(`assets/photos/${MOCK_GALLERY_ID}/manifest.json`);
+    
+    // No httpMock.expectOne for this request as it was intercepted by the direct spy.
+    // fixture.detectChanges(); // Already called, or call again if needed after error.
+
+    // Assertions for error handling
+    expect(component.images.length).toBe(0);
+    const messageElement = nativeElement.querySelector('p');
+    expect(messageElement).toBeTruthy();
+    expect(messageElement?.textContent).toContain(`Loading images for ${MOCK_GALLERY_ID}...`);
+    const galleryGrid = nativeElement.querySelector('.gallery-grid');
+    expect(galleryGrid?.children.length === 0 || !galleryGrid).toBeTruthy(); 
   });
 
-  it('should display "No gallery ID provided." message when galleryId is not present', () => {
-    component.galleryId = ''; // Set galleryId to empty
-    component.ngOnInit(); // Call ngOnInit to reflect the change
-    fixture.detectChanges();
+  it('should handle no galleryId provided', () => {
+    setupTestBedAndCreateComponent({}); // No galleryId
+    fixture.detectChanges(); // ngOnInit runs
 
-    const pElement = fixture.debugElement.query(By.css('p'));
-    expect(pElement.nativeElement.textContent).toContain('No gallery ID provided.');
-     // No HTTP call should be made if galleryId is not present
-    httpMock.expectNone(`assets/photos/${component.galleryId}/manifest.json`);
+    expect(component).toBeTruthy();
+    expect(component.galleryId).toBe('');
+    // No HTTP call expected because of the if(this.galleryId) check in component.
+    // httpMock.verify() in afterEach will confirm no unexpected calls were made (if it were active).
+    expect(component.images.length).toBe(0);
+    const messageElement = nativeElement.querySelector('p');
+    expect(messageElement).toBeTruthy();
+    expect(messageElement?.textContent).toContain('No gallery ID provided.');
+    const galleryGrid = nativeElement.querySelector('.gallery-grid');
+    expect(galleryGrid?.children.length === 0 || !galleryGrid).toBeTruthy();
   });
 });

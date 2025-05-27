@@ -1,174 +1,201 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { By } from '@angular/platform-browser';
-import { RouterLinkWithHref } from '@angular/router';
-import { Component, Directive, Input, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
+
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
 
 import { PhotosComponent } from './photos.component';
+import { By } from '@angular/platform-browser';
 
-// Mock MatPaginator to avoid issues with Material components not being true modules
-@Component({
-  selector: 'mat-paginator',
-  template: ''
-})
-class MockMatPaginatorComponent {
-  @Input() length: any;
-  @Input() pageSize: any;
-  @Input() pageSizeOptions: any;
-}
-
-// Mock MatCard and related components
-@Component({
-  selector: 'mat-card',
-  template: '<ng-content></ng-content>'
-})
-class MockMatCardComponent {}
-
-@Component({
-  selector: 'mat-card-header',
-  template: '<ng-content></ng-content>'
-})
-class MockMatCardHeaderComponent {}
-
-@Component({
-  selector: 'mat-card-title',
-  template: '<ng-content></ng-content>'
-})
-class MockMatCardTitleComponent {}
-
-@Component({
-  selector: 'mat-card-content',
-  template: '<ng-content></ng-content>'
-})
-class MockMatCardContentComponent {}
-
-@Component({
-  selector: 'mat-grid-list',
-  template: '<ng-content></ng-content>'
-})
-class MockMatGridListComponent {
-  @Input() cols: any;
-  @Input() rowHeight: any;
-}
-
-@Component({
-  selector: 'mat-grid-tile',
-  template: '<ng-content></ng-content>'
-})
-class MockMatGridTileComponent {}
-
+// Define a smaller mock galleries array for easier testing of pagination logic
+const MOCK_GALLERIES_FULL = [
+  { galleryId: 'g1', title: 'Gallery 1', src: 'g1.jpg' },
+  { galleryId: 'g2', title: 'Gallery 2', src: 'g2.jpg' },
+  { galleryId: 'g3', title: 'Gallery 3', src: 'g3.jpg' },
+  { galleryId: 'g4', title: 'Gallery 4', src: 'g4.jpg' },
+  { galleryId: 'g5', title: 'Gallery 5', src: 'g5.jpg' },
+];
 
 describe('PhotosComponent', () => {
   let component: PhotosComponent;
   let fixture: ComponentFixture<PhotosComponent>;
-
-  const mockGalleries = [
-    { galleryId: 'gallery1', title: 'Gallery 1', src: 'src1.jpg' },
-    { galleryId: 'gallery2', title: 'Gallery 2', src: 'src2.jpg' },
-  ];
+  let nativeElement: HTMLElement;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ 
-        PhotosComponent,
-        MockMatPaginatorComponent, // Declare mock components
-        MockMatCardComponent,
-        MockMatCardHeaderComponent,
-        MockMatCardTitleComponent,
-        MockMatCardContentComponent,
-        MockMatGridListComponent,
-        MockMatGridTileComponent
-      ],
+      declarations: [PhotosComponent],
       imports: [
-        RouterTestingModule // Import RouterTestingModule for routerLink
-      ],
-      // Use NO_ERRORS_SCHEMA to ignore other Angular Material components if not mocked
-      // schemas: [NO_ERRORS_SCHEMA] 
-    })
-    .compileComponents();
+        NoopAnimationsModule,
+        RouterTestingModule, // For routerLink
+        MatGridListModule,
+        MatCardModule,
+        MatPaginatorModule
+      ]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PhotosComponent);
     component = fixture.componentInstance;
+    nativeElement = fixture.nativeElement;
     
-    // Initialize component properties that are normally set in ngOnInit or via Input
-    component.galleries = mockGalleries;
-    component.pageSize = 2; // Example page size
+    // For most tests, override the large galleries array with a smaller mock
+    // and set default pagination values
+    component.galleries = [...MOCK_GALLERIES_FULL]; 
+    component.pageSize = 3; 
     component.pageIndex = 0;
-    // Manually trigger initial data load for currentGalleriesPage
-    component.getServerData({ pageIndex: component.pageIndex, pageSize: component.pageSize, length: component.galleries.length });
-
-    fixture.detectChanges(); // Trigger initial data binding
+    // Note: ngOnInit will be called by the first fixture.detectChanges() in tests
   });
 
   it('should create', () => {
+    fixture.detectChanges(); // ngOnInit runs here
     expect(component).toBeTruthy();
   });
 
-  it('should display gallery items', () => {
-    const galleryItems = fixture.debugElement.queryAll(By.css('mat-card'));
-    // Based on mockGalleries and pageSize, we expect 2 items on the first page
-    expect(galleryItems.length).toBe(mockGalleries.length); 
-  });
+  describe('ngOnInit', () => {
+    it('should set galleryColCount to 3 for large screens on init', () => {
+      spyOnProperty(window, 'innerWidth', 'get').and.returnValue(1200);
+      component.ngOnInit();
+      expect(component.galleryColCount).toBe(3);
+    });
 
-  it('should use routerLink for gallery navigation', () => {
-    const linkDes = fixture.debugElement.queryAll(By.directive(RouterLinkWithHref));
+    it('should set galleryColCount to 2 for medium screens on init', () => {
+      spyOnProperty(window, 'innerWidth', 'get').and.returnValue(800);
+      component.ngOnInit();
+      expect(component.galleryColCount).toBe(2);
+    });
+
+    it('should set galleryColCount to 1 for small screens on init', () => {
+      spyOnProperty(window, 'innerWidth', 'get').and.returnValue(500);
+      component.ngOnInit();
+      expect(component.galleryColCount).toBe(1);
+    });
     
-    expect(linkDes.length).toBe(mockGalleries.length); // Ensure all gallery items have links
-
-    linkDes.forEach((linkDe, index) => {
-      const routerLinkInstance = linkDe.injector.get(RouterLinkWithHref);
-      const expectedRouterLink = `/photos/${mockGalleries[index].galleryId}`;
-      expect(routerLinkInstance['commands']).toEqual(['/photos', mockGalleries[index].galleryId]);
-      expect(routerLinkInstance.href).toBe(expectedRouterLink);
+    it('should call getServerData and initialize currentGalleriesPage', () => {
+      spyOn(component, 'getServerData').and.callThrough();
+      component.ngOnInit(); // Call directly
+      expect(component.getServerData).toHaveBeenCalledWith(jasmine.objectContaining({
+        pageIndex: 0, // component.pageIndex
+        pageSize: 3  // component.pageSize
+      }));
+      expect(component.currentGalleriesPage.length).toBe(3); 
+      expect(component.currentGalleriesPage[0].galleryId).toBe(MOCK_GALLERIES_FULL[0].galleryId);
     });
   });
 
-  it('should have correct image sources and alt text', () => {
-    const imgElements = fixture.debugElement.queryAll(By.css('mat-card-content img'));
-    expect(imgElements.length).toBe(mockGalleries.length);
+  describe('onWindowResize', () => {
+    it('should set galleryColCount to 3 for large screens on resize', () => {
+      spyOnProperty(window, 'innerWidth', 'get').and.returnValue(1200);
+      component.onWindowResize();
+      expect(component.galleryColCount).toBe(3);
+    });
 
-    imgElements.forEach((imgEl, index) => {
-      expect(imgEl.nativeElement.src).toContain(mockGalleries[index].src);
-      expect(imgEl.nativeElement.alt).toBe(mockGalleries[index].title);
+    it('should set galleryColCount to 2 for medium screens on resize', () => {
+      spyOnProperty(window, 'innerWidth', 'get').and.returnValue(800);
+      component.onWindowResize();
+      expect(component.galleryColCount).toBe(2);
+    });
+
+    it('should set galleryColCount to 1 for small screens on resize', () => {
+      spyOnProperty(window, 'innerWidth', 'get').and.returnValue(500);
+      component.onWindowResize();
+      expect(component.galleryColCount).toBe(1);
     });
   });
-  
-  // Basic pagination test (can be expanded)
-  it('getServerData should update currentGalleriesPage', () => {
-    component.galleries = [
-      { galleryId: 'g1', title: 'T1', src: 's1.jpg' },
-      { galleryId: 'g2', title: 'T2', src: 's2.jpg' },
-      { galleryId: 'g3', title: 'T3', src: 's3.jpg' },
-    ];
-    component.getServerData({ pageIndex: 1, pageSize: 1, length: component.galleries.length });
-    expect(component.currentGalleriesPage.length).toBe(1);
-    expect(component.currentGalleriesPage[0].galleryId).toBe('g2');
+
+  describe('getServerData (Pagination Logic)', () => {
+    beforeEach(() => {
+        component.galleries = [...MOCK_GALLERIES_FULL]; // Ensure fresh copy for each test
+        component.pageSize = 2; 
+        component.pageIndex = 0;
+        // Initial call to set up currentGalleriesPage, mimicking ngOnInit or first paginator event
+        component.getServerData({ pageIndex: 0, pageSize: 2, length: component.galleries.length } as PageEvent);
+        fixture.detectChanges();
+    });
+
+    it('should update currentGalleriesPage for the first page', () => {
+      // Data already set in beforeEach, just verify
+      expect(component.currentGalleriesPage.length).toBe(2);
+      expect(component.currentGalleriesPage[0].galleryId).toBe(MOCK_GALLERIES_FULL[0].galleryId);
+      expect(component.currentGalleriesPage[1].galleryId).toBe(MOCK_GALLERIES_FULL[1].galleryId);
+      expect(component.pageSize).toBe(2); // Verify pageSize was updated by the event
+    });
+
+    it('should update currentGalleriesPage for the second page', () => {
+      component.getServerData({ pageIndex: 1, pageSize: 2, length: component.galleries.length } as PageEvent);
+      expect(component.currentGalleriesPage.length).toBe(2);
+      expect(component.currentGalleriesPage[0].galleryId).toBe(MOCK_GALLERIES_FULL[2].galleryId);
+      expect(component.currentGalleriesPage[1].galleryId).toBe(MOCK_GALLERIES_FULL[3].galleryId);
+    });
+
+    it('should handle the last page correctly (fewer items than pageSize)', () => {
+      component.getServerData({ pageIndex: 2, pageSize: 2, length: component.galleries.length } as PageEvent);
+      expect(component.currentGalleriesPage.length).toBe(1); 
+      expect(component.currentGalleriesPage[0].galleryId).toBe(MOCK_GALLERIES_FULL[4].galleryId);
+    });
   });
 
-  // Test HostListener for window resize - this is a bit more complex to test thoroughly
-  // For simplicity, we'll just check if the galleryColCount changes as expected
-  it('should adjust galleryColCount on window resize', () => {
-    // Initial state (default or based on ngOnInit logic if not overridden)
-    // Let's assume default is 3 as per component logic for wide screens
-    component.galleryColCount = 3; // Set a starting value
+  describe('DOM Rendering', () => {
+    beforeEach(() => {
+      component.galleries = [...MOCK_GALLERIES_FULL];
+      component.pageSize = 2; 
+      component.ngOnInit(); // Call ngOnInit to set initial page based on these values
+      fixture.detectChanges(); 
+    });
 
-    // Simulate small screen
-    spyOnProperty(window, 'innerWidth').and.returnValue(500);
-    window.dispatchEvent(new Event('resize'));
-    fixture.detectChanges();
-    expect(component.galleryColCount).toBe(1);
+    it('should render a mat-grid-list', () => {
+      const gridList = nativeElement.querySelector('mat-grid-list');
+      expect(gridList).toBeTruthy();
+    });
 
-    // Simulate medium screen
-    spyOnProperty(window, 'innerWidth').and.returnValue(800);
-    window.dispatchEvent(new Event('resize'));
-    fixture.detectChanges();
-    expect(component.galleryColCount).toBe(2);
+    it('should render the correct number of gallery tiles based on currentGalleriesPage', () => {
+      const tiles = nativeElement.querySelectorAll('mat-grid-tile');
+      expect(tiles.length).toBe(2); // currentGalleriesPage should have 2 items
+    });
 
-    // Simulate large screen
-    spyOnProperty(window, 'innerWidth').and.returnValue(1200);
-    window.dispatchEvent(new Event('resize'));
-    fixture.detectChanges();
-    expect(component.galleryColCount).toBe(3);
+    it('should display gallery title, image with src and alt, and correct routerLink for a gallery tile', () => {
+      const firstTile = nativeElement.querySelector('mat-grid-tile'); // Get the first tile
+      expect(firstTile).toBeTruthy();
+
+      const cardTitle = firstTile?.querySelector('mat-card-title');
+      expect(cardTitle?.textContent).toContain(MOCK_GALLERIES_FULL[0].title);
+
+      const imgElement = firstTile?.querySelector('img[mat-card-image]');
+      expect(imgElement).toBeTruthy();
+      expect(imgElement?.getAttribute('src')).toBe(MOCK_GALLERIES_FULL[0].src);
+      expect(imgElement?.getAttribute('alt')).toBe(MOCK_GALLERIES_FULL[0].title);
+
+      const linkElement = firstTile?.querySelector('a');
+      expect(linkElement).toBeTruthy();
+      expect(linkElement?.getAttribute('href')).toBe(`/photos/${MOCK_GALLERIES_FULL[0].galleryId}`);
+    });
+
+    it('should render the mat-paginator', () => {
+      const paginator = nativeElement.querySelector('mat-paginator');
+      expect(paginator).toBeTruthy();
+    });
   });
+
+  it('should update displayed galleries when paginator event occurs (simulated by calling getServerData)', fakeAsync(() => {
+    component.galleries = [...MOCK_GALLERIES_FULL];
+    component.pageSize = 3; // Initial pageSize for this test
+    component.ngOnInit(); // Initial load
+    fixture.detectChanges(); 
+    tick();
+    
+    let tiles = nativeElement.querySelectorAll('mat-grid-tile');
+    expect(tiles.length).toBe(3); 
+    expect(nativeElement.querySelector('mat-card-title')?.textContent).toContain(MOCK_GALLERIES_FULL[0].title);
+
+    // Simulate a paginator event by directly calling getServerData
+    component.getServerData({ pageIndex: 1, pageSize: 3, length: component.galleries.length } as PageEvent);
+    fixture.detectChanges(); // Re-render with new page data
+    tick();
+
+    tiles = nativeElement.querySelectorAll('mat-grid-tile');
+    expect(tiles.length).toBe(MOCK_GALLERIES_FULL.length - 3); // 5 - 3 = 2 remaining
+    // The first item on the new page should be MOCK_GALLERIES_FULL[3]
+    expect(nativeElement.querySelector('mat-card-title')?.textContent).toContain(MOCK_GALLERIES_FULL[3].title);
+  }));
 
 });
