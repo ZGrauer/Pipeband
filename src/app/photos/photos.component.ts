@@ -237,7 +237,7 @@ export class PhotosComponent {
       src: '../../assets/2019_Burns_Dinner.jpg',
     },
     {
-      galleryId: '2018_Kirking_Tartan', 
+      galleryId: '2018_Kirking_of_the_Tartan', 
       title: '2018 Kirking of the Tartan',
       src: '../../assets/2018_Kirking_Tartan.jpg',
     },
@@ -302,11 +302,6 @@ export class PhotosComponent {
       src: '../../assets/photos/1999/thumbs/1999 KC Highlan Games 01_thumb.webp',
     },
     {
-      galleryId: '1998',
-      title: '1998',
-      src: '../../assets/photos/1998/thumbs/1998-01 Kansas City St Andrew Robert Burns Dinner_thumb.webp',
-    },
-    {
       galleryId: '1997',
       title: '1997',
       src: '../../assets/photos/1997/thumbs/1997 Alma Highland Games Grade 3 1st Place - 1st ever win in any grade_thumb.webp',
@@ -327,19 +322,9 @@ export class PhotosComponent {
       src: '../../assets/photos/1994/thumbs/1994 Burns Dinner Adams Mark Hotel12_thumb.webp',
     },
     {
-      galleryId: '1993',
-      title: '1993',
-      src: '../../assets/photos/1993/thumbs/1993 American Royal Parade_thumb.webp',
-    },
-    {
       galleryId: '1992',
       title: '1992',
       src: '../../assets/photos/1992/thumbs/1992-08 Kansas City Ethnic Festival, Swope Park Mo - Steve Chandler_thumb.webp',
-    },
-    {
-      galleryId: '1991',
-      title: '1991',
-      src: '../../assets/photos/1991/thumbs/1991 Kansas City Highland Games at the Turners Club_thumb.webp',
     },
     {
       galleryId: '1983',
