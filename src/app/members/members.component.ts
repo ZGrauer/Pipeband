@@ -35,6 +35,39 @@ export interface ResultElement {
 // Data for the competition results table
 const RESULT_DATA: ResultElement[] = [
   {
+    date: new Date('2025-06-14 00:00:00'),
+    highlandGames: 'Chicago',
+    grade: 4,
+    event: 'Medley',
+    place: 2,
+    totalPoints: 12,
+    pipingJudge1: 2,
+    pipingJudge2: 2,
+    drummingJudge: 3,
+    ensembleJudge: 5,
+    files: [ 
+      {
+        path: '../../assets/score-sheets/2025_Chicago_G4_Results.jpg',
+        name: 'Band Results',
+      },
+      {
+        path: '../../assets/score-sheets/2025_Chicago_G4_Medley_KC_St_Andrew_PC_Drumming_Judge.mp3',
+        name: 'Drumming MP3',
+      },
+      {
+        path: '../../assets/score-sheets/2025_Chicago_G4_Medley_KC_St_Andrew_PC_Ensemble_Judge.mp3',
+        name: 'Ensemble MP3',
+      },
+      {
+        path: '../../assets/score-sheets/2025_Chicago_G4_Medley_KC_St_Andrew_PC_Piping_Judge_1.mp3',
+        name: 'Piping 1 MP3',
+      },
+      {
+        path: '../../assets/score-sheets/2025_Chicago_G4_Medley_KC_St_Andrew_PC_Piping_Judge_2.mp3',
+        name: 'Piping 2 MP3',
+      },
+     ],
+  },{
     date: new Date('2024-09-14 00:00:00'),
     highlandGames: 'Tulsa',
     grade: 5,
