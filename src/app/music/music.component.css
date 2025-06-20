@@ -31,35 +31,45 @@ mat-list-item {
 }
 
 @media only screen and (max-width: 859px) {
-    .main-content {
+    .main-content-header {
         grid-column: 1/5;
         grid-row: 1;
     }
-    
-    .main-content-left {
+
+    .main-content {
         grid-column: 1/5;
         grid-row: 2;
     }
     
-    .main-content-right {
+    .main-content-left {
         grid-column: 1/5;
         grid-row: 3;
+    }
+    
+    .main-content-right {
+        grid-column: 1/5;
+        grid-row: 4;
     }
 }
 
 @media only screen and (min-width: 860px) {
-    .main-content {
+    .main-content-header {
         grid-column: 2/4;
         grid-row: 1;
     }
     
+    .main-content {
+        grid-column: 2/4;
+        grid-row: 2;
+    }
+    
     .main-content-left {
         grid-column: 2;
-        grid-row: 2;
+        grid-row: 3;
     }
     
     .main-content-right {
         grid-column: 3;
-        grid-row: 2;
+        grid-row: 3;
     }
 }
