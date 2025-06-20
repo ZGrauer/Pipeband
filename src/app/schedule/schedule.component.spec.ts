@@ -44,8 +44,8 @@ describe('ScheduleComponent', () => {
     it('should display a list of performances', () => {
       const listElement = nativeElement.querySelector('.main-content mat-list');
       expect(listElement).withContext('Mat-list element should exist').toBeTruthy();
-      // Based on the HTML, there are 11 events listed for 2025
-      expect(listItems.length).toBe(11); 
+      // Based on the HTML, there are 13 events listed for 2025
+      expect(listItems.length).toBe(13); 
     });
 
     it('should display details for "Robert Burns Dinner"', () => {

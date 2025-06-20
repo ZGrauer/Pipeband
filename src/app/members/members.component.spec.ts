@@ -154,8 +154,8 @@ describe('MembersComponent', () => {
 
   describe('onWindowResize()', () => {
     const columnSets = [
-      { width: 2100, expectedCols: ['date', 'highlandGames', 'grade', 'event', 'place', 'pipingJudge1', 'pipingJudge2', 'drummingJudge', 'totalPoints', 'pdfPath'] },
-      { width: 1300, expectedCols: ['date', 'highlandGames', 'grade', 'event', 'place', 'pipingJudge1', 'pipingJudge2', 'drummingJudge', 'totalPoints', 'pdfPath'] },
+      { width: 2100, expectedCols: ['date', 'highlandGames', 'grade', 'event', 'place', 'pipingJudge1', 'pipingJudge2', 'drummingJudge', 'ensembleJudge', 'totalPoints', 'pdfPath'] },
+      { width: 1300, expectedCols: ['date', 'highlandGames', 'grade', 'event', 'place', 'pipingJudge1', 'pipingJudge2', 'drummingJudge', 'ensembleJudge', 'totalPoints', 'pdfPath'] },
       { width: 1000, expectedCols: ['date', 'highlandGames', 'grade', 'event', 'place', 'totalPoints', 'pdfPath'] },
       { width: 600, expectedCols: ['date', 'highlandGames', 'event', 'place', 'pdfPath'] },
       { width: 1600, expectedCols: ['date', 'highlandGames', 'event', 'place', 'pdfPath'] },
