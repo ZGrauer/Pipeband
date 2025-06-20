@@ -251,7 +251,7 @@ export class MembersComponent implements AfterViewInit, OnInit {
     // Adjust the # of columns based on CSS and screen width.
     // This ensures all data is clearly displayed with the available screen size
     if ( this.screenWidth > 2050 || (this.screenWidth > 1250 && this.screenWidth < 1500) ) {
-      this.displayedColumns = ['date', 'highlandGames', 'grade', 'event', 'place', 'pipingJudge1', 'pipingJudge2', 'drummingJudge', 'totalPoints', 'pdfPath'];
+      this.displayedColumns = ['date', 'highlandGames', 'grade', 'event', 'place', 'pipingJudge1', 'pipingJudge2', 'drummingJudge', 'ensembleJudge', 'totalPoints', 'pdfPath'];
     } else if ( this.screenWidth < 1250 && this.screenWidth > 750 ) {
       this.displayedColumns = ['date', 'highlandGames', 'grade', 'event', 'place', 'totalPoints', 'pdfPath']
     } else if ( this.screenWidth < 750 && this.screenWidth > 550 || (this.screenWidth > 1500 && this.screenWidth < 2050) ) {
