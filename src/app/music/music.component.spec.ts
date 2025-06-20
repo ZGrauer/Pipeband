@@ -25,45 +25,63 @@ describe('MusicComponent', () => {
   });
 
   it('should display the main playlist heading', () => {
-    const headingElement = nativeElement.querySelector('.main-content h2');
+    const headingElement = nativeElement.querySelector('.main-content-header h2');
+    const subHeadingElement = nativeElement.querySelector('.main-content-header h3');
     expect(headingElement).withContext('Main H2 heading should exist').toBeTruthy();
     expect(headingElement?.textContent).toContain('Kansas City St. Andrew Pipes and Drums Playlist');
+    expect(subHeadingElement).withContext('Main H3 heading should exist').toBeTruthy();
+    expect(subHeadingElement?.textContent).toContain('Competition Sets');
   });
 
   describe('Competition Sets Section', () => {
     let competitionSetsDiv: HTMLElement | null;
 
-    beforeEach(() => {
-      // Assuming the first .main-content div holds Competition Sets
-      competitionSetsDiv = nativeElement.querySelector('.container > .main-content'); // More specific to avoid nested .main-content if any
-    });
-
-    it('should display the "Competition Sets" subheading', () => {
-      expect(competitionSetsDiv).withContext('.main-content div for competition sets should exist').toBeTruthy();
-      const subheadingElement = competitionSetsDiv?.querySelector('h3');
-      expect(subheadingElement).withContext('H3 "Competition Sets" subheading should exist').toBeTruthy();
-      expect(subheadingElement?.textContent).toContain('Competition Sets');
-    });
-
-    it('should display the "Quick March Medley" subheader', () => {
+    it('should display the "Medley" subheader', () => {
+      const competitionSetsDiv = nativeElement.querySelector('#medley');
       expect(competitionSetsDiv).withContext('.main-content div for competition sets should exist').toBeTruthy();
       const qmmHeader = Array.from(competitionSetsDiv!.querySelectorAll('h4[matSubheader]'))
-                             .find(h => h.textContent?.includes('Quick March Medley'));
-      expect(qmmHeader).withContext('H4 "Quick March Medley" subheader should exist').toBeTruthy();
+                             .find(h => h.textContent?.includes('Medley'));
+      expect(qmmHeader).withContext('H4 "Medley" subheader should exist').toBeTruthy();
     });
 
-    it('should list tunes under "Quick March Medley"', () => {
+    it('should list tunes under "Medley"', () => {
+      const competitionSetsDiv = nativeElement.querySelector('#medley');
       expect(competitionSetsDiv).withContext('.main-content div for competition sets should exist').toBeTruthy();
-      // Find the mat-list associated with "Quick March Medley"
+      // Find the mat-list associated with "Medley"
       // This assumes the h4 is a sibling before the mat-list or a direct child of a common parent.
       // A more robust way would be to ensure the H4 and its list are within a dedicated parent div.
       // For now, query all list items within this section and check.
       const listItems = competitionSetsDiv!.querySelectorAll('mat-list mat-list-item'); 
       const tunes = Array.from(listItems).map(item => item.textContent?.trim());
-      expect(tunes).toContain('Kilworth Hills');
-      expect(tunes).toContain('Remembering Doctor Wallace');
-      expect(tunes).toContain('Killiecrankie');
-      expect(tunes).toContain('Jimmy Findlater');
+      expect(tunes).toContain('John Campbell');
+      expect(tunes).toContain('Seonaidh\'s Tune');
+      expect(tunes).toContain('The Sound of Sleat');
+      expect(tunes).toContain('On the Turning Away');
+      expect(tunes).toContain('Kesh Jig');
+    });
+
+    it('should display the "MSR" subheader', () => {
+      const competitionSetsDiv = nativeElement.querySelector('#msr');
+      expect(competitionSetsDiv).withContext('.main-content div for competition sets should exist').toBeTruthy();
+      const qmmHeader = Array.from(competitionSetsDiv!.querySelectorAll('h4[matSubheader]'))
+                             .find(h => h.textContent?.includes('MSR'));
+      expect(qmmHeader).withContext('H4 "MSR" subheader should exist').toBeTruthy();
+    });
+
+    it('should list tunes under "MSR"', () => {
+      const competitionSetsDiv = nativeElement.querySelector('#msr');
+      expect(competitionSetsDiv).withContext('.main-content div for competition sets should exist').toBeTruthy();
+      // Find the mat-list associated with "Medley"
+      // This assumes the h4 is a sibling before the mat-list or a direct child of a common parent.
+      // A more robust way would be to ensure the H4 and its list are within a dedicated parent div.
+      // For now, query all list items within this section and check.
+      const listItems = competitionSetsDiv!.querySelectorAll('mat-list mat-list-item'); 
+      const tunes = Array.from(listItems).map(item => item.textContent?.trim());
+      expect(tunes).toContain('Walter Douglas, M.B.E.');
+      expect(tunes).toContain('Because He Was a Bonnie Lad');
+      expect(tunes).toContain('The Keel Row');
+      expect(tunes).toContain('The High Road to Linton');
+      expect(tunes).toContain('Lexy McAskill');
     });
   });
 
