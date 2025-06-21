@@ -86,6 +86,10 @@ export class PhotosComponent {
   public pageSize: number = 9;
   galleries: photoGalleries = [
     {
+      galleryId: '2025_Chicago_Games',
+      title: '2025 Chicago Highland Games',
+      src: '../../assets/2025_Chicago_Highland_Games.jpg',
+    },{
       galleryId: '2025_Burns_Dinner_Gallery',
       title: '2025 Robert Burns Dinner',
       src: '../../assets/2025_Burns_Dinner_Gallery.jpg',
