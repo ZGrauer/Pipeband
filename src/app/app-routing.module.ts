@@ -45,10 +45,6 @@ const routes: Routes = [
     path: 'photo',
     loadChildren: () => import('./photos/photos.module').then(m => m.PhotosModule)
   },
-  {
-    path: 'photo/:galleryId',
-    loadChildren: () => import('./photos/photos.module').then(m => m.PhotosModule)
-  },
 ];
 
 @NgModule({
