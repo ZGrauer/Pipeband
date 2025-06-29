@@ -43,12 +43,17 @@ mat-list-item {
     
     .main-content-left {
         grid-column: 1/5;
-        grid-row: 3;
+        grid-row: 4;
     }
     
     .main-content-right {
         grid-column: 1/5;
-        grid-row: 4;
+        grid-row: 5;
+    }
+
+    #medley {
+        grid-column: 1/5;
+        grid-row: 3;
     }
 }
 
@@ -71,5 +76,9 @@ mat-list-item {
     .main-content-right {
         grid-column: 3;
         grid-row: 3;
+    }
+
+    #medley {
+        grid-column: 3;
     }
 }

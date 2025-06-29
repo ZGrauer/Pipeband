@@ -5,6 +5,7 @@ import { MatPaginatorModule } from '@angular/material/paginator'; // Import MatP
 import { MatFormFieldModule } from '@angular/material/form-field'; // Import MatFormFieldModule
 import { MatInputModule } from '@angular/material/input'; // Import MatInputModule
 import { MatCardModule } from '@angular/material/card'; // Import MatCardModule
+import { MatListModule } from '@angular/material/list';
 
 
 import { MusicRoutingModule } from './music-routing.module';
@@ -19,7 +20,8 @@ import { MusicComponent } from './music.component';
     MatPaginatorModule, // Add MatPaginatorModule here
     MatFormFieldModule, // Add MatFormFieldModule here
     MatInputModule, // Add MatInputModule here
-    MatCardModule // Add MatCardModule here
+    MatCardModule, // Add MatCardModule here
+    MatListModule
   ]
 })
 export class MusicModule { }

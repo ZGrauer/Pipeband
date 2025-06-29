@@ -4,6 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { PhotosRoutingModule } from './photos-routing.module';
 import { PhotosComponent } from './photos.component';
@@ -17,7 +18,8 @@ import { GalleryViewComponent } from './gallery-view/gallery-view.component';
     MatCardModule,
     MatGridListModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatPaginatorModule
   ]
 })
 export class PhotosModule { }
