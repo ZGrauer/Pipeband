@@ -42,11 +42,7 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   },
   {
-    path: 'photo',
-    loadChildren: () => import('./photos/photos.module').then(m => m.PhotosModule)
-  },
-  {
-    path: 'photo/:galleryId',
+    path: 'photos',
     loadChildren: () => import('./photos/photos.module').then(m => m.PhotosModule)
   },
 ];
