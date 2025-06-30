@@ -20,6 +20,7 @@ export class AppComponent {
   title = 'KC St. Andrews Pipes and Drums';
   currentRoute: string = 'home';
   isMembersRoute: boolean = false;
+  public isLoading: boolean = false;
 
   navLinks: any[];
   activeLinkIndex = -1;
@@ -83,10 +84,15 @@ export class AppComponent {
         */
 
     this.router.events.subscribe((event: Event) => {
-      if (event instanceof NavigationEnd) {
-        this.currentRoute = event.url;
-        this.isMembersRoute = this.currentRoute == '/members' ? true : false;
-        console.log(event);
+      if (event instanceof NavigationStart) {
+        this.isLoading = true;
+      } else if (event instanceof NavigationEnd || event instanceof NavigationError) {
+        this.isLoading = false;
+        if (event instanceof NavigationEnd) {
+          this.currentRoute = event.url;
+          this.isMembersRoute = this.currentRoute == '/members' ? true : false;
+          console.log(event);
+        }
       }
     });
   }
