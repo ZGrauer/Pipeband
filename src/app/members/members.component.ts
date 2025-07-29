@@ -35,6 +35,72 @@ export interface ResultElement {
 // Data for the competition results table
 const RESULT_DATA: ResultElement[] = [
   {
+    date: new Date('2025-07-19 00:00:00'),
+    highlandGames: 'Minnesota',
+    grade: 4,
+    event: 'MSR',
+    place: 1,
+    totalPoints: 6,
+    pipingJudge1: 2,
+    pipingJudge2: 2,
+    drummingJudge: 1,
+    ensembleJudge: 1,
+    files: [ 
+      {
+        path: '../../assets/score-sheets/2025-mn_band_results.pdf',
+        name: 'Band Results',
+      },
+      {
+        path: '../../assets/score-sheets/MWPBA 1 MN G4 MSR    Kansas City St  Andrew Pipes   Drums DJ Drumming Judge 01.mp3',
+        name: 'Drumming MP3',
+      },
+      {
+        path: '../../assets/score-sheets/MWPBA 1 MN G4 MSR    Kansas City St  Andrew Pipes   Drums EJ Ensemble Judge 01.mp3',
+        name: 'Ensemble MP3',
+      },
+      {
+        path: '../../assets/score-sheets/MWPBA 1 MN G4 MSR    Kansas City St  Andrew Pipes   Drums PJ01 Piping Judge 01.mp3',
+        name: 'Piping 1 MP3',
+      },
+      {
+        path: '../../assets/score-sheets/MWPBA 1 MN G4 MSR    Kansas City St  Andrew Pipes   Drums PJ02 Piping Judge 02.mp3',
+        name: 'Piping 2 MP3',
+      },
+     ],
+  },{
+    date: new Date('2025-07-19 00:00:00'),
+    highlandGames: 'Minnesota',
+    grade: 4,
+    event: 'Medley',
+    place: 1,
+    totalPoints: 7,
+    pipingJudge1: 2,
+    pipingJudge2: 3,
+    drummingJudge: 1,
+    ensembleJudge: 1,
+    files: [ 
+      {
+        path: '../../assets/score-sheets/2025-mn_band_results.pdf',
+        name: 'Band Results',
+      },
+      {
+        path: '../../assets/score-sheets/MWPBA 4 MN G4 Medley    Kansas City St  Andrew Pipes   Drums DJ Drumming Judge 01.mp3',
+        name: 'Drumming MP3',
+      },
+      {
+        path: '../../assets/score-sheets/MWPBA 4 MN G4 Medley    Kansas City St  Andrew Pipes   Drums EJ Ensemble Judge 01.mp3',
+        name: 'Ensemble MP3',
+      },
+      {
+        path: '../../assets/score-sheets/MWPBA 4 MN G4 Medley    Kansas City St  Andrew Pipes   Drums PJ01 Piping Judge 01.mp3',
+        name: 'Piping 1 MP3',
+      },
+      {
+        path: '../../assets/score-sheets/MWPBA 4 MN G4 Medley    Kansas City St  Andrew Pipes   Drums PJ02 Piping Judge 02.mp3',
+        name: 'Piping 2 MP3',
+      },
+     ],
+  },{
     date: new Date('2025-06-14 00:00:00'),
     highlandGames: 'Chicago',
     grade: 4,

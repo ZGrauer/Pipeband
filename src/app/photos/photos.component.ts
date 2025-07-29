@@ -86,6 +86,10 @@ export class PhotosComponent {
   public pageSize: number = 9;
   galleries: photoGalleries = [
     {
+      galleryId: '2025_Minnesota_Games',
+      title: '2025 Minnesota Highland Games',
+      src: '../../assets/2025_minnesota_games.jpg',
+    },{
       galleryId: '2025_Chicago_Games',
       title: '2025 Chicago Highland Games',
       src: '../../assets/2025_Chicago_Highland_Games.jpg',
