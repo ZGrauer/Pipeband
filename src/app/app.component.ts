@@ -57,8 +57,8 @@ export class AppComponent {
         index: 4,
       },
       {
-        label: 'Performances',
-        link: './schedule',
+        label: 'Events',
+        link: './events',
         index: 5,
       },
       {

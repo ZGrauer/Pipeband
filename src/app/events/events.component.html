@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row text-center">
+    <div class="col-md-4">
+      <div class="btn-group">
+        <div
+          class="btn btn-primary"
+          (click)="setView(CalendarView.Month)"
+          [class.active]="view === CalendarView.Month"
+        >
+          Month
+        </div>
+        <div
+          class="btn btn-primary"
+          (click)="setView('list')"
+          [class.active]="view === 'list'"
+        >
+          List
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view
+      *ngSwitchCase="CalendarView.Month"
+      [viewDate]="viewDate"
+      [events]="events"
+    >
+    </mwl-calendar-month-view>
+    <div *ngSwitchCase="'list'">
+      <ul>
+        <li *ngFor="let event of events">
+          {{ event.start | date:'medium' }} - {{ event.title }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

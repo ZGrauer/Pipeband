@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
+import { EventsComponent } from './events/events.component';
 
 const routes: Routes = [
   {
@@ -29,8 +30,8 @@ const routes: Routes = [
     loadChildren: () => import('./music/music.module').then(m => m.MusicModule)
   },
   {
-    path: 'schedule',
-    loadChildren: () => import('./schedule/schedule.module').then(m => m.ScheduleModule)
+    path: 'events',
+    component: EventsComponent
   },
   {
     path: 'members',
