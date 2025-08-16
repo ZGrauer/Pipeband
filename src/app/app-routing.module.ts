@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
-import { EventsComponent } from './events/events.component';
 
 const routes: Routes = [
   {
@@ -22,16 +21,12 @@ const routes: Routes = [
     loadChildren: () => import('./about/about.module').then(m => m.AboutModule)
   },
   {
-    path: 'merch',
-    loadChildren: () => import('./merch/merch.module').then(m => m.MerchModule)
-  },
-  {
     path: 'music',
     loadChildren: () => import('./music/music.module').then(m => m.MusicModule)
   },
   {
     path: 'events',
-    component: EventsComponent
+    loadChildren: () => import('./events/events.module').then(m => m.EventsModule)
   },
   {
     path: 'members',

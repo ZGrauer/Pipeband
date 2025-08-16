@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MerchComponent } from './merch.component';
+import { EventsComponent } from './events.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: MerchComponent,
+    component: EventsComponent,
     data: {
-      title: "Merch - Kansas City St. Andrew Pipes & Drums",
-      description: "Coming Soon"
+      title: 'Events',
+      description: 'View our upcoming events.'
     }
   }
 ];
@@ -17,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class MerchRoutingModule { }
+export class EventsRoutingModule { }

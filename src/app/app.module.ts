@@ -16,15 +16,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs';
-import { EventsComponent } from './events/events.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    EventsComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
