@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
@@ -7,7 +7,7 @@ import { AuthService } from '../auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   userPassword: string = '';
   hide = true;
   invalidPassword = false;
@@ -21,6 +21,8 @@ export class LoginComponent implements OnInit {
   
   private readonly ATTEMPTS_KEY = 'kcsapb_login_attempts';
   private readonly LOCKOUT_KEY = 'kcsapb_lockout_until';
+  private lockoutTimerInterval: any = null;
+  private unlockTimeout: any = null;
 
   constructor(private _auth: AuthService, private router: Router) {}
   
@@ -41,6 +43,15 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    // Clean up timers to prevent memory leaks
+    this.stopLockoutTimer();
+    if (this.unlockTimeout) {
+      clearTimeout(this.unlockTimeout);
+      this.unlockTimeout = null;
+    }
+  }
+
   /**
    * Check if user is currently locked out due to too many failed attempts
    */
@@ -52,12 +63,17 @@ export class LoginComponent implements OnInit {
       const now = Date.now();
       
       if (now < lockoutTime) {
-        // Still locked out
+        // Still locked out - start countdown timer
         this.isLockedOut = true;
-        this.lockoutTimeRemaining = Math.ceil((lockoutTime - now) / 1000 / 60); // minutes
+        this.startLockoutTimer(lockoutTime);
+        
+        // Clear any existing unlock timeout before creating a new one
+        if (this.unlockTimeout) {
+          clearTimeout(this.unlockTimeout);
+        }
         
         // Set timeout to unlock
-        setTimeout(() => {
+        this.unlockTimeout = setTimeout(() => {
           this.clearLockout();
         }, lockoutTime - now);
       } else {
@@ -71,6 +87,11 @@ export class LoginComponent implements OnInit {
    * Clear lockout and reset attempts
    */
   clearLockout(): void {
+    this.stopLockoutTimer();
+    if (this.unlockTimeout) {
+      clearTimeout(this.unlockTimeout);
+      this.unlockTimeout = null;
+    }
     this.isLockedOut = false;
     this.lockoutTimeRemaining = 0;
     this.loginAttempts = 0;
@@ -103,10 +124,17 @@ export class LoginComponent implements OnInit {
         const lockoutUntil = Date.now() + this.lockoutDuration;
         localStorage.setItem(this.LOCKOUT_KEY, lockoutUntil.toString());
         this.isLockedOut = true;
-        this.lockoutTimeRemaining = Math.ceil(this.lockoutDuration / 1000 / 60); // minutes
+        
+        // Start countdown timer
+        this.startLockoutTimer(lockoutUntil);
+        
+        // Clear any existing unlock timeout before creating a new one
+        if (this.unlockTimeout) {
+          clearTimeout(this.unlockTimeout);
+        }
         
         // Set timeout to unlock
-        setTimeout(() => {
+        this.unlockTimeout = setTimeout(() => {
           this.clearLockout();
         }, this.lockoutDuration);
       }
@@ -121,6 +149,55 @@ export class LoginComponent implements OnInit {
    */
   getRemainingAttempts(): number {
     return Math.max(0, this.maxAttempts - this.loginAttempts);
+  }
+
+  /**
+   * Start the lockout countdown timer
+   * Updates the remaining time every second
+   * @param lockoutUntil - Timestamp when lockout expires
+   */
+  private startLockoutTimer(lockoutUntil: number): void {
+    // Stop any existing timer first
+    this.stopLockoutTimer();
+    
+    // Update immediately
+    this.updateLockoutTimeRemaining(lockoutUntil);
+    
+    // Update every second
+    this.lockoutTimerInterval = setInterval(() => {
+      this.updateLockoutTimeRemaining(lockoutUntil);
+      
+      // If time is up, clear the lockout
+      if (this.lockoutTimeRemaining <= 0) {
+        this.clearLockout();
+      }
+    }, 1000); // Update every second for smooth countdown
+  }
+
+  /**
+   * Stop the lockout countdown timer
+   */
+  private stopLockoutTimer(): void {
+    if (this.lockoutTimerInterval) {
+      clearInterval(this.lockoutTimerInterval);
+      this.lockoutTimerInterval = null;
+    }
+  }
+
+  /**
+   * Update the lockoutTimeRemaining based on current time
+   * @param lockoutUntil - Timestamp when lockout expires
+   */
+  private updateLockoutTimeRemaining(lockoutUntil: number): void {
+    const now = Date.now();
+    const remainingMs = lockoutUntil - now;
+    
+    if (remainingMs <= 0) {
+      this.lockoutTimeRemaining = 0;
+    } else {
+      // Convert to minutes and round up
+      this.lockoutTimeRemaining = Math.ceil(remainingMs / 1000 / 60);
+    }
   }
 }
 
