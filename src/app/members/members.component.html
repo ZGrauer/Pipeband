@@ -1,5 +1,13 @@
 <div class="container">
     <div class="main-content">
+        <!-- Logout Button -->
+        <div class="logout-container">
+            <button mat-raised-button color="warn" (click)="logout()" class="logout-button">
+                <mat-icon>logout</mat-icon>
+                Logout
+            </button>
+        </div>
+
         <mat-accordion class="accordion-headers-align" multi>
             <mat-expansion-panel [expanded]="panel === 0"  (opened)="setPanel(0)" >
                 <mat-expansion-panel-header>
@@ -161,8 +169,8 @@
                     </mat-list-item>
                     <mat-list-item>
                         <span matListItemTitle>Quartermaster</span>
-                        <span matListItemLine>Susan Speck</span>
-                        <span matListItemLine><a href="mailto:llywhite54@yahoo.com" target="_self">llywhite54&#64;yahoo.com</a></span>
+                        <span matListItemLine>Rydel Van Dyke</span>
+                        <span matListItemLine><a href="mailto:vandyke6059@twc.com" target="_self">vandyke6059&#64;twc.com</a></span>
                     </mat-list-item>
                 </mat-list>
             </mat-card-content>

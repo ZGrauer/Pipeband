@@ -31,6 +31,18 @@ mat-list-item {
     height: auto;
 }
 
+.logout-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.logout-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .accordion-headers-align .mat-expansion-panel-header-description {
     justify-content: space-between;
     align-items: center;
