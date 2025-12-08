@@ -6,5 +6,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  showConcertBanner: boolean = true;
 
+  dismissBanner(): void {
+    this.showConcertBanner = false;
+    // Store dismissal in localStorage so it stays dismissed
+    localStorage.setItem('concertBannerDismissed', 'true');
+  }
+
+  ngOnInit(): void {
+    // Check if user has already dismissed the banner
+    const dismissed = localStorage.getItem('concertBannerDismissed');
+    if (dismissed === 'true') {
+      this.showConcertBanner = false;
+    }
+  }
 }
