@@ -333,6 +333,11 @@ export class MembersComponent implements AfterViewInit, OnInit {
     }
   }
 
+  logout() {
+    this._authService.logout();
+    this.router.navigate(['/login']);
+  }
+
   downloadBandConstitutionPDF() {
     const link = document.createElement('a');
     link.setAttribute('target', '_blank');
