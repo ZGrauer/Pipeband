@@ -1,3 +1,37 @@
+<!-- Concert Announcement Banner -->
+<div class="concert-banner" *ngIf="showConcertBanner">
+    <button class="close-banner" (click)="dismissBanner()" aria-label="Close banner">
+        <span aria-hidden="true">×</span>
+    </button>
+    <div class="banner-content">
+        <div class="banner-icon">🎵</div>
+        <div class="banner-text">
+            <h3 class="banner-title">🎟️ Tickets Now on Sale! A Celtic Spring - March 7, 2026</h3>
+            <p class="banner-description">
+                Join us for an unforgettable evening of traditional and contemporary Celtic music! 
+                KC St. Andrew Pipes & Drums teams up with 
+                <a href="https://americanoperastudio.com" target="_blank" rel="noopener noreferrer">The American Opera Studio</a>, 
+                <a href="https://www.facebook.com/The-Biscuit-Boys-of-KC-107253554988070/" target="_blank" rel="noopener noreferrer">The Biscuit Boys</a>, 
+                <a href="https://www.heartlandhighlanddance.com" target="_blank" rel="noopener noreferrer">Heartland Highland Dance</a>, 
+                and special guest musicians for a night you won't forget!
+            </p>
+            <div class="banner-details">
+                <span class="detail-item">📅 March 7, 2026 • 7:00 PM</span>
+                <span class="detail-item">📍 Rockhurst High School - Rose Theater</span>
+            </div>
+        </div>
+        <div class="banner-cta">
+            <a href="https://www.eventbrite.com/e/a-celtic-spring-an-evening-with-kc-st-andrew-pipes-drums-and-friends-tickets-1976519136945" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="buy-tickets-btn">
+                Buy Tickets Now
+            </a>
+            <p class="tickets-subtitle">Perfect stocking stuffer!</p>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <div class="main-content">
         <article>
@@ -86,7 +120,7 @@
                     Please contact our Drum Sergeant, Kyle Womelduff (<a href="mailto:DrumLessons@kcpipeband.org?subject=I'd like info on drumming!" target="_self">DrumLessons&#64;kcpipeband.org</a>).
                 </p>
                 <p>
-                    Practice Address:<br><a href="https://goo.gl/maps/53YHKBX58Lx6jknA7" target="_blank">St Andrew's Episcopal Church<br>6401 Wornall Terrace, Kansas City, MO 64113</a>
+                    Practice Address:<br><a href="https://goo.gl/maps/53YHKBX58Lx6jknA7" target="_blank" rel="noopener noreferrer">St Andrew's Episcopal Church<br>6401 Wornall Terrace, Kansas City, MO 64113</a>
                 </p>        
             </mat-card-content>
         </mat-card>
@@ -104,6 +138,7 @@
                 </p>
                 <a
                     target="_blank"
+                    rel="noopener noreferrer"
                     href="https://jonathanturley.org/2025/06/18/over-there-a-visit-to-national-world-war-i-museum-and-memorial/">
                     Read full story here...
                 </a>
@@ -120,6 +155,7 @@
                 </p>
                 <a
                     target="_blank"
+                    rel="noopener noreferrer"
                     href="https://www.kcur.org/arts-life/2022-03-11/3-generations-of-this-pipe-and-drum-band-have-helped-kansas-city-celebrate-st-patricks-day?fbclid=IwAR0j2HYvP8BTFg_dLa-83wThedkWC_oTajqLA1xCl0okcIhnX0YL7TbxjnM">
                     Read full story here...
                 </a>
