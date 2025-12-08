@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
-import * as sha256 from 'js-sha256';
+import * as bcrypt from 'bcryptjs';
 import { environment } from './../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  // Obfuscated password hash split into 3 parts (Base64 encoded)
+  // Obfuscated bcrypt password hash split into 3 parts (Base64 encoded)
   // To generate these for your production password, run:
   //   node scripts/generate-hash-parts.js "YourProductionPassword"
   // 
-  // Using the CHANGE_ME default password as example:
-  private readonly p1 = atob('NDQyY2JmM2ZkZjBmMjQ3NzcwMzZl');
-  private readonly p2 = atob('NjYwYzMyZDZlNGI1Zjc2MjEyMzFi');
-  private readonly p3 = atob('ZmYyNzU0NjczYzVhMTg4YTJmNjE0YQ==');
+  // Note: Bcrypt hashes include the salt as part of the hash string (standard format)
+  // Using the CHANGE_ME default password as example (bcrypt hash with 10 rounds):
+  private readonly p1 = atob('JDJiJDEwJER2NkMwWXcveTE0ckI=');
+  private readonly p2 = atob('UzZ2ajNnOS8ubjFQejNXNGdXdGk=');
+  private readonly p3 = atob('REt1cW1kazh5WktSRDlhbzNKcnU=');
   
   // Session configuration
   private readonly SESSION_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
@@ -23,24 +24,31 @@ export class AuthService {
   constructor() { }
 
   /**
-   * Authenticate user with password
+   * Authenticate user with password using bcrypt
    * @param userPassword - Password entered by user
    * @returns true if authentication successful, false otherwise
    */
   login(userPassword: string): boolean {
-    // Hash the input password
-    const hashedInput = sha256.sha256(userPassword);
-    
-    // Reconstruct the actual hash from obfuscated parts
-    const actualHash = this.p1 + this.p2 + this.p3;
-    
-    if (hashedInput === actualHash) {
-      // Generate a session token with timestamp and partial hash
-      const sessionToken = btoa(Date.now() + ':' + hashedInput.substring(0, 16));
-      localStorage.setItem(this.TOKEN_KEY, sessionToken);
-      localStorage.setItem(this.AUTH_TIME_KEY, Date.now().toString());
-      return true;
-    } else {
+    try {
+      // Reconstruct the bcrypt hash from obfuscated parts
+      const storedHash = this.p1 + this.p2 + this.p3;
+      
+      // Use bcrypt to securely compare the password with the stored hash
+      // bcrypt.compareSync handles the salt extraction and comparison automatically
+      const isValid = bcrypt.compareSync(userPassword, storedHash);
+      
+      if (isValid) {
+        // Generate a session token with timestamp
+        const sessionToken = btoa(Date.now() + ':' + Math.random().toString(36).substring(2, 15));
+        localStorage.setItem(this.TOKEN_KEY, sessionToken);
+        localStorage.setItem(this.AUTH_TIME_KEY, Date.now().toString());
+        return true;
+      } else {
+        this.clearAuth();
+        return false;
+      }
+    } catch (error) {
+      console.error('Authentication error:', error);
       this.clearAuth();
       return false;
     }

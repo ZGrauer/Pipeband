@@ -1,14 +1,19 @@
-# Members Authentication Hash Generator
+# Members Authentication Hash Generator (Bcrypt)
 
-This utility helps you generate obfuscated hash parts for your production member password.
+This utility helps you generate secure bcrypt hash parts for your production member password.
 
 ## How It Works
 
 1. Takes your production password as input
-2. Generates a SHA-256 hash
+2. Generates a secure bcrypt hash with salt (10 rounds, industry standard)
 3. Splits the hash into 3 parts
 4. Base64 encodes each part for obfuscation
 5. Provides the code to paste into `auth.service.ts`
+
+**Note:** Bcrypt is significantly more secure than SHA-256 for password hashing because:
+- It includes a built-in salt (automatically embedded in the hash)
+- It's computationally expensive, making brute-force attacks much harder
+- The cost factor can be increased over time as hardware improves
 
 ## Usage
 
@@ -36,16 +41,17 @@ chmod +x scripts/generate-hash-parts.js
 
 ```
 ================================================================================
-HASH GENERATION COMPLETE
+BCRYPT HASH GENERATION COMPLETE
 ================================================================================
 
-📋 Full SHA-256 Hash:
-   f369c9c6031fee8bb5b6d093d54e711bbe34b41bbe18e365b332db3c296e3
+📋 Full Bcrypt Hash (includes embedded salt):
+   $2b$10$Dv6C0Yw/y14rBS6vj3g9/.n1Pz3W4gWtiDKuqmdk8yZKRD9ao3Jru
+   Length: 60 characters
 
 🔐 Obfuscated Parts (Base64 encoded):
-   Part 1: ZjM2OWM5YzYwMzFmZWU4YmI1
-   Part 2: YjZkMDkzZDU0ZTcxMWJiZTM0
-   Part 3: YjQxYmJlMThlNjM2NWIzMzJkYjNjMjk2ZTM=
+   Part 1: JDJiJDEwJER2NkMwWXcveTE0ckI=
+   Part 2: UzZ2ajNnOS8ubjFQejNXNGdXdGk=
+   Part 3: REt1cW1kazh5WktSRDlhbzNKcnU=
 
 ✅ Verification:
    ✓ Parts successfully reconstruct to original hash
@@ -53,11 +59,13 @@ HASH GENERATION COMPLETE
 📝 Copy this code into your auth.service.ts:
 ────────────────────────────────────────────────────────────────────────────────
 
-  private readonly p1 = atob('ZjM2OWM5YzYwMzFmZWU4YmI1');
-  private readonly p2 = atob('YjZkMDkzZDU0ZTcxMWJiZTM0');
-  private readonly p3 = atob('YjQxYmJlMThlNjM2NWIzMzJkYjNjMjk2ZTM=');
+  private readonly p1 = atob('JDJiJDEwJER2NkMwWXcveTE0ckI=');
+  private readonly p2 = atob('UzZ2ajNnOS8ubjFQejNXNGdXdGk=');
+  private readonly p3 = atob('REt1cW1kazh5WktSRDlhbzNKcnU=');
   
 ────────────────────────────────────────────────────────────────────────────────
+
+Note: The bcrypt hash format is $2b$[cost]$[salt][hash] where the salt is embedded.
 
 ⚠️  SECURITY REMINDERS:
    • Delete this output from your terminal history

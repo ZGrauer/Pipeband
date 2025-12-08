@@ -2,12 +2,15 @@
 
 ## ✅ What Was Implemented
 
-### 1. **Obfuscated Password Hash** (`auth.service.ts`)
-- Password hash is now split into 3 parts and Base64 encoded
+### 1. **Secure Bcrypt Password Hashing** (`auth.service.ts`)
+- **NEW:** Uses bcrypt instead of SHA-256 for significantly better security
+- Bcrypt hash includes built-in salt (10 rounds - industry standard)
+- Hash is split into 3 parts and Base64 encoded for obfuscation
 - Makes it harder to find the hash in the JavaScript bundle
 - Session tokens now include timestamp validation
 - 24-hour session expiration
 - Proper logout functionality
+- **Security Benefit:** Bcrypt is computationally expensive, making brute-force attacks impractical
 
 ### 2. **Rate Limiting** (`login.component.ts`)
 - Maximum 5 login attempts before lockout
@@ -47,9 +50,11 @@ node scripts/generate-hash-parts.js "YourProductionPassword"
 📝 Copy this code into your auth.service.ts:
 ────────────────────────────────────────────────────────────────────────────────
 
-  private readonly p1 = atob('ZjM2OWM5YzYwMzFmZWU4YmI1');
-  private readonly p2 = atob('YjZkMDkzZDU0ZTcxMWJiZTM0');
-  private readonly p3 = atob('YjQxYmJlMThlNjM2NWIzMzJkYjNjMjk2ZTM=');
+  private readonly p1 = atob('JDJiJDEwJER2NkMwWXcveTE0ckI=');
+  private readonly p2 = atob('UzZ2ajNnOS8ubjFQejNXNGdXdGk=');
+  private readonly p3 = atob('REt1cW1kazh5WktSRDlhbzNKcnU=');
+
+Note: This is a bcrypt hash with embedded salt (60 characters total)
 ```
 
 ### Step 2: Update auth.service.ts
@@ -129,11 +134,13 @@ private readonly AUTH_TIME_KEY = 'kcsapb_auth_time';
 
 | Feature | Description |
 |---------|-------------|
-| **Obfuscation** | Password hash split into 3 Base64-encoded parts |
+| **Bcrypt Hashing** | Industry-standard password hashing with built-in salt (10 rounds) |
+| **Obfuscation** | Bcrypt hash split into 3 Base64-encoded parts |
 | **Rate Limiting** | 5 attempts, then 15-minute lockout |
 | **Session Expiration** | 24-hour automatic logout |
 | **Persistent Lockout** | Survives page refresh |
 | **Session Validation** | Checks token and timestamp on every auth check |
+| **Secure Comparison** | Uses bcrypt.compareSync for constant-time verification |
 
 ### ⚠️ Known Limitations
 
@@ -165,8 +172,10 @@ private readonly AUTH_TIME_KEY = 'kcsapb_auth_time';
 ## 📂 Files Modified
 
 ```
+package.json                     ✅ Added bcrypt & bcryptjs dependencies
+
 src/app/
-├── auth.service.ts              ✅ Enhanced security
+├── auth.service.ts              ✅ Enhanced security with bcrypt
 ├── login/
 │   ├── login.component.ts       ✅ Rate limiting added
 │   ├── login.component.html     ✅ Error messages improved
@@ -177,8 +186,13 @@ src/app/
     └── members.component.css    ✅ Button styling
 
 scripts/
-├── generate-hash-parts.js       ✨ NEW - Hash generator
+├── generate-hash-parts.js       ✨ NEW - Bcrypt hash generator
 └── README-HASH-GENERATOR.md     ✨ NEW - Documentation
+
+Dependencies Added:
+├── bcryptjs (^2.4.3)            - Browser-compatible bcrypt for Angular
+├── bcrypt (^5.1.1)              - Node.js bcrypt for hash generation script
+└── @types/bcryptjs (^2.4.6)     - TypeScript definitions
 ```
 
 ---

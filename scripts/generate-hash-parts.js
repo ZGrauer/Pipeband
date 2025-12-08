@@ -4,26 +4,46 @@
  * Hash Generator for Members Authentication
  * 
  * This script helps you generate the 3-part obfuscated hash
- * for your production password.
+ * for your production password using bcrypt.
  * 
  * Usage:
  *   node scripts/generate-hash-parts.js "YourProductionPassword"
  * 
  * Or run interactively:
  *   node scripts/generate-hash-parts.js
+ * 
+ * Note: This uses bcrypt for secure password hashing. The generated hash
+ * includes the salt as part of the output (standard bcrypt format).
  */
 
-const crypto = require('crypto');
+const bcrypt = require('bcrypt');
 const readline = require('readline');
 
-// Function to generate SHA-256 hash
-function generateSHA256(password) {
-  return crypto.createHash('sha256').update(password).digest('hex');
+// Bcrypt configuration
+const SALT_ROUNDS = 10; // Standard security level (2^10 = 1,024 iterations)
+
+/**
+ * Generate a secure bcrypt hash for the password
+ * @param {string} password - The password to hash
+ * @returns {string} - The bcrypt hash (includes salt in the output)
+ */
+function generatePasswordHash(password) {
+  // Generate salt and hash synchronously
+  const salt = bcrypt.genSaltSync(SALT_ROUNDS);
+  const hash = bcrypt.hashSync(password, salt);
+  
+  // Note: The bcrypt hash format is $2b$10$saltsaltsalt...hashhashhash
+  // The salt is embedded in the output, which is standard for bcrypt
+  return hash;
 }
 
-// Function to split hash into 3 parts and encode them
+/**
+ * Split the bcrypt hash into 3 parts and encode them for obfuscation
+ * @param {string} password - The password to hash
+ * @returns {object} - Object containing full hash and encoded parts
+ */
 function generateHashParts(password) {
-  const fullHash = generateSHA256(password);
+  const fullHash = generatePasswordHash(password);
   
   // Split into 3 roughly equal parts
   const part1Length = Math.floor(fullHash.length / 3);
@@ -110,10 +130,11 @@ function generateAndDisplay(password) {
   const result = generateHashParts(password);
   
   console.log('='.repeat(80));
-  console.log('HASH GENERATION COMPLETE');
+  console.log('BCRYPT HASH GENERATION COMPLETE');
   console.log('='.repeat(80));
-  console.log('\n📋 Full SHA-256 Hash:');
+  console.log('\n📋 Full Bcrypt Hash (includes embedded salt):');
   console.log(`   ${result.fullHash}`);
+  console.log(`   Length: ${result.fullHash.length} characters`);
   
   console.log('\n🔐 Obfuscated Parts (Base64 encoded):');
   console.log(`   Part 1: ${result.parts.part1.encoded}`);
