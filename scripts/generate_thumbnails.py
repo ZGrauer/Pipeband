@@ -4,7 +4,7 @@ from PIL import Image
 
 def create_thumbnails(gallery_id):
     target_dir = os.path.join("src/assets/photos", gallery_id)
-    thumbs_dir = os.path.join(target_dir, "thumbs")
+    thumbs_dir = os.path.join("src/assets/optimized/photos", gallery_id, "thumbs")
 
     if not os.path.isdir(target_dir):
         print(f"Error: Gallery directory not found at {target_dir}")
