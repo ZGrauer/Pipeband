@@ -86,6 +86,10 @@ export class PhotosComponent {
   public pageSize: number = 9;
   galleries: photoGalleries = [
     {
+      galleryId: '2026_Celtic_Spring',
+      title: '2026 Celtic Spring Concert',
+      src: '../../assets/2026_Celtic_Spring.jpg',
+    },{
       galleryId: '2025_Minnesota_Games',
       title: '2025 Minnesota Highland Games',
       src: '../../assets/2025_minnesota_games.jpg',
