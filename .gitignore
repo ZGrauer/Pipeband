@@ -39,6 +39,7 @@ testem.log
 /typings
 /src/assets/Jim_Photos
 /src/assets/photos/*
+/src/assets/optimized/*
 
 # System files
 .DS_Store
