@@ -35,6 +35,171 @@ export interface ResultElement {
 // Data for the competition results table
 const RESULT_DATA: ResultElement[] = [
   {
+    date: new Date('2026-07-18 00:00:00'),
+    highlandGames: 'Minnesota',
+    grade: 4,
+    event: 'Medley',
+    place: 1,
+    totalPoints: 5,
+    pipingJudge1: 1,
+    pipingJudge2: 1,
+    drummingJudge: 2,
+    ensembleJudge: 1,
+    files: [ 
+      {
+        path: '../../assets/score-sheets/2026-mn_band_results.pdf',
+        name: 'Band Results',
+      },
+      {
+        path: '../../assets/score-sheets/2026_MN_G4_Medley_KC_St_Andrew_Pipes_Drums_DJ Drumming Judge 01.mp3',
+        name: 'Drumming MP3',
+      },
+      {
+        path: '../../assets/score-sheets/2026_MN_G4_Medley_KC_St_Andrew_Pipes_Drums_EJ Ensemble Judge 01.mp3',
+        name: 'Ensemble MP3',
+      },
+      {
+        path: '../../assets/score-sheets/2026_MN_G4_Medley_KC_St_Andrew_Pipes_Drums_PJ01 Piping Judge 01.mp3',
+        name: 'Piping 1 MP3',
+      },
+      {
+        path: '../../assets/score-sheets/2026_MN_G4_Medley_KC_St_Andrew_Pipes_Drums_PJ02 Piping Judge 02.mp3',
+        name: 'Piping 2 MP3',
+      },
+     ],
+  },{
+    date: new Date('2026-07-18 00:00:00'),
+    highlandGames: 'Minnesota',
+    grade: 4,
+    event: 'MSR',
+    place: 1,
+    totalPoints: 5,
+    pipingJudge1: 2,
+    pipingJudge2: 1,
+    drummingJudge: 1,
+    ensembleJudge: 1,
+    files: [ 
+      {
+        path: '../../assets/score-sheets/2026-mn_band_results.pdf',
+        name: 'Band Results',
+      },
+      {
+        path: '../../assets/score-sheets/2026_MN_G4_MSR_KC_St_Andrew_Pipes_Drums_DJ Drumming Judge 01.mp3',
+        name: 'Drumming MP3',
+      },
+      {
+        path: '../../assets/score-sheets/2026_MN_G4_MSR_KC_St_Andrew_Pipes_Drums_EJ Ensemble Judge 01.mp3',
+        name: 'Ensemble MP3',
+      },
+      {
+        path: '../../assets/score-sheets/2026_MN_G4_MSR_KC_St_Andrew_Pipes_Drums_PJ01 Piping Judge 01.mp3',
+        name: 'Piping 1 MP3',
+      },
+      {
+        path: '../../assets/score-sheets/2026_MN_G4_MSR_KC_St_Andrew_Pipes_Drums_PJ02 Piping Judge 02.mp3',
+        name: 'Piping 2 MP3',
+      },
+     ],
+  },{
+    date: new Date('2026-06-13 00:00:00'),
+    highlandGames: 'Chicago',
+    grade: 4,
+    event: 'Medley',
+    place: 5,
+    totalPoints: 26,
+    pipingJudge1: 5,
+    pipingJudge2: 9,
+    drummingJudge: 8,
+    ensembleJudge: 4,
+    files: [ 
+      {
+        path: '../../assets/score-sheets/2026-chg-band_results.pdf',
+        name: 'Band Results',
+      },
+      {
+        path: '../../assets/score-sheets/2026_Chicago_G4_Medley_KC_St_Andrew_Pipes_Drums_DJ Drumming Judge 01.mp3',
+        name: 'Drumming MP3',
+      },
+      {
+        path: '../../assets/score-sheets/2026_Chicago_G4_Medley_KC_St_Andrew_Pipes_Drums_EJ Ensemble Judge 01.mp3',
+        name: 'Ensemble MP3',
+      },
+      {
+        path: '../../assets/score-sheets/2026_Chicago_G4_Medley_KC_St_Andrew_Pipes_Drums_PJ01 Piping Judge 01.mp3',
+        name: 'Piping 1 MP3',
+      },
+      {
+        path: '../../assets/score-sheets/2026_Chicago_G4_Medley_KC_St_Andrew_Pipes_Drums_PJ02 Piping Judge 02.mp3',
+        name: 'Piping 2 MP3',
+      },
+     ],
+  },{
+    date: new Date('2026-05-16 00:00:00'),
+    highlandGames: 'St. Louis',
+    grade: 4,
+    event: 'Medley',
+    place: 1,
+    totalPoints: 4,
+    pipingJudge1: 1,
+    pipingJudge2: 1,
+    drummingJudge: 1,
+    ensembleJudge: 1,
+    files: [ 
+      {
+        path: '../../assets/score-sheets/2026-stl_band_results.pdf',
+        name: 'Band Results',
+      },
+      {
+        path: '../../assets/score-sheets/2026_St_Louis_G4_Medley_KC_St_Andrew_Pipes_Drums_DJ Drumming Judge 01.mp3',
+        name: 'Drumming MP3',
+      },
+      {
+        path: '../../assets/score-sheets/2026_St_Louis_G4_Medley_KC_St_Andrew_Pipes_Drums_EJ Ensemble Judge 01.mp3',
+        name: 'Ensemble MP3',
+      },
+      {
+        path: '../../assets/score-sheets/2026_St_Louis_G4_Medley_KC_St_Andrew_Pipes_Drums_PJ01 Piping Judge 01.mp3',
+        name: 'Piping 1 MP3',
+      },
+      {
+        path: '../../assets/score-sheets/2026_St_Louis_G4_Medley_KC_St_Andrew_Pipes_Drums_PJ02 Piping Judge 02.mp3',
+        name: 'Piping 2 MP3',
+      },
+     ],
+  },{
+    date: new Date('2026-05-16 00:00:00'),
+    highlandGames: 'St. Louis',
+    grade: 4,
+    event: 'MSR',
+    place: 1,
+    totalPoints: 4,
+    pipingJudge1: 1,
+    pipingJudge2: 1,
+    drummingJudge: 1,
+    ensembleJudge: 1,
+    files: [ 
+      {
+        path: '../../assets/score-sheets/2026-stl_band_results.pdf',
+        name: 'Band Results',
+      },
+      {
+        path: '../../assets/score-sheets/2026_St_Louis_G4_MSR_KC_St_Andrew_Pipes_Drums_DJ Drumming Judge 01.mp3',
+        name: 'Drumming MP3',
+      },
+      {
+        path: '../../assets/score-sheets/2026_St_Louis_G4_MSR_KC_St_Andrew_Pipes_Drums_EJ Ensemble Judge 01.mp3',
+        name: 'Ensemble MP3',
+      },
+      {
+        path: '../../assets/score-sheets/2026_St_Louis_G4_MSR_KC_St_Andrew_Pipes_Drums_PJ01 Piping Judge 01.mp3',
+        name: 'Piping 1 MP3',
+      },
+      {
+        path: '../../assets/score-sheets/2026_St_Louis_G4_MSR_KC_St_Andrew_Pipes_Drums_PJ02 Piping Judge 02.mp3',
+        name: 'Piping 2 MP3',
+      },
+     ],
+  },{
     date: new Date('2025-07-19 00:00:00'),
     highlandGames: 'Minnesota',
     grade: 4,
