@@ -379,7 +379,7 @@ Generate manifest JSON files for photo galleries:
 
 ```bash
 # PowerShell
-.\scripts\Generate-Manifest.ps1 -GalleryId "2024_Highland_Games"
+.\scripts\Generate-Manifest.ps1 -DirectoryPath ./src/assets/photos/2026_Waukesha_Games
 
 # Bash
 bash scripts/generate_manifest.sh "2024_Highland_Games"
