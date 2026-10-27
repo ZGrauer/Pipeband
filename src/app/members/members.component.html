@@ -9,7 +9,19 @@
         </div>
 
         <mat-accordion class="accordion-headers-align" multi>
-            <mat-expansion-panel [expanded]="panel === 0"  (opened)="setPanel(0)" >
+            <mat-expansion-panel [expanded]="panel === 0" (opened)="setPanel(0)">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Sheet Music
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Pipe and drum scores, plus practice recordings.
+                        <mat-icon>library_music</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <app-sheet-music></app-sheet-music>
+            </mat-expansion-panel>
+            <mat-expansion-panel [expanded]="panel === 1"  (opened)="setPanel(1)" >
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         Competition Score Sheets
@@ -69,7 +81,7 @@
                   </table>
                 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of results"></mat-paginator>
             </mat-expansion-panel>
-            <mat-expansion-panel  [expanded]="panel === 1"  (opened)="setPanel(1)">
+            <mat-expansion-panel  [expanded]="panel === 2"  (opened)="setPanel(2)">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         Helpful Videos
@@ -97,7 +109,7 @@
                     <iframe class="youtube-video" src="https://www.youtube.com/embed/F55ogSPSF9I?si=8fNCU4SjCQIyRGgK" title="How can you avoid losing your kilt pin?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </p>
             </mat-expansion-panel>
-            <mat-expansion-panel [expanded]="panel === 2"  (opened)="setPanel(2)">
+            <mat-expansion-panel [expanded]="panel === 3"  (opened)="setPanel(3)">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         Band Constitution

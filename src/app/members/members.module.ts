@@ -11,13 +11,22 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { FormsModule } from '@angular/forms';
 
 
 import { MembersRoutingModule } from './members-routing.module';
 import { MembersComponent } from './members.component';
+import { SheetMusicComponent } from './sheet-music/sheet-music.component';
 
 @NgModule({
-  declarations: [MembersComponent],
+  declarations: [MembersComponent, SheetMusicComponent],
   imports: [
     CommonModule,
     MembersRoutingModule,
@@ -31,7 +40,15 @@ import { MembersComponent } from './members.component';
     MatPaginatorModule,
     MatCardModule,
     MatIconModule,
-    MatTableModule
+    MatTableModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonToggleModule,
+    MatSlideToggleModule,
+    MatTooltipModule,
+    FormsModule
   ]
 })
 export class MembersModule { }

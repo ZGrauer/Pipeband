@@ -63,6 +63,7 @@ describe('MembersComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [MembersComponent], 
+      schemas: [NO_ERRORS_SCHEMA], // <app-sheet-music> is tested on its own
       imports: [
         NoopAnimationsModule,
         MatExpansionModule,
