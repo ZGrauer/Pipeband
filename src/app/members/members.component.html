@@ -6,7 +6,7 @@
                 <mat-icon fontIcon="fiber_new" aria-hidden="true"></mat-icon>
                 <a *ngIf="newScoreCount" routerLink="music">{{ newScoreCount }} new {{ newScoreCount === 1 ? 'score' : 'scores' }}</a>
                 <span *ngIf="newScoreCount && newPlaylist" aria-hidden="true">·</span>
-                <a *ngIf="newPlaylist" routerLink="resources">{{ newPlaylist.title }}</a>
+                <a *ngIf="newPlaylist" [href]="newPlaylist.url" target="_blank" rel="noopener noreferrer">{{ newPlaylist.title }}</a>
             </p>
         </div>
         <button mat-stroked-button (click)="logout()" class="logout-button" aria-label="Log out">

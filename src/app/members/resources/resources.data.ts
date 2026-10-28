@@ -47,7 +47,7 @@ export const VIDEO_GROUPS: VideoGroup[] = [
 ];
 
 export const PLAYLISTS: ResourceLink[] = [
-  { title: '2025 St Andrew Contest Material', url: 'https://youtube.com/playlist?list=PLQQZswSWPMShDdGg9OI1XnQP00ZIuL8Os&si=f3RQdu2gpguLg0R0', isNew: true },
+  { title: '2027 St Andrew Contest Material', url: 'https://www.youtube.com/playlist?list=PLBiddNjRudPM', isNew: true },
   { title: '2024 St Andrews Concert YouTube Playlist', url: 'https://youtube.com/playlist?list=PLQQZswSWPMSihz8F97P4Xij7SJUM_CmPo' },
 ];
 
