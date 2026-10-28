@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<div mat-dialog-content class="dialog-content">
+    <p *ngIf="data.subtitle" class="subtitle">{{ data.subtitle }}</p>
+    <p *ngIf="data.notes" class="notes">{{ data.notes }}</p>
+    <div *ngIf="data.audio" class="audio">
+        <audio controls preload="none" [src]="data.audio" [attr.aria-label]="'Recording of ' + data.title"></audio>
+        <button mat-icon-button (click)="downloadAudio()" aria-label="Download recording" title="Download recording">
+            <mat-icon>download</mat-icon>
+        </button>
+    </div>
+    <pdf-viewer *ngIf="data.file"
+                [src]="fileUrl"
+                [render-text]="true"
+                [original-size]="false"
+                [autoresize]="true"
+                class="pdf"
+    ></pdf-viewer>
+</div>
+<div mat-dialog-actions align="end">
+    <ng-container *ngIf="data.file">
+        <button mat-button (click)="download()"><mat-icon>download</mat-icon> Download</button>
+        <button mat-button (click)="print()"><mat-icon>print</mat-icon> Print</button>
+    </ng-container>
+    <button mat-button mat-dialog-close cdkFocusInitial>Close</button>
+</div>

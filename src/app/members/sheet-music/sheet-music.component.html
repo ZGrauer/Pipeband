@@ -1,0 +1,103 @@
+<div class="filters">
+    <mat-form-field class="search" appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Search title or composer</mat-label>
+        <input matInput [ngModel]="filter.text" (ngModelChange)="setText($event)" autocomplete="off">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="idiom" appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Idiom</mat-label>
+        <mat-select [value]="filter.idiom" (selectionChange)="setIdiom($event.value)">
+            <mat-option value="">All idioms</mat-option>
+            <mat-option *ngFor="let idiom of idioms" [value]="idiom">{{ idiom }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-button-toggle-group [value]="filter.instrument" (change)="setInstrument($event.value)" aria-label="Instrument">
+        <mat-button-toggle value="All">All</mat-button-toggle>
+        <mat-button-toggle value="Pipes">Pipes</mat-button-toggle>
+        <mat-button-toggle value="Drums">Drums</mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <mat-slide-toggle [checked]="filter.newOnly" (change)="setNewOnly($event.checked)">
+        New only ({{ newCount }})
+    </mat-slide-toggle>
+
+    <mat-form-field *ngIf="hidden('modified')" class="idiom" appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Sort by</mat-label>
+        <mat-select value="title:asc" (selectionChange)="sortBy($event.value)">
+            <mat-option value="title:asc">Tune A–Z</mat-option>
+            <mat-option value="title:desc">Tune Z–A</mat-option>
+            <mat-option value="modified:desc">Newest first</mat-option>
+            <mat-option value="modified:asc">Oldest first</mat-option>
+            <mat-option value="idiom:asc">Idiom</mat-option>
+            <mat-option value="composer:asc">Composer</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <button mat-button *ngIf="hasFilter" (click)="clearFilters()"><mat-icon>filter_alt_off</mat-icon> Clear</button>
+</div>
+
+<p *ngIf="filter.tune" class="tune-filter">
+    Showing all scores for <strong>{{ tuneTitle }}</strong>
+</p>
+
+<div class="table-wrap">
+<table mat-table matSort matSortActive="title" matSortDirection="asc" [dataSource]="dataSource" class="mat-elevation-z8" [class.compact]="hidden('instrument')">
+    <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tune </th>
+        <td mat-cell *matCellDef="let row">
+            <div class="title-line">
+                <a href="javascript:void(0)" (click)="view(row)" class="title-link">{{ row.title }}</a>
+                <mat-icon *ngIf="isNew(row)" class="new-icon" fontIcon="fiber_new" matTooltip="Added or updated in the last 30 days" aria-label="New"></mat-icon>
+            </div>
+            <div class="sub-line">
+                <span *ngIf="hidden('idiom')">{{ row.idiom }}</span>
+                <span *ngIf="hidden('composer') && row.composer">{{ row.composer }}</span>
+                <span *ngIf="hidden('modified')">{{ modifiedDate(row) | date:'mediumDate' }}</span>
+                <span *ngIf="hidden('instrument')">{{ row.instrument }}</span>
+                <span *ngIf="row.part">{{ row.part }}</span>
+                <span *ngIf="row.notes">{{ row.notes }}</span>
+                <a *ngIf="relatedCount(row) as count" href="javascript:void(0)" (click)="showTune(row)">All {{ count }} scores for this tune</a>
+            </div>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="idiom">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Idiom </th>
+        <td mat-cell *matCellDef="let row"> {{ row.idiom }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="composer">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Composer </th>
+        <td mat-cell *matCellDef="let row"> {{ row.composer || '—' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="instrument">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Instrument </th>
+        <td mat-cell *matCellDef="let row"> {{ row.instrument }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="modified">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Modified </th>
+        <td mat-cell *matCellDef="let row"> {{ modifiedDate(row) | date:'mediumDate' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let row" class="actions">
+            <button mat-icon-button (click)="view(row)" matTooltip="View score" [attr.aria-label]="'View ' + row.title"><mat-icon>visibility</mat-icon></button>
+            <button mat-icon-button (click)="download(row)" matTooltip="Download PDF" [attr.aria-label]="'Download ' + row.title"><mat-icon>download</mat-icon></button>
+            <button mat-icon-button *ngIf="row.audio" (click)="play(row)" matTooltip="Play recording" [attr.aria-label]="'Play recording of ' + row.title"><mat-icon>play_circle</mat-icon></button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell no-data" [attr.colspan]="displayedColumns.length">No scores match these filters.</td>
+    </tr>
+</table>
+</div>
+<mat-paginator [pageSizeOptions]="[25, 50, 100]" [pageSize]="25" showFirstLastButtons aria-label="Select page of sheet music"></mat-paginator>

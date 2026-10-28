@@ -1,243 +1,32 @@
-<div class="container">
-    <div class="main-content">
-        <!-- Logout Button -->
-        <div class="logout-container">
-            <button mat-raised-button color="warn" (click)="logout()" class="logout-button">
-                <mat-icon>logout</mat-icon>
-                Logout
-            </button>
+<div class="members">
+    <header class="members-header">
+        <div>
+            <h1>Members</h1>
+            <p class="whats-new" *ngIf="newScoreCount || newPlaylist">
+                <mat-icon fontIcon="fiber_new" aria-hidden="true"></mat-icon>
+                <a *ngIf="newScoreCount" routerLink="music">{{ newScoreCount }} new {{ newScoreCount === 1 ? 'score' : 'scores' }}</a>
+                <span *ngIf="newScoreCount && newPlaylist" aria-hidden="true">·</span>
+                <a *ngIf="newPlaylist" [href]="newPlaylist.url" target="_blank" rel="noopener noreferrer">{{ newPlaylist.title }}</a>
+            </p>
         </div>
+        <button mat-stroked-button (click)="logout()" class="logout-button" aria-label="Log out">
+            <mat-icon>logout</mat-icon>
+            <span class="logout-label">Log out</span>
+        </button>
+    </header>
 
-        <mat-accordion class="accordion-headers-align" multi>
-            <mat-expansion-panel [expanded]="panel === 0"  (opened)="setPanel(0)" >
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Competition Score Sheets
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        Judge's scores from past competitions.
-                        <mat-icon>gavel</mat-icon>
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-                    <ng-container matColumnDef="date">
-                        <th mat-header-cell *matHeaderCellDef> Date </th>
-                        <td mat-cell *matCellDef="let element"> {{element.date | date}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="highlandGames">
-                        <th mat-header-cell *matHeaderCellDef> Highland Games</th>
-                        <td mat-cell *matCellDef="let element"> {{element.highlandGames}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="grade">
-                        <th mat-header-cell *matHeaderCellDef> Grade </th>
-                        <td mat-cell *matCellDef="let element"> {{element.grade}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="event">
-                        <th mat-header-cell *matHeaderCellDef> Event </th>
-                        <td mat-cell *matCellDef="let element"> {{element.event}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="place">
-                        <th mat-header-cell *matHeaderCellDef> Place </th>
-                        <td mat-cell *matCellDef="let element"> {{element.place}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="totalPoints">
-                        <th mat-header-cell *matHeaderCellDef> Total </th>
-                        <td mat-cell *matCellDef="let element"> {{element.totalPoints}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="pipingJudge1">
-                        <th mat-header-cell *matHeaderCellDef> Piping 1 </th>
-                        <td mat-cell *matCellDef="let element"> {{element.pipingJudge1}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="pipingJudge2">
-                        <th mat-header-cell *matHeaderCellDef> Piping 2 </th>
-                        <td mat-cell *matCellDef="let element"> {{element.pipingJudge2}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="drummingJudge">
-                        <th mat-header-cell *matHeaderCellDef> Drumming </th>
-                        <td mat-cell *matCellDef="let element"> {{element.drummingJudge}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="ensembleJudge">
-                        <th mat-header-cell *matHeaderCellDef> Ensemble </th>
-                        <td mat-cell *matCellDef="let element"> {{element.ensembleJudge}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="pdfPath">
-                        <th mat-header-cell *matHeaderCellDef> Sheets </th>
-                        <td mat-cell *matCellDef="let element"> <a *ngFor="let file of element.files" href="{{file.path}}" target="_blank" rel="noopener noreferrer" >{{file.name}}<br></a></td>
-                    </ng-container>                  
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                  </table>
-                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of results"></mat-paginator>
-            </mat-expansion-panel>
-            <mat-expansion-panel  [expanded]="panel === 1"  (opened)="setPanel(1)">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Helpful Videos
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        Info on uniform, stetches, and more.
-                        <mat-icon>smart_display</mat-icon>
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <h4>Stretches</h4>
-                <p>
-                    <iframe class="youtube-video" src="https://www.youtube.com/embed/_jWxIPrBSdQ" title="Finger & Upper Extremity Stretches for Musicians" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                    <iframe class="youtube-video" src="https://www.youtube.com/embed/qgIXpSup93s" title="Bagpiping Warm-Up Stretches" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                </p>
-                <h4>Bagpipes</h4>
-                <p>
-                    <iframe class="youtube-video" src="https://www.youtube.com/embed/ZTdY671h2io" title="How to Tie Your Bagpipe Drone Cords" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                    <iframe class="youtube-video" src="https://www.youtube.com/embed/ZodkXZ18F48" title="How to Tie Ghillie Brogues" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                </p>
-                <h4>Uniform</h4>
-                <p>
-                    <iframe class="youtube-video" src="https://www.youtube.com/embed/30hRwx0kqHQ" title="How to Tie Ghillie Brogues" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                    <iframe class="youtube-video" src="https://www.youtube.com/embed/4quZookqeHE?si=p2jl4c_SbIpzvsaR" title="How to Wear Flashes" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                    <iframe class="youtube-video" src="https://www.youtube.com/embed/zMNc1HfUSQE?si=UEE-1KN-P2Ck0Rq2" title="Where Do You Wear a Kilt Pin?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                    <iframe class="youtube-video" src="https://www.youtube.com/embed/F55ogSPSF9I?si=8fNCU4SjCQIyRGgK" title="How can you avoid losing your kilt pin?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                </p>
-            </mat-expansion-panel>
-            <mat-expansion-panel [expanded]="panel === 2"  (opened)="setPanel(2)">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Band Constitution
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        Band rules, structure, procedures
-                        <mat-icon>picture_as_pdf</mat-icon>
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
+    <nav mat-tab-nav-bar [tabPanel]="tabPanel" mat-stretch-tabs="false" mat-align-tabs="start" aria-label="Members sections">
+        <a mat-tab-link *ngFor="let tab of tabs"
+           [routerLink]="tab.path"
+           routerLinkActive #rla="routerLinkActive"
+           [active]="rla.isActive">
+            <mat-icon class="tab-icon">{{ tab.icon }}</mat-icon>
+            <span class="label-long">{{ tab.label }}</span>
+            <span class="label-short">{{ tab.shortLabel }}</span>
+        </a>
+    </nav>
 
-                <button mat-icon-button color="primary" (click)="downloadBandConstitutionPDF()" style="display: inline-block" matTooltip="Download Band Constitution PDF" aria-label="Download Band Constitution PDF">
-                    <mat-icon>download</mat-icon>
-                </button>
-                <pdf-viewer [src]="bandConstitutionPdfSrc"
-                            [render-text]="true"
-                            [original-size]="false"
-                            [autoresize]="true"
-                            style="max-width: 800px; height: 800px"
-                ></pdf-viewer>
-            </mat-expansion-panel>
-        </mat-accordion>      
-    </div>
-    <div class="right-article">
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>Band Officer Emails</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <mat-list>
-                    <mat-list-item>
-                        <span matListItemTitle>Pipe Major</span>
-                        <span matListItemLine>Iain McKee</span>
-                        <span matListItemLine><a href="mailto:iain.j.mckee@gmail.com" target="_self">iain.j.mckee&#64;gmail.com</a></span>
-                    </mat-list-item>
-                    <mat-list-item>
-                        <span matListItemTitle>Pipe Sergeant</span>
-                        <span matListItemLine>Griffin Hall</span>
-                        <span matListItemLine><a href="mailto:griffinthepiper@gmail.com" target="_self">griffinthepiper&#64;gmail.com</a></span>
-                    </mat-list-item>
-                    <mat-list-item>
-                        <span matListItemTitle>Drum Major</span>
-                        <span matListItemLine>Griffin Hall</span>
-                        <span matListItemLine><a href="mailto:griffinthepiper@gmail.com" target="_self">griffinthepiper&#64;gmail.com</a></span>
-                    </mat-list-item>
-                    <mat-list-item>
-                        <span matListItemTitle>Drum Sergeant</span>
-                        <span matListItemLine>Kyle Womelduff</span>
-                        <span matListItemLine><a href="mailto:kyle.womelduff@gmail.com" target="_self">kyle.womelduff&#64;gmail.com</a></span>
-                    </mat-list-item>
-                    <mat-list-item>
-                        <span matListItemTitle>President</span>
-                        <span matListItemLine>Mary McGinley</span>
-                        <span matListItemLine><a href="mailto:marymcginley68@gmail.com" target="_self">marymcginley68&#64;gmail.com</a></span>
-                    </mat-list-item>
-                    <mat-list-item>
-                        <span matListItemTitle>Treasurer</span>
-                        <span matListItemLine>Mark Spengler</span>
-                        <span matListItemLine><a href="mailto:mspengler@comcast.net" target="_self">mspengler&#64;comcast.net</a></span>
-                    </mat-list-item>
-                    <mat-list-item>
-                        <span matListItemTitle>Business Manager</span>
-                        <span matListItemLine>Rory McKee</span>
-                        <span matListItemLine><a href="mailto:rory.j.mckee@gmail.com" target="_self">rory.j.mckee&#64;gmail.com</a></span>
-                    </mat-list-item>
-                    <mat-list-item>
-                        <span matListItemTitle>Public Relations Manager</span>
-                        <span matListItemLine>Kevin Regan</span>
-                        <span matListItemLine><a href="mailto:thefirm@reganlawfirm.com" target="_self">thefirm&#64;reganlawfirm.com</a></span>
-                    </mat-list-item>
-                    <mat-list-item>
-                        <span matListItemTitle>Quartermaster</span>
-                        <span matListItemLine>Rydel Van Dyke</span>
-                        <span matListItemLine><a href="mailto:rydel.vandyke@gmail.com" target="_self">rydel.vandyke&#64;gmail.com</a></span>
-                    </mat-list-item>
-                </mat-list>
-            </mat-card-content>
-        </mat-card>
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>Band Roster</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <p>
-                    You can download the latest copy of the band's roster here.  This file contains the active, associate, and student members of the band along with contact information. 
-                    <br><a href="../../assets/Band_Roster.xlsx" target="_blank" rel="noopener noreferrer" >Band Roster Excel Workbook</a>
-                </p>
-            </mat-card-content>
-        </mat-card>
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>Competition Travel Reimbursement Policy</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <p>
-                    You can download the latest copy of the band's travel reimbursement policy.  This file details the process of how to get reimbursed for hotel and fuel expenses when traveling to competitions. 
-                    <br><a href="../../assets/KCSA Travel Reimbursement Policy 03.03.23.docx" target="_blank" rel="noopener noreferrer" >Competition Travel Reimbursement Policy Word Doc</a>
-                </p>
-            </mat-card-content>
-        </mat-card>
-    </div>
-    <div class="left-article">
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>Useful Downloads</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <ul>
-                    <li><a href="https://drive.google.com/drive/folders/1WnbNYXkCRuPs4PhI3cn4KcdfWhkYkk3p?usp=sharing" target="_blank" rel="noopener noreferrer">St. Andrew Sheet Music and Recordings - Google Drive</a></li>
-                    <li>
-                        <!-- <mat-icon aria-hidden="false" aria-label="New Content" fontIcon="fiber_new"></mat-icon> -->
-                        <a href="../../assets/KCSAPB_Cap_Badge.zip" target="_blank" rel="noopener noreferrer">Band Cap Badge 3D & Vector Files</a> 
-                        <button mat-icon-button (click)="openPreviewStlDialog('../../assets/KCSAPB_Cap_Badge.stl')" matTooltip="Preview 3D model"><mat-icon>preview</mat-icon></button>
-                    </li>
-                    <li>
-                        <!-- <mat-icon aria-hidden="false" aria-label="New Content" fontIcon="fiber_new"></mat-icon>  -->
-                        <a href="../../assets/KCSAPB_Kilt_Pin.stl" target="_blank" rel="noopener noreferrer">Band Kilt Pin 3D File</a> 
-                        <button mat-icon-button (click)="openPreviewStlDialog('../../assets/KCSAPB_Kilt_Pin.stl')" matTooltip="Preview 3D model"><mat-icon>preview</mat-icon></button>
-                    </li>
-                    <li><a href="" target="_blank" rel="noopener noreferrer" (click)="downloadDrumMajorPDF()">Download Drum Major Manual PDF</a></li>
-                </ul>
-            </mat-card-content>
-        </mat-card>
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>Useful Information</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <ul>
-                    <li>
-                        <mat-icon aria-hidden="false" aria-label="New Content" fontIcon="fiber_new"></mat-icon>
-                        <a href="https://youtube.com/playlist?list=PLQQZswSWPMShDdGg9OI1XnQP00ZIuL8Os&si=f3RQdu2gpguLg0R0" target="_blank" rel="noopener noreferrer">2025 St Andrew Contest Material</a>
-                    </li>
-                    <li><a href="https://youtube.com/playlist?list=PLQQZswSWPMSihz8F97P4Xij7SJUM_CmPo" target="_blank" rel="noopener noreferrer">2024 St Andrews Concert YouTube Playlist</a></li>
-                    <li><a href="https://www.jhiggins.net/blog/checklist-for-a-comfortable-bagpipe/" target="_blank" rel="noopener noreferrer">Checklist for a Comfortable Bagpipe</a></li>
-                    <li><a href="https://www.jhiggins.net/blog/proper-aftersession-care-for-your-bagpipes/" target="_blank" rel="noopener noreferrer">Proper After-Session Care for your Bagpipes</a></li>
-                    <li><a href="https://www.jhiggins.net/blog/10-tips-for-a-more-fufilling-practice-on-your-bagpipes/" target="_blank" rel="noopener noreferrer">10 Tips for a more Fufilling Practice on your Bagpipes</a></li>
-                    <li><a href="https://www.jhiggins.net/blog/how-does-temperature-moisture-and-storage-affect-my-bagpipes/" target="_blank" rel="noopener noreferrer">How does Temperature, Moisture, and Storage affect my Bagpipes?</a></li>
-                    <li><a href="https://www.jhiggins.net/blog/how-should-i-wear-my-kilt-outfit/" target="_blank" rel="noopener noreferrer">How Should I Wear my Kilt Outfit?</a></li>
-                </ul>
-            </mat-card-content>
-        </mat-card>
-    </div>
+    <mat-tab-nav-panel #tabPanel class="tab-panel">
+        <router-outlet></router-outlet>
+    </mat-tab-nav-panel>
 </div>

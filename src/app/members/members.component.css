@@ -1,119 +1,95 @@
-.container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    grid-auto-rows: minmax(100px, auto);
+.members {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px;
 }
 
-table {
-    width: 100%;
+.members-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 8px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 500;
+}
+
+.whats-new {
+    margin: 4px 0 0;
+    font-size: 14px;
+    line-height: 24px;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.whats-new mat-icon {
+    vertical-align: middle;
+    margin-right: 2px;
+}
+
+.whats-new span {
+    margin: 0 6px;
+}
+
+.whats-new a {
+    color: #900916;
 }
 
 mat-icon {
     color: #900916;
 }
 
-mat-card-title {
-    font-weight: bold;
-    font-size: large;
-}
-
-mat-card {
-    margin-bottom: 25px;
-}
-
-mat-list-item {
-    margin-bottom: -10px;
-}
-
-.responsive {
-    width: 100%;
-    height: auto;
-}
-
-.logout-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 20px;
-}
-
 .logout-button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    flex-shrink: 0;
 }
 
-.accordion-headers-align .mat-expansion-panel-header-description {
-    justify-content: space-between;
-    align-items: center;
+.tab-icon {
+    margin-right: 6px;
 }
 
-mat-panel-title {
-    font-weight: bold;
+.tab-panel {
+    display: block;
+    padding-top: 20px;
 }
 
-@media only screen and (max-width: 1149px) {
-    .right-article {
-        grid-column: 1/5;
-        grid-row: 1;
-    }
-
-    .left-article {
-        grid-column: 1/5;
-        grid-row: 2;
-    }
-
-    .main-content {
-        grid-column: 1/5;
-        grid-row: 3;
-    }
-
-    .youtube-video {
-        aspect-ratio: 16 / 9;
-        width: 100%;
-    }
+.label-short {
+    display: none;
 }
 
-@media only screen and (min-width: 1150px) {
-    .right-article {
-        grid-column: 4/5;
-        grid-row: 1;
+@media only screen and (max-width: 600px) {
+    .members {
+        padding: 12px 8px;
     }
 
-    .left-article {
-        grid-column: 1/4;
-        grid-row: 1;
+    h1 {
+        font-size: 22px;
     }
 
-    .main-content {
-        grid-column: 1/5;
-        grid-row: 2;
+    /* Short labels, no icons, and tighter tabs so all four fit on a phone */
+    .tab-icon,
+    .label-long,
+    .logout-label {
+        display: none;
     }
 
-    .youtube-video {
-        aspect-ratio: 16 / 9;
-        width: 50%;
-    }
-}
-
-@media only screen and (min-width: 1500px) {
-    .right-article {
-        grid-column: 4;
-        grid-row: 1;
+    .label-short {
+        display: inline;
     }
 
-    .left-article {
-        grid-column: 1;
-        grid-row: 1;
+    :host ::ng-deep .members .mat-mdc-tab-link.mdc-tab {
+        min-width: 0;
+        padding: 0 8px;
     }
 
-    .main-content {
-        grid-column: 2/4;
-        grid-row: 1;
+    .logout-button {
+        min-width: 0;
+        padding: 0 10px;
     }
 
-    .youtube-video {
-        aspect-ratio: 16 / 9;
-        width: 50%;
+    .logout-button mat-icon {
+        margin: 0;
     }
 }

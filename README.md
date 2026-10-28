@@ -239,6 +239,18 @@ For true security, consider:
 
 ---
 
+## 🎼 Adding Sheet Music
+
+The members area has a **Sheet Music** tab (`/members/music`) (sortable and filterable by tune, idiom, composer, instrument and date). Scores are PDFs in `src/assets/sheet-music/`, listed in `src/app/members/sheet-music/sheet-music.data.ts`.
+
+1. Copy the PDF into `src/assets/sheet-music/pipes/` or `src/assets/sheet-music/drums/` (lowercase, hyphenated file names, e.g. `wha-saw-the-forty-second.pdf`). Convert TIF scans to PDF first.
+2. Optionally copy a practice recording into `src/assets/sheet-music/audio/`.
+3. Add one entry to `SHEET_MUSIC` with the title, idiom, composer, instrument and today's date as `modified` (`YYYY-MM-DD`). Use the same `tune` value on a tune's pipe and drum scores so they link together.
+
+Scores modified in the last 30 days show a **New** icon automatically. When a score is revised, update its `modified` date.
+
+> **Note:** the members login is checked in the browser only, so the PDFs and recordings can be downloaded by anyone who knows the exact file URL. `robots.txt` keeps search engines out of `/assets/sheet-music/`, but do not put anything confidential there.
+
 ## 🏗️ Building & Deployment
 
 ### Build for Production
