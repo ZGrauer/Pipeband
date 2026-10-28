@@ -1,17 +1,16 @@
-import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { SHEET_MUSIC, SheetMusic } from './sheet-music.data';
-import { SheetMusicDialog } from './sheet-music-dialog.component';
+import { DocumentDialog, DocumentDialogData } from '../shared/document-dialog.component';
+import { downloadFile, filenameOf } from '../shared/download';
 import {
   EMPTY_FILTER,
   InstrumentFilter,
   SheetMusicFilter,
-  downloadFile,
-  filenameOf,
   isNew,
   matchesFilter,
   parseModified,
@@ -22,9 +21,10 @@ import {
   templateUrl: './sheet-music.component.html',
   styleUrls: ['./sheet-music.component.css'],
 })
-export class SheetMusicComponent implements AfterViewInit, OnDestroy {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+export class SheetMusicComponent implements OnInit, AfterViewInit, OnDestroy {
+  // static so they can be attached before the first render (avoids NG0100 in dev mode)
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   dataSource = new MatTableDataSource<SheetMusic>(SHEET_MUSIC);
   displayedColumns: string[] = ['title', 'idiom', 'composer', 'instrument', 'modified', 'actions'];
@@ -51,12 +51,13 @@ export class SheetMusicComponent implements AfterViewInit, OnDestroy {
     };
   }
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
 
-    // The members page puts this table in a column that is narrower than the window,
-    // so trim columns by the width available to the table rather than the window width.
+  ngAfterViewInit() {
+    // Trim columns by the width available to the table rather than the window width.
     if (typeof ResizeObserver !== 'undefined') {
       this.resizeObserver = new ResizeObserver(() => this.zone.run(() => this.updateColumns(this.host.nativeElement.clientWidth)));
       this.resizeObserver.observe(this.host.nativeElement);
@@ -75,8 +76,10 @@ export class SheetMusicComponent implements AfterViewInit, OnDestroy {
       this.displayedColumns = ['title', 'idiom', 'composer', 'instrument', 'modified', 'actions'];
     } else if (width >= 600) {
       this.displayedColumns = ['title', 'idiom', 'instrument', 'modified', 'actions'];
-    } else {
+    } else if (width >= 420) {
       this.displayedColumns = ['title', 'instrument', 'actions'];
+    } else {
+      this.displayedColumns = ['title', 'actions'];
     }
   }
 
@@ -150,18 +153,27 @@ export class SheetMusicComponent implements AfterViewInit, OnDestroy {
   }
 
   view(row: SheetMusic) {
-    this.dialog.open(SheetMusicDialog, {
-      data: { row, audioOnly: false },
+    this.dialog.open(DocumentDialog, {
+      data: { ...this.dialogData(row), file: row.file },
       maxWidth: '95vw',
       width: '1000px',
     });
   }
 
   play(row: SheetMusic) {
-    this.dialog.open(SheetMusicDialog, {
-      data: { row, audioOnly: true },
+    this.dialog.open(DocumentDialog, {
+      data: this.dialogData(row),
       maxWidth: '95vw',
     });
+  }
+
+  private dialogData(row: SheetMusic): DocumentDialogData {
+    return {
+      title: row.title,
+      subtitle: [row.idiom, row.part, row.composer].filter(Boolean).join(' · '),
+      notes: row.notes,
+      audio: row.audio,
+    };
   }
 
   download(row: SheetMusic) {

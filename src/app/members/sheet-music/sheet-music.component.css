@@ -67,3 +67,21 @@ td.mat-mdc-cell {
     padding: 16px;
     text-align: center;
 }
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+/* Phone layout: tighter cells and smaller action buttons so the table fits */
+table.compact td.mat-mdc-cell,
+table.compact th.mat-mdc-header-cell {
+    padding: 8px 6px;
+}
+
+table.compact .actions {
+    --mdc-icon-button-state-layer-size: 36px;
+}
+
+table.compact .actions button {
+    padding: 6px;
+}

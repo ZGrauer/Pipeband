@@ -1,0 +1,87 @@
+.intro {
+    margin: 0 0 16px;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+table {
+    width: 100%;
+}
+
+mat-icon {
+    color: #900916;
+}
+
+.result-row {
+    cursor: pointer;
+}
+
+.result-row:hover,
+.result-row.expanded {
+    background: rgba(144, 9, 22, 0.04);
+}
+
+.result-row.expanded td {
+    border-bottom: none;
+}
+
+.expand-cell {
+    width: 40px;
+    text-align: right;
+}
+
+tr.detail-row {
+    height: 0;
+}
+
+.detail-cell {
+    padding: 0 16px;
+}
+
+.detail {
+    padding: 4px 0 16px;
+}
+
+.scores,
+.files {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+}
+
+.files {
+    margin-top: 10px;
+}
+
+.files a {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: #900916;
+}
+
+.files mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+.date-cell {
+    white-space: nowrap;
+}
+
+.narrow-only,
+.date-short {
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .hide-narrow,
+    .date-long {
+        display: none;
+    }
+
+    .narrow-only,
+    .date-short {
+        display: inline;
+    }
+}

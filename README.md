@@ -241,7 +241,7 @@ For true security, consider:
 
 ## 🎼 Adding Sheet Music
 
-The members page has a **Sheet Music** panel (sortable and filterable by tune, idiom, composer, instrument and date). Scores are PDFs in `src/assets/sheet-music/`, listed in `src/app/members/sheet-music/sheet-music.data.ts`.
+The members area has a **Sheet Music** tab (`/members/music`) (sortable and filterable by tune, idiom, composer, instrument and date). Scores are PDFs in `src/assets/sheet-music/`, listed in `src/app/members/sheet-music/sheet-music.data.ts`.
 
 1. Copy the PDF into `src/assets/sheet-music/pipes/` or `src/assets/sheet-music/drums/` (lowercase, hyphenated file names, e.g. `wha-saw-the-forty-second.pdf`). Convert TIF scans to PDF first.
 2. Optionally copy a practice recording into `src/assets/sheet-music/audio/`.

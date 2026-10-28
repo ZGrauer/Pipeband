@@ -1,0 +1,60 @@
+<p class="intro">Judges' scores from past competitions. Tap a row for the judge breakdown and score sheets.</p>
+
+<table mat-table matSort matSortActive="date" matSortDirection="desc" [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+    <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+        <td mat-cell *matCellDef="let element" class="date-cell">
+            <span class="date-long">{{ element.date | date }}</span>
+            <span class="date-short">{{ element.date | date:'M/d/yy' }}</span>
+        </td>
+    </ng-container>
+    <ng-container matColumnDef="highlandGames">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Highland Games </th>
+        <td mat-cell *matCellDef="let element"> {{ element.highlandGames }} </td>
+    </ng-container>
+    <ng-container matColumnDef="grade">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="hide-narrow"> Grade </th>
+        <td mat-cell *matCellDef="let element" class="hide-narrow"> {{ element.grade }} </td>
+    </ng-container>
+    <ng-container matColumnDef="event">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="hide-narrow"> Event </th>
+        <td mat-cell *matCellDef="let element" class="hide-narrow"> {{ element.event }} </td>
+    </ng-container>
+    <ng-container matColumnDef="place">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Place </th>
+        <td mat-cell *matCellDef="let element"> {{ ordinal(element.place) }} </td>
+    </ng-container>
+    <ng-container matColumnDef="expand">
+        <th mat-header-cell *matHeaderCellDef aria-label="Details"></th>
+        <td mat-cell *matCellDef="let element" class="expand-cell">
+            <mat-icon>{{ expanded === element ? 'expand_less' : 'expand_more' }}</mat-icon>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="detail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length" class="detail-cell">
+            <div class="detail" *ngIf="expanded === element">
+                <div class="scores">
+                    <span class="narrow-only">Grade {{ element.grade }} · {{ element.event }}</span>
+                    <span>Piping 1: <strong>{{ element.pipingJudge1 }}</strong></span>
+                    <span>Piping 2: <strong>{{ element.pipingJudge2 }}</strong></span>
+                    <span>Drumming: <strong>{{ element.drummingJudge }}</strong></span>
+                    <span>Ensemble: <strong>{{ element.ensembleJudge }}</strong></span>
+                    <span>Total: <strong>{{ element.totalPoints }}</strong></span>
+                </div>
+                <div class="files">
+                    <a *ngFor="let file of element.files" [href]="file.path" target="_blank" rel="noopener noreferrer">
+                        <mat-icon>{{ file.path.endsWith('.mp3') ? 'headphones' : 'description' }}</mat-icon>{{ file.name }}
+                    </a>
+                </div>
+            </div>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="result-row"
+        [class.expanded]="expanded === element" (click)="toggle(element)"
+        tabindex="0" (keydown.enter)="toggle(element)" [attr.aria-expanded]="expanded === element"></tr>
+    <tr mat-row *matRowDef="let element; columns: ['detail']" class="detail-row"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons aria-label="Select page of results"></mat-paginator>
