@@ -8,7 +8,7 @@ This utility helps you generate secure bcrypt hash parts for your production mem
 2. Generates a secure bcrypt hash with salt (10 rounds, industry standard)
 3. Splits the hash into 3 parts
 4. Base64 encodes each part for obfuscation
-5. Provides the code to paste into `auth.service.ts`
+5. Saves the hash to `.member-password-hash`, which the build reads
 
 **Note:** Bcrypt is significantly more secure than SHA-256 for password hashing because:
 - It includes a built-in salt (automatically embedded in the hash)
@@ -78,31 +78,21 @@ Note: The bcrypt hash format is $2b$[cost]$[salt][hash] where the salt is embedd
 
 ## Step-by-Step Workflow for Production Builds
 
-### 1. Generate the Hash Parts
+### 1. Generate the Hash
 
 ```bash
 node scripts/generate-hash-parts.js "YourProdPassword"
 ```
 
-### 2. Update auth.service.ts
+This saves the hash to `.member-password-hash`, which git ignores.
 
-Open `src/app/auth.service.ts` and replace these lines:
-
-```typescript
-private readonly p1 = atob('ZjM2OWM5YzYwMzFmZWU4YmI1');
-private readonly p2 = atob('YjZkMDkzZDU0ZTcxMWJiZTM0');
-private readonly p3 = atob('YjQxYmJlMThlNjM2NWIzMzJkYjNjMjk2ZTM=');
-```
-
-With the output from step 1.
-
-### 3. Build for Production
+### 2. Build for Production
 
 ```bash
 npm run build
 ```
 
-### 4. Deploy to AWS
+### 3. Deploy to AWS
 
 Upload the `dist/pipeband` folder to your S3 bucket.
 
@@ -137,10 +127,9 @@ Upload the `dist/pipeband` folder to your S3 bucket.
 
 ## Changing Your Password
 
-1. Generate new hash parts with the new password
-2. Update `auth.service.ts` with the new parts
-3. Rebuild and redeploy
-4. All existing sessions will be invalidated (users need to log in again)
+1. Run the generator with the new password
+2. Rebuild and redeploy
+3. Existing sessions stay logged in until they expire after 24 hours
 
 ## Testing Locally
 

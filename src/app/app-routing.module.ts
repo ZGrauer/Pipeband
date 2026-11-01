@@ -45,6 +45,13 @@ const routes: Routes = [
     path: 'photo',
     loadChildren: () => import('./photos/photos.module').then(m => m.PhotosModule)
   },
+  {
+    path: '**',
+    loadComponent: () => import('./not-found/not-found.component').then(m => m.NotFoundComponent),
+    data: {
+      title: "Page Not Found - Kansas City St. Andrew Pipes & Drums"
+    }
+  },
 ];
 
 @NgModule({

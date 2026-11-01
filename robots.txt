@@ -1,8 +1,6 @@
 User-agent: *
 Disallow: /members
 Disallow: /assets/sheet-music/
-
-User-agent: *
-Allow: /
+Disallow: /assets/score-sheets/
 
 Sitemap: https://www.kcpipeband.org/sitemap.xml

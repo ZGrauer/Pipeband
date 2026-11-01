@@ -1,5 +1,7 @@
 # Bcrypt Security Upgrade Guide
 
+> **Note:** Parts of this guide are out of date. The password hash now lives in `.member-password-hash`, not `auth.service.ts` (see the README). The login runs only in the browser, so it keeps out casual visitors but is not real protection: it can be bypassed, and member files are reachable by direct URL. Don't put personal information in `src/assets`.
+
 ## 🔐 What Changed
 
 Your authentication system has been **upgraded from SHA-256 to bcrypt** for significantly enhanced security.

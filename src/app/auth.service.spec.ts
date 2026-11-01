@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-import * as sha256 from 'js-sha256';
 import { AuthService } from './auth.service';
 import { environment } from './../environments/environment'; // Import the actual environment
 
@@ -53,17 +52,6 @@ describe('AuthService', () => {
       expect(result).toBeFalse();
       expect(removeItemSpy).toHaveBeenCalledWith('token');
       expect(setItemSpy).not.toHaveBeenCalledWith('token', 'secretToken'); // Should not be called on failure
-    });
-
-    it('should re-hash the input password for comparison', () => {
-      // This test implicitly checks that hashing occurs.
-      // To be very explicit about the input password being hashed:
-      const sha256Spy = spyOn(sha256, 'sha256').and.callThrough();
-      const correctPasswordForHashTest = environment.memberPassword; // Re-define/access here for clarity
-      service.login(correctPasswordForHashTest); 
-      // The first call to sha256 inside login() is for the input userPassword.
-      // The MEMBER_PASSWORD was already hashed at service load time.
-      expect(sha256Spy.calls.allArgs().some(args => args[0] === correctPasswordForHashTest)).toBeTrue();
     });
   });
 

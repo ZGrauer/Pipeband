@@ -13,6 +13,7 @@ import { of, Subject } from 'rxjs';
 // Mock MetaService
 class MockMetaService {
   updateTitle = jasmine.createSpy('updateTitle');
+  updateCanonical = jasmine.createSpy('updateCanonical');
   updateDescription = jasmine.createSpy('updateDescription');
 }
 
@@ -117,7 +118,7 @@ describe('AppComponent', () => {
 
   it('should display copyright information in the footer', () => {
     const footerText = nativeElement.querySelector('footer .col-2')?.textContent;
-    expect(footerText).toContain('© Copyright 2023 Kansas City St. Andrew Pipes & Drums');
+    expect(footerText).toContain(`© Copyright ${new Date().getFullYear()} Kansas City St. Andrew Pipes & Drums`);
   });
 
   it('should initialize navLinks with correct number of links', () => {

@@ -40,6 +40,9 @@ testem.log
 /src/assets/Jim_Photos
 /src/assets/photos/*
 /src/assets/optimized/*
+/src/assets/Band_Roster.xlsx
+/.member-password-hash
+/src/app/member-hash.generated.ts
 
 # System files
 .DS_Store

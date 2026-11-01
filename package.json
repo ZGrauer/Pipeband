@@ -3,9 +3,13 @@
   "version": "1.0.5",
   "scripts": {
     "ng": "ng",
+    "prestart": "node scripts/write-member-hash.js",
     "start": "ng serve",
+    "prebuild": "node scripts/write-member-hash.js",
     "build": "ng build",
+    "prewatch": "node scripts/write-member-hash.js",
     "watch": "ng build --watch --configuration development",
+    "pretest": "node scripts/write-member-hash.js",
     "test": "ng test"
   },
   "private": true,
@@ -22,7 +26,6 @@
     "@angular/router": "^16.2.12",
     "angular-stl-model-viewer": "^9.0.0",
     "bcryptjs": "^2.4.3",
-    "js-sha256": "^0.10.1",
     "ng2-pdf-viewer": "^10.3.3",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

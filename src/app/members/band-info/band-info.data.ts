@@ -39,13 +39,6 @@ export const DOCUMENTS: BandDocument[] = [
     viewable: true,
   },
   {
-    title: 'Band Roster',
-    description: 'Active, associate, and student members with contact information (Excel)',
-    file: 'assets/Band_Roster.xlsx',
-    icon: 'table_chart',
-    viewable: false,
-  },
-  {
     title: 'Competition Travel Reimbursement Policy',
     description: 'How to get reimbursed for hotel and fuel when traveling to competitions (Word)',
     file: 'assets/KCSA Travel Reimbursement Policy 03.03.23.docx',

@@ -18,6 +18,10 @@
 
 const bcrypt = require('bcrypt');
 const readline = require('readline');
+const fs = require('fs');
+const path = require('path');
+
+const HASH_FILE = path.join(__dirname, '..', '.member-password-hash');
 
 // Bcrypt configuration
 const SALT_ROUNDS = 10; // Standard security level (2^10 = 1,024 iterations)
@@ -149,20 +153,13 @@ function generateAndDisplay(password) {
     console.log('   ✗ ERROR: Parts do not reconstruct correctly!');
   }
   
-  console.log('\n📝 Copy this code into your auth.service.ts:');
-  console.log('─'.repeat(80));
-  console.log(`
-  private readonly p1 = atob('${result.parts.part1.encoded}');
-  private readonly p2 = atob('${result.parts.part2.encoded}');
-  private readonly p3 = atob('${result.parts.part3.encoded}');
-  `);
-  console.log('─'.repeat(80));
-  
+  fs.writeFileSync(HASH_FILE, result.fullHash + '\n');
+  console.log(`\nSaved to ${HASH_FILE} (not committed).`);
+  console.log('npm start, npm run build and npm test pick it up automatically.');
+
   console.log('\n⚠️  SECURITY REMINDERS:');
   console.log('   • Delete this output from your terminal history');
   console.log('   • Do NOT commit the password to version control');
-  console.log('   • Keep this script output secure');
-  console.log('   • Update the hash parts in auth.service.ts before building for production');
   console.log('\n' + '='.repeat(80) + '\n');
 }
 

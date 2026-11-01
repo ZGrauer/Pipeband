@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
-
-import { TokenInterceptorService } from './token-interceptor.service';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -34,8 +32,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatTooltipModule,
     MatTabsModule
   ],
-  providers: [AuthService, AuthGuard,
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true } ],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

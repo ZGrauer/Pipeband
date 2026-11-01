@@ -1,21 +1,11 @@
 import { Injectable } from '@angular/core';
 import * as bcrypt from 'bcryptjs';
-import { environment } from './../environments/environment';
+import { MEMBER_HASH_PARTS } from './member-hash.generated';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  // Obfuscated bcrypt password hash split into 3 parts (Base64 encoded)
-  // To generate these for your production password, run:
-  //   node scripts/generate-hash-parts.js "YourProductionPassword"
-  // 
-  // Note: Bcrypt hashes include the salt as part of the hash string (standard format)
-  // Using the CHANGE_ME default password as example (bcrypt hash with 10 rounds):
-  private readonly p1 = atob('JDJiJDEwJER2NkMwWXcveTE0ckI=');
-  private readonly p2 = atob('UzZ2ajNnOS8ubjFQejNXNGdXdGk=');
-  private readonly p3 = atob('REt1cW1kazh5WktSRDlhbzNKcnU=');
-  
   // Session configuration
   private readonly SESSION_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
   private readonly TOKEN_KEY = 'kcsapb_auth_token';
@@ -30,8 +20,8 @@ export class AuthService {
    */
   login(userPassword: string): boolean {
     try {
-      // Reconstruct the bcrypt hash from obfuscated parts
-      const storedHash = this.p1 + this.p2 + this.p3;
+      // Reconstruct the bcrypt hash from obfuscated parts (written at build time by scripts/write-member-hash.js)
+      const storedHash = MEMBER_HASH_PARTS.map(part => atob(part)).join('');
       
       // Use bcrypt to securely compare the password with the stored hash
       // bcrypt.compareSync handles the salt extraction and comparison automatically

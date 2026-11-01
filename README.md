@@ -116,29 +116,15 @@ npm start
 
 The site includes a protected members-only section. To configure authentication:
 
-#### Option 1: Use Default Password (For Testing)
+The password hash is not stored in the code. Create it once on each machine you build from:
 
-Default password: `CHANGE_ME`
+```bash
+node scripts/generate-hash-parts.js "YourPassword"
+```
 
-The repository includes pre-configured hash parts for this password. You can start developing immediately.
+This saves the hash to `.member-password-hash`, which git ignores. `npm start`, `npm run build` and `npm test` then write it into the app automatically. You can also set a `MEMBER_PASSWORD_HASH` environment variable. Without either, the site still builds but the members login rejects every password.
 
-#### Option 2: Set Your Production Password
-
-1. **Generate Hash Parts**
-   ```bash
-   node scripts/generate-hash-parts.js "YourProductionPassword"
-   ```
-
-2. **Update `src/app/auth.service.ts`**
-   
-   Copy the output from the script and replace lines 15-17:
-   ```typescript
-   private readonly p1 = atob('YOUR_GENERATED_PART_1');
-   private readonly p2 = atob('YOUR_GENERATED_PART_2');
-   private readonly p3 = atob('YOUR_GENERATED_PART_3');
-   ```
-
-3. **Security Note**: Never commit production passwords to version control!
+**Security Note**: Never commit production passwords to version control!
 
 📚 **Detailed Guide**: See [scripts/README-HASH-GENERATOR.md](./scripts/README-HASH-GENERATOR.md)
 
@@ -300,11 +286,7 @@ This site is designed to run as a static website on AWS:
 
 ### Nginx Configuration
 
-The included `nginx.conf` provides:
-- Gzip compression
-- Browser caching headers
-- SPA routing support
-- Security headers
+The included `nginx.conf` provides SPA routing only. Production runs on S3 and CloudFront, not Nginx.
 
 ---
 
@@ -529,7 +511,7 @@ We welcome contributions! Please follow these guidelines:
 ### Common Issues
 
 #### Login Always Fails
-**Solution**: Verify the hash parts in `auth.service.ts` match your password. Regenerate with:
+**Solution**: Check the build output for a missing hash warning. Regenerate the hash with:
 ```bash
 node scripts/generate-hash-parts.js "YourPassword"
 ```
