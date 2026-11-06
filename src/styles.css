@@ -35,3 +35,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .loading #loading-overlay {
   display: flex !important; /* Use flex to keep spinner centered */
 }
+
+/* Links styled as Material buttons shouldn't pick up the default link underline */
+a.mat-mdc-button-base {
+  text-decoration: none;
+}

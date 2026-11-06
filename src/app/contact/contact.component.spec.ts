@@ -41,10 +41,10 @@ describe('ContactComponent', () => {
       expect(titleElement?.textContent).toContain('Booking');
     });
 
-    it('should contain a link to the "Hire Us" page', () => {
+    it('should link to the booking request on the "Hire Us" page', () => {
       const hireLink = bookingCard?.querySelector('a[routerLink="/hire"]');
       expect(hireLink).toBeTruthy();
-      expect(hireLink?.textContent).toContain('Hire Us');
+      expect(hireLink?.getAttribute('fragment')).toBe('booking-request');
     });
 
     it('should display Rory McKee\'s contact information', () => {

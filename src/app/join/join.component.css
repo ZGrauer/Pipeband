@@ -1,0 +1,74 @@
+.join {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 16px 32px;
+}
+
+.lead {
+    font-size: 1.15em;
+    line-height: 1.5;
+}
+
+.highlights {
+    list-style: none;
+    padding: 0;
+    margin: 24px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+}
+
+.highlights li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.highlights mat-icon {
+    flex: none;
+}
+
+.highlights b,
+.highlights span {
+    display: block;
+}
+
+.highlights span {
+    margin-top: 2px;
+}
+
+mat-card {
+    margin-bottom: 16px;
+}
+
+mat-card-title {
+    font-weight: bold;
+    font-size: large;
+}
+
+.contacts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.contacts mat-card {
+    margin-bottom: 0;
+}
+
+.contacts mat-card-actions {
+    padding: 8px 16px 0;
+}
+
+.contacts mat-card-actions mat-icon {
+    margin-right: 6px;
+}
+
+.address {
+    margin: 8px 0 0;
+    overflow-wrap: anywhere;
+}
+
+.more {
+    margin-top: 24px;
+}

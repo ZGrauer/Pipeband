@@ -123,9 +123,9 @@ describe('AppComponent', () => {
 
   it('should initialize navLinks with correct number of links', () => {
     expect(component.navLinks).toBeInstanceOf(Array);
-    expect(component.navLinks.length).toBe(8); // Based on current component code
+    expect(component.navLinks.length).toBe(9); // Based on current component code
     expect(component.navLinks[0].label).toBe('Home');
-    expect(component.navLinks[7].label).toBe('Members');
+    expect(component.navLinks[8].label).toBe('Members');
   });
   
   describe('Router event handling', () => {

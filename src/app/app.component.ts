@@ -48,29 +48,34 @@ export class AppComponent {
         index: 2,
       },
       {
+        label: 'Join Us',
+        link: './join',
+        index: 3,
+      },
+      {
         label: 'Music',
         link: './music',
-        index: 3,
+        index: 4,
       },
       {
         label: 'Photo Gallery',
         link: './photo',
-        index: 4,
+        index: 5,
       },
       {
         label: 'Performances',
         link: './schedule',
-        index: 5,
+        index: 6,
       },
       {
         label: 'Contact',
         link: './contact',
-        index: 6,
+        index: 7,
       },
       {
         label: 'Members',
         link: './members',
-        index: 7,
+        index: 8,
       },
     ];
 

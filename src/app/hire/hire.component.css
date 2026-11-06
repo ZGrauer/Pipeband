@@ -74,3 +74,53 @@ mat-card {
         grid-row: 1;
     }
 }
+
+.cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 20px 0 8px;
+}
+
+.cta mat-icon,
+form button mat-icon {
+    margin-right: 6px;
+}
+
+.options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.options mat-card {
+    margin-bottom: 0;
+}
+
+.options .note {
+    font-style: italic;
+}
+
+.tartan {
+    max-width: 475px;
+}
+
+.booking-request {
+    scroll-margin-top: 16px;
+    margin: 32px 0;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    column-gap: 16px;
+}
+
+.form-grid .wide {
+    grid-column: 1 / -1;
+}
+
+.sent {
+    margin-top: 16px;
+    font-weight: 500;
+}

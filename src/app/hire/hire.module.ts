@@ -5,6 +5,8 @@ import { MatFormFieldModule } from '@angular/material/form-field'; // Import Mat
 import { MatInputModule } from '@angular/material/input'; // Import MatInputModule
 import { MatButtonModule } from '@angular/material/button'; // Import MatButtonModule
 import { MatCardModule } from '@angular/material/card'; // Import MatCardModule
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 import { HireRoutingModule } from './hire-routing.module';
 import { HireComponent } from './hire.component';
@@ -19,7 +21,9 @@ import { HireComponent } from './hire.component';
     MatFormFieldModule, // Add MatFormFieldModule here
     MatInputModule, // Add MatInputModule here
     MatButtonModule, // Add MatButtonModule here
-    MatCardModule // Add MatCardModule here
+    MatCardModule, // Add MatCardModule here
+    MatIconModule,
+    MatSelectModule
   ]
 })
 export class HireModule { }
