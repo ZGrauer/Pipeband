@@ -7,7 +7,7 @@ How the members area is protected. Setup steps are in the README under "Member l
 1. A member types the password on `/login`. `src/app/auth.service.ts` POSTs it to `/api/login`.
 2. CloudFront sends `/api/*` to the login Lambda, `aws/member-login/index.mjs`.
 3. The Lambda compares the password with `MEMBER_PASSWORD_HASH` (scrypt, constant-time comparison). On a match it signs a CloudFront policy for `https://*/assets/members/*`, valid for 24 hours, and returns it as three cookies: `CloudFront-Policy`, `CloudFront-Signature` and `CloudFront-Key-Pair-Id`. They are `HttpOnly`, `Secure`, `SameSite=Strict` and only sent to `/assets/members/`.
-4. The CloudFront behavior for `/assets/members/*` restricts viewer access to the `members` key group. CloudFront checks the cookies on every member file request and refuses it without valid ones, before S3 is involved.
+4. The CloudFront behavior for `/assets/members/*` restricts viewer access to the `members` key group. CloudFront checks the cookies on every member file request and refuses it without valid ones. The files live in the private `kcpipeband-members` bucket, which only CloudFront can read (origin access control), because the main site bucket is public.
 5. The site stores only the session's end time in localStorage, so the members pages know whether to show. Logging out clears that and calls `/api/logout`, which expires the cookies.
 
 ## What is protected

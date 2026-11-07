@@ -234,22 +234,57 @@ Navigate to `http://localhost:8080/`
 
 ### AWS S3 + CloudFront Deployment
 
-This site is designed to run as a static website on AWS:
+The site is the S3 bucket `kcpipeband.org` behind CloudFront distribution `E1T489X7KKRXDW` (both in `deploy.config.json`). Deploy with:
 
-1. **Build the application**
-   ```bash
-   npm run build
-   ```
+```bash
+npm run deploy
+```
 
-2. **Upload to S3**
-   ```bash
-   aws s3 sync dist/pipeband s3://your-bucket-name --delete
-   ```
+It needs the AWS CLI, signed in with `aws login`. It then:
 
-3. **Invalidate CloudFront cache**
-   ```bash
-   aws cloudfront create-invalidation --distribution-id YOUR_DIST_ID --paths "/*"
-   ```
+1. Checks you're on a clean `main` and asks before going on if not.
+2. Builds the site (skip with `npm run deploy -- --skip-build`).
+3. Refuses to continue if the build contains private files: the roster, `.3mf` files, `Jim_Photos`, keys or a password hash.
+4. Does a dry run and lists every file it would delete. It warns loudly before deleting photos, because photos aren't in git and the S3 copy may be the only one. `npm run deploy -- --dry-run` stops here.
+5. Asks you to type `deploy`, then uploads in an order that never breaks the live site: other files, then member files, then the JavaScript and CSS, then the HTML, then deletions. Old JavaScript bundles are kept for 30 days, so a visitor with an older page cached still works.
+6. Clears the CloudFront cache (`/*`).
+
+**Cache headers.** Each upload sets `Cache-Control`:
+
+| Files | Header | Why |
+|---|---|---|
+| Root `*.js` and `*.css` | `public, max-age=31536000, immutable` | Their names change whenever they change |
+| `*.html` | `public, max-age=0, s-maxage=86400, must-revalidate` | Browsers check for a new version every visit; CloudFront keeps it until the next deploy clears the cache |
+| `assets/members/*` | `private, max-age=3600` | Member files, cached by the member's browser only |
+| Everything else | `public, max-age=86400` | Photos and other assets |
+
+`aws s3 sync` only uploads files that changed, so older images get these headers the next time they change.
+
+#### S3 versioning (one time)
+
+Versioning keeps the previous copy of anything a deploy overwrites or deletes, so a mistake can be undone. The lifecycle rule removes old copies after 30 days, so storage stays small. `npm run deploy` warns while versioning is off.
+
+```bash
+aws s3api put-bucket-versioning --bucket kcpipeband.org --versioning-configuration Status=Enabled
+```
+
+```bash
+aws s3api put-bucket-lifecycle-configuration --bucket kcpipeband.org --lifecycle-configuration file://aws/s3-lifecycle.json
+```
+
+To restore a file, open it in the S3 console, turn on **Show versions**, and download or copy back the older version.
+
+#### Security headers (one time)
+
+In the CloudFront distribution, edit the **default behavior** (and the `/api/*` and `/assets/members/*` behaviors once they exist). Under **Response headers policy**, choose the managed **SecurityHeadersPolicy** and save. It adds HSTS, `X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN`, `Referrer-Policy: strict-origin-when-cross-origin` and `X-XSS-Protection`, at no cost.
+
+Check it after the distribution deploys:
+
+```bash
+curl -sI https://www.kcpipeband.org/ | grep -i strict-transport
+```
+
+To roll back, set the response headers policy back to **None**.
 
 #### Page shells and the CloudFront Function
 
@@ -268,7 +303,7 @@ To roll back, remove the association from the default behavior. The site then wo
 
 #### Member login (AWS)
 
-One-time setup. Do steps 1 to 4 **before** deploying a build that uses the login Lambda, or nobody can log in. It should cost nothing at this site's traffic.
+One-time setup. Do steps 1 to 5 **before** deploying a build that uses the login Lambda, or nobody can log in. It should cost nothing at this site's traffic.
 
 1. **Signing key.** Run `node scripts/generate-cloudfront-key.js`. It saves a key pair in `cloudfront-keys/` (git-ignored) and prints both keys.
    - CloudFront → **Public keys** → **Create public key**: paste the public key. Note the key's **ID**.
@@ -279,17 +314,23 @@ One-time setup. Do steps 1 to 4 **before** deploying a build that uses the login
    - **Configuration → Environment variables**: `MEMBER_PASSWORD_HASH` (step 2), `CLOUDFRONT_KEY_PAIR_ID` (the key ID from step 1), `CLOUDFRONT_PRIVATE_KEY_BASE64` (the long line from step 1).
    - **Configuration → Concurrency**: reserved concurrency **2**.
    - **Configuration → Function URL → Create**: auth type **NONE**. Copy the URL's host name, for example `abc123.lambda-url.us-east-1.on.aws`.
-4. **CloudFront.** In the distribution:
+4. **Private bucket for member files.** The main bucket is public (CloudFront reads it through its S3 website address), so member files kept there could be fetched straight from S3, skipping the login. They go in a separate private bucket instead.
+   - S3 → **Create bucket**: name `kcpipeband-members`, region **us-east-1**, leave **Block all public access** on.
+   - Set `"membersBucket": "kcpipeband-members"` in `deploy.config.json` and commit it. `npm run deploy` then sends `assets/members/` there instead of the main bucket.
+5. **CloudFront.** In the distribution:
    - **Origins → Create origin**: the Function URL host name, protocol **HTTPS only**.
-   - **Behaviors → Create behavior**: path `/api/*`, that origin, viewer protocol **Redirect HTTP to HTTPS**, allowed methods **GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE**, cache policy **CachingDisabled**, origin request policy **AllViewerExceptHostHeader**.
-   - **Behaviors → Create behavior**: path `/assets/members/*`, the S3 origin, **Restrict viewer access: Yes**, trusted key group `members`, cache policy **CachingOptimized**.
-5. **Deploy** the site as above and invalidate `/*`.
+   - **Origins → Create origin**: `kcpipeband-members.s3.us-east-1.amazonaws.com`, **Origin access: Origin access control settings**, and **Create new OAC** with the defaults. After saving, use **Copy policy** and paste it into the `kcpipeband-members` bucket's **Permissions → Bucket policy**.
+   - **Behaviors → Create behavior**: path `/api/*`, the Function URL origin, viewer protocol **Redirect HTTP to HTTPS**, allowed methods **GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE**, cache policy **CachingDisabled**, origin request policy **AllViewerExceptHostHeader**.
+   - **Behaviors → Create behavior**: path `/assets/members/*`, the `kcpipeband-members` origin, viewer protocol **Redirect HTTP to HTTPS**, **Restrict viewer access: Yes**, trusted key group `members`, cache policy **CachingOptimized**.
+6. **Deploy** with `npm run deploy`.
 
-Check it: log in on the live site and open a score. Then paste the score's address into a private window; it should be refused.
+Check it: log in on the live site and open a score. Then paste the score's address into a private window; it should be refused. `http://kcpipeband.org.s3-website-us-east-1.amazonaws.com/assets/members/` should have nothing to serve, either.
 
 **Changing the password:** rerun step 2, paste the new value into `MEMBER_PASSWORD_HASH`, and save. Existing sessions last until they expire.
 
 **Rolling back:** set **Restrict viewer access** on the `/assets/members/*` behavior back to **No**. Member files then open without a login again, and logging in still works.
+
+**Adding a member file:** put it under `src/assets/members/`, list it in the members page's data file, and deploy.
 
 ### Nginx Configuration
 

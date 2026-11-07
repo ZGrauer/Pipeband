@@ -6,6 +6,7 @@
     "start": "node scripts/dev-server.js",
     "build": "ng build",
     "postbuild": "node scripts/write-page-shells.js",
+    "deploy": "node scripts/deploy.js",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
