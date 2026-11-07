@@ -8,7 +8,12 @@
             <mat-icon>download</mat-icon>
         </button>
     </div>
-    <pdf-viewer *ngIf="data.file"
+    <div *ngIf="loadFailed" class="load-failed" role="alert">
+        <p>This file didn't open. Your login may have expired, so please log in again.</p>
+        <button mat-flat-button color="primary" (click)="logInAgain()">Log in again</button>
+    </div>
+    <pdf-viewer *ngIf="data.file && !loadFailed"
+                (error)="loadFailed = true"
                 [src]="fileUrl"
                 [render-text]="true"
                 [original-size]="false"

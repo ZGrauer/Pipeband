@@ -5,52 +5,125 @@
             unforgettable! We have over forty active pipers and drummers of all ages who will assist you in making your
             private or public engagement truly special. We can work with you to provide a Scottish (or even Irish) flair
             to your next event, which is sure to leave you and your guests with fond memories for years to come!</p>
+        <div class="cta">
+            <button mat-flat-button color="primary" type="button" (click)="scrollToForm()">
+                <mat-icon>event</mat-icon>
+                Request a booking
+            </button>
+            <a mat-stroked-button href="mailto:BusinessManager@kcpipeband.org">
+                <mat-icon>mail</mat-icon>
+                Email us
+            </a>
+        </div>
         <p>As Kansas City's premier pipe band, we are proud to provide award-winning individual bagpipers, small
             ensembles, or even a full band for your next event in a number of price ranges as your taste and resources
             fancy. We also have affiliations with Scottish Highland dancers, Irish step dancers, and Celtic folk bands
             should you want to create a one-of-a-kind treat for your guests.</p>
-        <img class="responsive" width="3000" height="1460" src="../../assets/2022_KCMO_st_patrick_parade.webp">
-        <p>Solo Pipers are appropriate for weddings, birthday parties, funerals, dinner parties, dedication ceremonies,
-            memorial ceremonies, anniversary parties, and just about anything else you can think of! Please inquire
-            about hiring a drummer to accompany the piper, as this adds another powerful dimension to the music.</p>
-        <p>Ensembles, which usually consist of two to four bagpipers or two to three pipers and a drummer, are well
-            suited for smaller events, especially when space is a strong consideration. This size of group would be
-            ideal for your next business luncheon, your wedding reception, golf tournaments, or even your next party,
-            but of course these are only a few ideas. The possibilities are endless!</p>
-        <p>A Mini Band consists of four pipers and two drummers, and is appropriate for medium sized events where the
-            'feel' of a larger band is required, but where space or volume is a hindrance to hosting a Full Band. This
-            option gives a 'fuller' sound and appearance than the Ensemble option, but would be equally well tailored
-            for such occasions.</p>
-        <p>A Full Band is our most visually and audibly impressive option. It consists of eight to ten pipers and three
-            to four drummers. Often we provide more performers, but due to possible scheduling conflicts of individual
-            band members, this is sometimes not possible. The above numbers are more than adequate to provide the
-            unmistakable presence of a full pipe band. This option is optimal for larger events such as university
-            commencements, concerts, dinners, military events, parades, and larger corporate events. But don't let the
-            scope of this option hinder your final decision; we are happy to offer this option for weddings and other
-            smaller events if you want a truly once in a life-time experience!*</p>
+        <img class="responsive" width="3000" height="1460" src="../../assets/2022_KCMO_st_patrick_parade.webp"
+            alt="The band marching in the 2022 Kansas City St. Patrick's Day Parade">
+
+        <h3>Choose your group</h3>
+        <div class="options">
+            <mat-card *ngFor="let option of groupOptions" class="option">
+                <mat-card-header>
+                    <mat-card-title>{{ option.name }}</mat-card-title>
+                    <mat-card-subtitle>{{ option.size }}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>{{ option.bestFor }}</p>
+                    <p *ngIf="option.note" class="note">{{ option.note }}</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <p>We often provide more performers than listed, but scheduling around individual members sometimes makes
+            that impossible. Not sure which fits? Tell us about your event and we'll help you choose.</p>
+
         <p>For performances our members appear in traditional highland dress which consists of: Scottish kilt, sporran,
             ghillie brogues (shoes), daywear jacket/vest, shirt, tie, and glengarry (hat). Our uniform kilt is the
             MacDonnell of Keppoch tartan pictured below.**</p>
-        <p>Feel free to contact us regarding any questions you might have.</p>
-        <p>I am positive that you will be pleased with our level of professional customer care and I sincerely hope that
-            you will draw on our outstanding services for your next engagement!</p>
-        <br>
+        <mat-card class="tartan">
+            <mat-card-header>
+                <mat-card-title>Uniform kilt is the MacDonnell of Keppoch tartan</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <img class="responsive" width="400" height="300" src="../../assets/tartan.webp"
+                    alt="MacDonnell of Keppoch tartan">
+            </mat-card-content>
+        </mat-card>
+
+        <section #bookingRequest id="booking-request" class="booking-request" aria-labelledby="booking-request-title">
+            <h3 id="booking-request-title">Request a booking</h3>
+            <p>Fill this in and press <b>Create email</b>. Your email app opens with the details filled in, ready to
+                send to our Business Manager.</p>
+            <form [formGroup]="bookingForm" (ngSubmit)="submit()" novalidate>
+                <div class="form-grid">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Your name</mat-label>
+                        <input matInput formControlName="name" autocomplete="name">
+                        <mat-error>Please enter your name</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" formControlName="email" autocomplete="email">
+                        <mat-error>Please enter a valid email address</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Phone (optional)</mat-label>
+                        <input matInput type="tel" formControlName="phone" autocomplete="tel">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Type of event</mat-label>
+                        <mat-select formControlName="eventType">
+                            <mat-option *ngFor="let type of eventTypes" [value]="type">{{ type }}</mat-option>
+                        </mat-select>
+                        <mat-error>Please choose the type of event</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Event date</mat-label>
+                        <input matInput type="date" formControlName="date" [min]="today">
+                        <mat-error *ngIf="bookingForm.controls.date.hasError('past')">Please choose a date that hasn't passed</mat-error>
+                        <mat-error *ngIf="bookingForm.controls.date.hasError('required')">Please choose the event date</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Start time (optional)</mat-label>
+                        <input matInput type="time" formControlName="time">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="wide">
+                        <mat-label>Venue or location</mat-label>
+                        <input matInput formControlName="location" placeholder="Venue name, city">
+                        <mat-error>Please tell us where the event is</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="wide">
+                        <mat-label>Group</mat-label>
+                        <mat-select formControlName="group">
+                            <mat-option *ngFor="let choice of groupChoices" [value]="choice">{{ choice }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="wide">
+                        <mat-label>Anything else? (optional)</mat-label>
+                        <textarea matInput formControlName="details" rows="4" [maxlength]="detailsMaxLength"
+                            placeholder="Indoors or outdoors, how long you'd like us to play, songs you'd like to hear"></textarea>
+                        <mat-hint align="end">{{ bookingForm.controls.details.value.length }} / {{ detailsMaxLength }}</mat-hint>
+                    </mat-form-field>
+                </div>
+                <button mat-flat-button color="primary" type="submit">
+                    <mat-icon>send</mat-icon>
+                    Create email
+                </button>
+            </form>
+            <p *ngIf="emailOpened" class="sent" role="status">
+                Your email app should now be open with your request. Press send there to reach us. If nothing opened,
+                email <a href="mailto:BusinessManager@kcpipeband.org">BusinessManager&#64;kcpipeband.org</a> with
+                these details.
+            </p>
+        </section>
+
         <p><i>* Please allow a minimum of one to two months in advance to arrange for the Full Band option. Sometimes
                 more or less time will be necessary to make arrangements depending upon the band schedule and personal
                 scheduling issues.</i></p>
         <p><i>** Members of the full band and small groups will appear in this uniform; however, solo performers may
                 choose to wear their own (family) kilts and highland dress accessories for such events at their
                 leisure.</i></p>
-        
-        
-        <mat-card style="max-width: 475px">
-            <mat-card-header>
-                <mat-card-title>Uniform kilt is the MacDonnell of Keppoch tartan</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <img class="responsive" width="400" height="300" src="../../assets/tartan.webp">
-            </mat-card-content>
-        </mat-card>
     </div>
     <div class="left-article">
         <mat-card>
@@ -64,6 +137,6 @@
                 </p>
             </mat-card-content>
         </mat-card>
-        
+
     </div>
 </div>

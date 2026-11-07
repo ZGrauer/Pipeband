@@ -1,0 +1,42 @@
+{
+  "home": {
+    "path": "",
+    "title": "Kansas City St. Andrew Pipes & Drums",
+    "description": "For 60 years Kansas City St. Andrew Pipes & Drums have worked to preserve the traditional music of Scotland. We are primarily a community-oriented band committed to furthering the development of piping and drumming in Kansas City."
+  },
+  "about": {
+    "path": "about",
+    "title": "About Us - Kansas City St. Andrew Pipes & Drums",
+    "description": "The band's past performances and partnerships, from parades and concerts to university commencements, plus our awards, honors and tartan."
+  },
+  "hire": {
+    "path": "hire",
+    "title": "Hire Us - Kansas City St. Andrew Pipes & Drums",
+    "description": "From weddings to sold-out concerts, the Kansas City St. Andrew Pipes and Drums will make your event unforgettable! As Kansas City's premier pipe band, we are proud to provide award-winning individual bagpipers, small ensembles, or even a full band for your next event."
+  },
+  "join": {
+    "path": "join",
+    "title": "Join the Band - Kansas City St. Andrew Pipes & Drums",
+    "description": "Learn the bagpipes or drums for free in Kansas City. The Kansas City St. Andrew Pipes & Drums offers free weekly lessons, charges no dues and welcomes new members of any age."
+  },
+  "music": {
+    "path": "music",
+    "title": "Music - Kansas City St. Andrew Pipes & Drums",
+    "description": "List of the tunes the band plays for competitions, parades, and events."
+  },
+  "photo": {
+    "path": "photo",
+    "title": "Photo Gallery - Kansas City St. Andrew Pipes & Drums",
+    "description": "Photo galleries of the band's past performances."
+  },
+  "schedule": {
+    "path": "schedule",
+    "title": "Schedule - Kansas City St. Andrew Pipes & Drums",
+    "description": "A schedule of the band's upcoming performances for the year."
+  },
+  "contact": {
+    "path": "contact",
+    "title": "Contact Us - Kansas City St. Andrew Pipes & Drums",
+    "description": "Contact the band about piping or drumming lessons, or booking the band for your event."
+  }
+}

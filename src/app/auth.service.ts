@@ -1,122 +1,76 @@
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import * as bcrypt from 'bcryptjs';
-import { environment } from './../environments/environment';
+import { firstValueFrom } from 'rxjs';
 
+// 'invalid' is a wrong password; 'unavailable' means the login service couldn't be reached
+export type LoginResult = 'ok' | 'invalid' | 'unavailable';
+
+/**
+ * Members login. The password is checked by the login Lambda (aws/member-login/index.mjs) at
+ * /api/login, which sets the CloudFront cookies that unlock /assets/members/*. This service
+ * only remembers when that session ends, so the members pages know whether to show.
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  // Obfuscated bcrypt password hash split into 3 parts (Base64 encoded)
-  // To generate these for your production password, run:
-  //   node scripts/generate-hash-parts.js "YourProductionPassword"
-  // 
-  // Note: Bcrypt hashes include the salt as part of the hash string (standard format)
-  // Using the CHANGE_ME default password as example (bcrypt hash with 10 rounds):
-  private readonly p1 = atob('JDJiJDEwJER2NkMwWXcveTE0ckI=');
-  private readonly p2 = atob('UzZ2ajNnOS8ubjFQejNXNGdXdGk=');
-  private readonly p3 = atob('REt1cW1kazh5WktSRDlhbzNKcnU=');
-  
-  // Session configuration
-  private readonly SESSION_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
   private readonly TOKEN_KEY = 'kcsapb_auth_token';
-  private readonly AUTH_TIME_KEY = 'kcsapb_auth_time';
+  private readonly EXPIRES_KEY = 'kcsapb_auth_expires';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   /**
-   * Authenticate user with password using bcrypt
+   * Check the password with the login service
    * @param userPassword - Password entered by user
-   * @returns true if authentication successful, false otherwise
    */
-  login(userPassword: string): boolean {
+  async login(userPassword: string): Promise<LoginResult> {
     try {
-      // Reconstruct the bcrypt hash from obfuscated parts
-      const storedHash = this.p1 + this.p2 + this.p3;
-      
-      // Use bcrypt to securely compare the password with the stored hash
-      // bcrypt.compareSync handles the salt extraction and comparison automatically
-      const isValid = bcrypt.compareSync(userPassword, storedHash);
-      
-      if (isValid) {
-        // Generate a session token with timestamp
-        const sessionToken = btoa(Date.now() + ':' + Math.random().toString(36).substring(2, 15));
-        localStorage.setItem(this.TOKEN_KEY, sessionToken);
-        localStorage.setItem(this.AUTH_TIME_KEY, Date.now().toString());
-        return true;
-      } else {
+      const reply = await firstValueFrom(
+        this.http.post<{ expiresAt?: unknown }>('/api/login', { password: userPassword })
+      );
+      // Anything but the service's own reply (CloudFront's HTML fallback, say) isn't a login
+      if (typeof reply?.expiresAt !== 'number') {
         this.clearAuth();
-        return false;
+        return 'unavailable';
       }
+      const sessionToken = btoa(Date.now() + ':' + Math.random().toString(36).substring(2, 15));
+      localStorage.setItem(this.TOKEN_KEY, sessionToken);
+      localStorage.setItem(this.EXPIRES_KEY, reply.expiresAt.toString());
+      return 'ok';
     } catch (error) {
-      console.error('Authentication error:', error);
       this.clearAuth();
-      return false;
+      return error instanceof HttpErrorResponse && error.status === 401 ? 'invalid' : 'unavailable';
     }
   }
 
   /**
-   * Check if user is currently logged in with valid session
-   * @returns true if logged in with valid session, false otherwise
+   * Check if user is currently logged in with a session that hasn't expired
    */
   loggedIn(): boolean {
     const token = localStorage.getItem(this.TOKEN_KEY);
-    const authTime = localStorage.getItem(this.AUTH_TIME_KEY);
-    
-    if (!token || !authTime) {
+    const expires = Number(localStorage.getItem(this.EXPIRES_KEY));
+
+    if (!token || !expires) {
       return false;
     }
-
-    // Check if session has expired
-    const elapsed = Date.now() - parseInt(authTime);
-    
-    if (elapsed > this.SESSION_DURATION) {
+    if (Date.now() >= expires) {
       this.clearAuth();
       return false;
     }
-    
     return true;
   }
 
   /**
-   * Get the current authentication token
-   * @returns token string or null if not authenticated
-   */
-  getToken(): string | null {
-    if (this.loggedIn()) {
-      return localStorage.getItem(this.TOKEN_KEY);
-    }
-    return null;
-  }
-
-  /**
-   * Log out the current user
+   * Log out the current user, including the file cookies
    */
   logout(): void {
     this.clearAuth();
+    this.http.post('/api/logout', {}).subscribe({ error: () => undefined });
   }
 
-  /**
-   * Get remaining session time in milliseconds
-   * @returns milliseconds remaining, or 0 if not logged in
-   */
-  getSessionTimeRemaining(): number {
-    const authTime = localStorage.getItem(this.AUTH_TIME_KEY);
-    
-    if (!authTime) {
-      return 0;
-    }
-    
-    const elapsed = Date.now() - parseInt(authTime);
-    const remaining = this.SESSION_DURATION - elapsed;
-    
-    return remaining > 0 ? remaining : 0;
-  }
-
-  /**
-   * Clear all authentication data from localStorage
-   */
   private clearAuth(): void {
     localStorage.removeItem(this.TOKEN_KEY);
-    localStorage.removeItem(this.AUTH_TIME_KEY);
+    localStorage.removeItem(this.EXPIRES_KEY);
+    localStorage.removeItem('kcsapb_auth_time'); // Left behind by the old browser-only login
   }
 }

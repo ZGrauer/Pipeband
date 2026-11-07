@@ -39,3 +39,7 @@ mat-icon {
         min-width: 0;
     }
 }
+
+.load-failed {
+    padding: 16px 0;
+}

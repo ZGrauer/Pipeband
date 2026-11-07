@@ -21,7 +21,7 @@ A modern, responsive Angular web application for the [Kansas City St. Andrew Pip
 - **ℹ️ About Us** - Band history, achievements, and member information
 
 ### Member Features (Protected)
-- **🔐 Secure Authentication** - Bcrypt-based password hashing with rate limiting
+- **🔐 Real Protection** - The password is checked on a server, and member files need a login cookie that CloudFront checks
 - **🏆 Competition Results** - Detailed score sheets and judge recordings
 - **📄 Band Documents** - Constitution, policies, and member resources
 - **🎖️ 3D Models** - STL files for band cap badge and kilt pin
@@ -31,7 +31,7 @@ A modern, responsive Angular web application for the [Kansas City St. Andrew Pip
 - **📱 Responsive Design** - Optimized for mobile, tablet, and desktop
 - **⚡ Performance Optimized** - Lazy loading, WebP images, code splitting
 - **♿ Accessible** - WCAG compliant with semantic HTML and ARIA labels
-- **🔒 Security Enhanced** - Client-side rate limiting, bcrypt hashing, session management
+- **🔒 Security Enhanced** - Server-side password check, CloudFront signed cookies for member files, session management
 - **🐳 Docker Support** - Containerized deployment with Nginx
 - **📊 SEO Optimized** - Meta tags, OpenGraph, Twitter Cards, structured data
 
@@ -114,33 +114,17 @@ npm start
 
 ### Member Authentication Setup
 
-The site includes a protected members-only section. To configure authentication:
+The members password is checked by a small AWS Lambda, and member files under `src/assets/members/` need the signed cookies it sets. See [Member login (AWS)](#member-login-aws) for the one-time setup.
 
-#### Option 1: Use Default Password (For Testing)
+For local development, create the password hash once:
 
-Default password: `CHANGE_ME`
+```bash
+node scripts/generate-member-password-hash.js
+```
 
-The repository includes pre-configured hash parts for this password. You can start developing immediately.
+This saves an scrypt hash to `.member-password-hash`, which git ignores. `npm start` runs the login Lambda locally with it, so logging in works on `http://localhost:4200`. You can also set a `MEMBER_PASSWORD_HASH` environment variable. Without either, the members login rejects every password.
 
-#### Option 2: Set Your Production Password
-
-1. **Generate Hash Parts**
-   ```bash
-   node scripts/generate-hash-parts.js "YourProductionPassword"
-   ```
-
-2. **Update `src/app/auth.service.ts`**
-   
-   Copy the output from the script and replace lines 15-17:
-   ```typescript
-   private readonly p1 = atob('YOUR_GENERATED_PART_1');
-   private readonly p2 = atob('YOUR_GENERATED_PART_2');
-   private readonly p3 = atob('YOUR_GENERATED_PART_3');
-   ```
-
-3. **Security Note**: Never commit production passwords to version control!
-
-📚 **Detailed Guide**: See [scripts/README-HASH-GENERATOR.md](./scripts/README-HASH-GENERATOR.md)
+**Security Note**: Never commit production passwords to version control!
 
 ### Environment Files
 
@@ -154,21 +138,20 @@ The repository includes pre-configured hash parts for this password. You can sta
 ### Development Server
 
 ```bash
-ng serve
-# or
 npm start
 ```
 
-Navigate to `http://localhost:4200/`. The application will automatically reload when you change source files.
+This starts the members login API on port 4310 and `ng serve`, which passes `/api` to it. Navigate to `http://localhost:4200/`. The application will automatically reload when you change source files.
 
 ### Available npm Scripts
 
 | Command | Description |
 |---------|-------------|
-| `npm start` | Start development server |
+| `npm start` | Start the development server with the members login API |
 | `npm run build` | Build for production |
 | `npm run watch` | Build with file watching |
 | `npm test` | Run unit tests |
+| `node --test aws/` | Run the login Lambda's tests |
 | `ng generate component component-name` | Generate new component |
 | `ng generate service service-name` | Generate new service |
 
@@ -198,42 +181,12 @@ ng generate module module-name
 
 ## 🔒 Security Features
 
-This application implements multiple layers of security for the members-only section:
+1. **Password checked on a server.** `src/app/auth.service.ts` sends the password to `/api/login`, which CloudFront routes to the login Lambda (`aws/member-login/index.mjs`). The site's code holds no password or hash.
+2. **Member files need a login.** On a correct password the Lambda sets CloudFront signed cookies (HttpOnly, Secure, only sent to `/assets/members/`). CloudFront refuses any `/assets/members/*` request without valid cookies, so a copied file URL doesn't work for anyone else.
+3. **Slow to guess.** The hash is scrypt, a wrong password waits half a second, and the Lambda's reserved concurrency of 2 caps how many guesses can run at once. The login page also locks for 15 minutes after 5 wrong passwords.
+4. **24-hour sessions.** The cookies and the members pages both expire after 24 hours (`SESSION_HOURS`), and logging out clears both.
 
-### 1. **Bcrypt Password Hashing** ✅
-- Industry-standard bcrypt algorithm with 10 salt rounds
-- Hash split into 3 obfuscated parts to make it harder to find in JS bundle
-- Automatic salt generation and management
-- ~100ms computation time prevents brute-force attacks
-
-### 2. **Rate Limiting** ✅
-- 5 failed login attempts trigger 15-minute lockout
-- Lockout persists across page refreshes
-- Live countdown timer shows remaining lockout time
-- Visual feedback on remaining attempts
-
-### 3. **Session Management** ✅
-- 24-hour automatic session expiration
-- Secure token generation with timestamps
-- Session validation on every protected route access
-- Manual logout functionality
-
-### 4. **Security Considerations**
-
-⚠️ **Important**: This is client-side authentication suitable for:
-- ✅ Non-sensitive member content
-- ✅ Competition scores and band documents
-- ✅ Keeping casual visitors out
-
-❌ **Not suitable for**:
-- Personal information
-- Financial data
-- HIPAA/GDPR protected content
-
-For true security, consider:
-- AWS Lambda@Edge for edge authentication
-- AWS Cognito for managed auth
-- API Gateway + Lambda for server-side validation
+The members pages themselves (lists of tunes, links, the Band Info text) are part of the site's code, so they aren't secret; everything sensitive should be a file under `src/assets/members/`. Keep the GitHub repository private, because it contains those files.
 
 📚 **Detailed Security Guide**: See [SECURITY-IMPLEMENTATION.md](./SECURITY-IMPLEMENTATION.md)
 
@@ -241,15 +194,15 @@ For true security, consider:
 
 ## 🎼 Adding Sheet Music
 
-The members area has a **Sheet Music** tab (`/members/music`) (sortable and filterable by tune, idiom, composer, instrument and date). Scores are PDFs in `src/assets/sheet-music/`, listed in `src/app/members/sheet-music/sheet-music.data.ts`.
+The members area has a **Sheet Music** tab (`/members/music`) (sortable and filterable by tune, idiom, composer, instrument and date). Scores are PDFs in `src/assets/members/sheet-music/`, listed in `src/app/members/sheet-music/sheet-music.data.ts`.
 
-1. Copy the PDF into `src/assets/sheet-music/pipes/` or `src/assets/sheet-music/drums/` (lowercase, hyphenated file names, e.g. `wha-saw-the-forty-second.pdf`). Convert TIF scans to PDF first.
-2. Optionally copy a practice recording into `src/assets/sheet-music/audio/`.
+1. Copy the PDF into `src/assets/members/sheet-music/pipes/` or `src/assets/members/sheet-music/drums/` (lowercase, hyphenated file names, e.g. `wha-saw-the-forty-second.pdf`). Convert TIF scans to PDF first.
+2. Optionally copy a practice recording into `src/assets/members/sheet-music/audio/`.
 3. Add one entry to `SHEET_MUSIC` with the title, idiom, composer, instrument and today's date as `modified` (`YYYY-MM-DD`). Use the same `tune` value on a tune's pipe and drum scores so they link together.
 
 Scores modified in the last 30 days show a **New** icon automatically. When a score is revised, update its `modified` date.
 
-> **Note:** the members login is checked in the browser only, so the PDFs and recordings can be downloaded by anyone who knows the exact file URL. `robots.txt` keeps search engines out of `/assets/sheet-music/`, but do not put anything confidential there.
+> **Note:** everything under `src/assets/members/` needs a members login once the CloudFront setup in [Member login (AWS)](#member-login-aws) is done.
 
 ## 🏗️ Building & Deployment
 
@@ -281,30 +234,107 @@ Navigate to `http://localhost:8080/`
 
 ### AWS S3 + CloudFront Deployment
 
-This site is designed to run as a static website on AWS:
+The site is the S3 bucket `kcpipeband.org` behind CloudFront distribution `E1T489X7KKRXDW` (both in `deploy.config.json`). Deploy with:
 
-1. **Build the application**
-   ```bash
-   npm run build
-   ```
+```bash
+npm run deploy
+```
 
-2. **Upload to S3**
-   ```bash
-   aws s3 sync dist/pipeband s3://your-bucket-name --delete
-   ```
+It needs the AWS CLI, signed in with `aws login`. It then:
 
-3. **Invalidate CloudFront cache**
-   ```bash
-   aws cloudfront create-invalidation --distribution-id YOUR_DIST_ID --paths "/*"
-   ```
+1. Checks you're on a clean `main` and asks before going on if not.
+2. Builds the site (skip with `npm run deploy -- --skip-build`).
+3. Refuses to continue if the build contains private files: the roster, `.3mf` files, `Jim_Photos`, keys or a password hash.
+4. Does a dry run and lists every file it would delete. It warns loudly before deleting photos, because photos aren't in git and the S3 copy may be the only one. `npm run deploy -- --dry-run` stops here.
+5. Asks you to type `deploy`, then uploads in an order that never breaks the live site: other files, then member files, then the JavaScript and CSS, then the HTML, then deletions. Old JavaScript bundles are kept for 30 days, so a visitor with an older page cached still works.
+6. Clears the CloudFront cache (`/*`).
+
+**Cache headers.** Each upload sets `Cache-Control`:
+
+| Files | Header | Why |
+|---|---|---|
+| Root `*.js` and `*.css` | `public, max-age=31536000, immutable` | Their names change whenever they change |
+| `*.html` | `public, max-age=0, s-maxage=86400, must-revalidate` | Browsers check for a new version every visit; CloudFront keeps it until the next deploy clears the cache |
+| `assets/members/*` | `private, max-age=3600` | Member files, cached by the member's browser only |
+| Everything else | `public, max-age=86400` | Photos and other assets |
+
+`aws s3 sync` only uploads files that changed, so older images get these headers the next time they change.
+
+#### S3 versioning (one time)
+
+Versioning keeps the previous copy of anything a deploy overwrites or deletes, so a mistake can be undone. The lifecycle rule removes old copies after 30 days, so storage stays small. `npm run deploy` warns while versioning is off.
+
+```bash
+aws s3api put-bucket-versioning --bucket kcpipeband.org --versioning-configuration Status=Enabled
+```
+
+```bash
+aws s3api put-bucket-lifecycle-configuration --bucket kcpipeband.org --lifecycle-configuration file://aws/s3-lifecycle.json
+```
+
+To restore a file, open it in the S3 console, turn on **Show versions**, and download or copy back the older version.
+
+#### Security headers (one time)
+
+In the CloudFront distribution, edit the **default behavior** (and the `/api/*` and `/assets/members/*` behaviors once they exist). Under **Response headers policy**, choose the managed **SecurityHeadersPolicy** and save. It adds HSTS, `X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN`, `Referrer-Policy: strict-origin-when-cross-origin` and `X-XSS-Protection`, at no cost.
+
+Check it after the distribution deploys:
+
+```bash
+curl -sI https://www.kcpipeband.org/ | grep -i strict-transport
+```
+
+To roll back, set the response headers policy back to **None**.
+
+#### Page shells and the CloudFront Function
+
+`npm run build` also runs `scripts/write-page-shells.js`, which writes `hire/index.html`, `join/index.html` and so on with each page's title, description and link-preview tags from `src/app/page-meta.json`. Facebook and other link previews don't run JavaScript, so this is what lets a shared link show the right page. To change a page's title or description, edit `page-meta.json`.
+
+CloudFront needs `cloudfront/rewrite-page-paths.js` to serve `/hire` from `hire/index.html`. One-time setup in the CloudFront console:
+
+1. **Functions → Create function**, name `rewrite-page-paths`, runtime `cloudfront-js-2.0`. Paste in the file's contents and **Save changes**.
+2. On the **Test** tab, check a few viewer request URLs: `/hire` and `/join/` should become `/hire/index.html` and `/join/index.html`; `/assets/tartan.webp` and `/` should be unchanged.
+3. **Publish** the function, then **Add association**: your distribution, the default behavior, event type **Viewer request**.
+4. Once the distribution finishes deploying, invalidate `/*` as above.
+
+Check a page with the [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/): `https://www.kcpipeband.org/join` should show "Join the Band" and its description.
+
+To roll back, remove the association from the default behavior. The site then works exactly as before, and the page shells go unused.
+
+#### Member login (AWS)
+
+One-time setup. Do steps 1 to 5 **before** deploying a build that uses the login Lambda, or nobody can log in. It should cost nothing at this site's traffic.
+
+1. **Signing key.** Run `node scripts/generate-cloudfront-key.js`. It saves a key pair in `cloudfront-keys/` (git-ignored) and prints both keys.
+   - CloudFront → **Public keys** → **Create public key**: paste the public key. Note the key's **ID**.
+   - CloudFront → **Key groups** → **Create key group**: name it `members` and add that key.
+2. **Password hash.** Run `node scripts/generate-member-password-hash.js` and copy the `scrypt$...` line it prints.
+3. **Lambda.** Lambda → **Create function** → name `kcpipeband-member-login`, runtime **Node.js 22.x**.
+   - Replace the code with `aws/member-login/index.mjs` and **Deploy**.
+   - **Configuration → Environment variables**: `MEMBER_PASSWORD_HASH` (step 2), `CLOUDFRONT_KEY_PAIR_ID` (the key ID from step 1), `CLOUDFRONT_PRIVATE_KEY_BASE64` (the long line from step 1).
+   - **Configuration → Concurrency**: reserved concurrency **2**.
+   - **Configuration → Function URL → Create**: auth type **NONE**. Copy the URL's host name, for example `abc123.lambda-url.us-east-1.on.aws`.
+4. **Private bucket for member files.** The main bucket is public (CloudFront reads it through its S3 website address), so member files kept there could be fetched straight from S3, skipping the login. They go in a separate private bucket instead.
+   - S3 → **Create bucket**: name `kcpipeband-members`, region **us-east-1**, leave **Block all public access** on.
+   - Set `"membersBucket": "kcpipeband-members"` in `deploy.config.json` and commit it. `npm run deploy` then sends `assets/members/` there instead of the main bucket.
+5. **CloudFront.** In the distribution:
+   - **Origins → Create origin**: the Function URL host name, protocol **HTTPS only**.
+   - **Origins → Create origin**: `kcpipeband-members.s3.us-east-1.amazonaws.com`, **Origin access: Origin access control settings**, and **Create new OAC** with the defaults. After saving, use **Copy policy** and paste it into the `kcpipeband-members` bucket's **Permissions → Bucket policy**.
+   - **Behaviors → Create behavior**: path `/api/*`, the Function URL origin, viewer protocol **Redirect HTTP to HTTPS**, allowed methods **GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE**, cache policy **CachingDisabled**, origin request policy **AllViewerExceptHostHeader**.
+   - **Behaviors → Create behavior**: path `/assets/members/*`, the `kcpipeband-members` origin, viewer protocol **Redirect HTTP to HTTPS**, **Restrict viewer access: Yes**, trusted key group `members`, cache policy **CachingOptimized**.
+6. **Deploy** with `npm run deploy`.
+
+Check it: log in on the live site and open a score. Then paste the score's address into a private window; it should be refused. `http://kcpipeband.org.s3-website-us-east-1.amazonaws.com/assets/members/` should have nothing to serve, either.
+
+**Changing the password:** rerun step 2, paste the new value into `MEMBER_PASSWORD_HASH`, and save. Existing sessions last until they expire.
+
+**Rolling back:** set **Restrict viewer access** on the `/assets/members/*` behavior back to **No**. Member files then open without a login again, and logging in still works.
+
+**Adding a member file:** put it under `src/assets/members/`, list it in the members page's data file, and deploy.
 
 ### Nginx Configuration
 
-The included `nginx.conf` provides:
-- Gzip compression
-- Browser caching headers
-- SPA routing support
-- Security headers
+The included `nginx.conf` provides SPA routing only. Production runs on S3 and CloudFront, not Nginx.
 
 ---
 
@@ -323,26 +353,28 @@ Pipeband/
 │   │   ├── music/              # Music library
 │   │   ├── photos/             # Photo galleries
 │   │   ├── schedule/           # Performance schedule
-│   │   ├── auth.service.ts     # Authentication service (bcrypt)
+│   │   ├── auth.service.ts     # Members login (calls /api/login)
 │   │   ├── auth.guard.ts       # Route guard
 │   │   └── meta.service.ts     # SEO meta tags service
 │   ├── assets/
 │   │   ├── optimized/          # Optimized WebP images
 │   │   ├── photos/             # Photo gallery images
-│   │   ├── score-sheets/       # Competition recordings & PDFs
+│   │   ├── members/            # Member files (need a login): sheet music, score sheets, documents, 3D
 │   │   └── band_logo.webp      # Band logo
 │   ├── environments/           # Environment configurations
 │   └── styles.css              # Global styles
 ├── scripts/
-│   ├── generate-hash-parts.js  # Bcrypt hash generator
+│   ├── generate-member-password-hash.js  # Members password hash
+│   ├── generate-cloudfront-key.js        # Key pair for the member file cookies
+│   ├── dev-server.js                     # npm start: login API + ng serve
 │   ├── generate_thumbnails.py  # Photo thumbnail generator
-│   └── README-HASH-GENERATOR.md
+├── aws/member-login/           # Members login Lambda and its tests
+├── cloudfront/                 # CloudFront Function for page shells
 ├── Dockerfile                  # Docker configuration
 ├── nginx.conf                  # Nginx server config
 ├── package.json                # npm dependencies
 ├── angular.json                # Angular CLI configuration
 ├── SECURITY-IMPLEMENTATION.md  # Security documentation
-├── BCRYPT-UPGRADE-GUIDE.md     # Bcrypt migration guide
 └── README.md                   # This file
 ```
 
@@ -350,19 +382,25 @@ Pipeband/
 
 ## 🛠️ Scripts & Utilities
 
-### Generate Password Hash Parts
-
-Generate secure bcrypt hash for member authentication:
+### Generate the Members Password Hash
 
 ```bash
 # Interactive mode (password hidden)
-node scripts/generate-hash-parts.js
+node scripts/generate-member-password-hash.js
 
 # Command-line mode
-node scripts/generate-hash-parts.js "YourPassword"
+node scripts/generate-member-password-hash.js "YourPassword"
 ```
 
-📚 **Full Documentation**: [scripts/README-HASH-GENERATOR.md](./scripts/README-HASH-GENERATOR.md)
+It prints the value for the Lambda's `MEMBER_PASSWORD_HASH` and saves it to `.member-password-hash` for `npm start`.
+
+### Generate the CloudFront Signing Key
+
+```bash
+node scripts/generate-cloudfront-key.js
+```
+
+See [Member login (AWS)](#member-login-aws) for where each key goes.
 
 ### Generate Photo Thumbnails
 
@@ -485,8 +523,6 @@ We welcome contributions! Please follow these guidelines:
 
 - **[README.md](./README.md)** (this file) - Project overview and setup
 - **[SECURITY-IMPLEMENTATION.md](./SECURITY-IMPLEMENTATION.md)** - Security architecture and implementation
-- **[BCRYPT-UPGRADE-GUIDE.md](./BCRYPT-UPGRADE-GUIDE.md)** - Bcrypt migration and technical details
-- **[scripts/README-HASH-GENERATOR.md](./scripts/README-HASH-GENERATOR.md)** - Hash generator utility guide
 - **[CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)** - Community guidelines
 - **[CONTRIBUTING.md](./CONTRIBUTING.md)** - Contribution guidelines
 - **[LICENSE](./LICENSE)** - Project license
@@ -495,7 +531,6 @@ We welcome contributions! Please follow these guidelines:
 
 - [Angular Documentation](https://angular.io/docs)
 - [Angular Material Documentation](https://material.angular.io/)
-- [Bcrypt Documentation](https://www.npmjs.com/package/bcrypt)
 - [Docker Documentation](https://docs.docker.com/)
 
 ---
@@ -529,16 +564,15 @@ We welcome contributions! Please follow these guidelines:
 ### Common Issues
 
 #### Login Always Fails
-**Solution**: Verify the hash parts in `auth.service.ts` match your password. Regenerate with:
+**Locally:** `npm start` prints a warning if `.member-password-hash` is missing or still holds an old bcrypt hash. Create a new one with:
 ```bash
-node scripts/generate-hash-parts.js "YourPassword"
+node scripts/generate-member-password-hash.js
 ```
 
-#### Build Errors with bcrypt
-**Solution**: Ensure you have both `bcrypt` and `bcryptjs` installed:
-```bash
-npm install bcrypt bcryptjs @types/bcryptjs
-```
+**On the live site:** "Couldn't reach the login service" means CloudFront isn't sending `/api/*` to the Lambda; check the `/api/*` behavior. "Invalid password" with the right password means `MEMBER_PASSWORD_HASH` in the Lambda doesn't match; regenerate it.
+
+#### A Member File Won't Open
+The member's login has probably expired, or the cookies were cleared. Log out and log in again. If no one can open files, check that `CLOUDFRONT_KEY_PAIR_ID` matches the public key in the `members` key group.
 
 #### Docker Image Too Large
 **Solution**: Add `.dockerignore` with:

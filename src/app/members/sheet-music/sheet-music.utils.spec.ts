@@ -11,7 +11,7 @@ describe('sheet music utils', () => {
     composer: 'Traditional',
     instrument: 'Pipes',
     modified: '2026-10-01',
-    file: 'assets/sheet-music/pipes/test-tune.pdf',
+    file: 'assets/members/sheet-music/pipes/test-tune.pdf',
     ...overrides,
   });
 

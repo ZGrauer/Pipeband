@@ -19,6 +19,12 @@
       <priority>0.7</priority>
    </url>
    <url>
+      <loc>https://www.kcpipeband.org/join</loc>
+      <lastmod>2026-11-06</lastmod>
+      <changefreq>yearly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
       <loc>https://www.kcpipeband.org/music</loc>
       <lastmod>2023-04-23</lastmod>
       <changefreq>yearly</changefreq>
@@ -41,11 +47,5 @@
       <lastmod>2023-04-23</lastmod>
       <changefreq>yearly</changefreq>
       <priority>0.7</priority>
-   </url>
-   <url>
-      <loc>https://www.kcpipeband.org/members</loc>
-      <lastmod>2023-04-23</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.2</priority>
    </url>
 </urlset>

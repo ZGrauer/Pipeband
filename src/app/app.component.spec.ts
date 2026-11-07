@@ -13,6 +13,7 @@ import { of, Subject } from 'rxjs';
 // Mock MetaService
 class MockMetaService {
   updateTitle = jasmine.createSpy('updateTitle');
+  updateCanonical = jasmine.createSpy('updateCanonical');
   updateDescription = jasmine.createSpy('updateDescription');
 }
 
@@ -117,14 +118,14 @@ describe('AppComponent', () => {
 
   it('should display copyright information in the footer', () => {
     const footerText = nativeElement.querySelector('footer .col-2')?.textContent;
-    expect(footerText).toContain('© Copyright 2023 Kansas City St. Andrew Pipes & Drums');
+    expect(footerText).toContain(`© Copyright ${new Date().getFullYear()} Kansas City St. Andrew Pipes & Drums`);
   });
 
   it('should initialize navLinks with correct number of links', () => {
     expect(component.navLinks).toBeInstanceOf(Array);
-    expect(component.navLinks.length).toBe(8); // Based on current component code
+    expect(component.navLinks.length).toBe(9); // Based on current component code
     expect(component.navLinks[0].label).toBe('Home');
-    expect(component.navLinks[7].label).toBe('Members');
+    expect(component.navLinks[8].label).toBe('Members');
   });
   
   describe('Router event handling', () => {

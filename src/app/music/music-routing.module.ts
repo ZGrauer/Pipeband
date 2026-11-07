@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import pageMeta from '../page-meta.json';
 import { MusicComponent } from './music.component';
 
 const routes: Routes = [
   {
     path: '',
     component: MusicComponent,
-    data: {
-      title: "Music - Kansas City St. Andrew Pipes & Drums",
-      description: "List of the tunes the band plays for competitions, parades, and events."
-    }
+    data: pageMeta.music
   }
 ];
 

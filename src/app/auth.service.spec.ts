@@ -1,104 +1,88 @@
 import { TestBed } from '@angular/core/testing';
-import * as sha256 from 'js-sha256';
-import { AuthService } from './auth.service';
-import { environment } from './../environments/environment'; // Import the actual environment
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-// The AuthService uses sha256(environment.memberPassword) internally.
-// To test the "successful login" path, we must use the same environment.memberPassword
-// that the service was compiled with.
+import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
   let service: AuthService;
-  let getItemSpy: jasmine.Spy;
-  let setItemSpy: jasmine.Spy;
-  let removeItemSpy: jasmine.Spy;
+  let http: HttpTestingController;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    localStorage.clear();
+    TestBed.configureTestingModule({ imports: [HttpClientTestingModule] });
     service = TestBed.inject(AuthService);
-
-    // Spy on localStorage methods
-    getItemSpy = spyOn(localStorage, 'getItem').and.callThrough();
-    setItemSpy = spyOn(localStorage, 'setItem').and.callThrough();
-    removeItemSpy = spyOn(localStorage, 'removeItem').and.callThrough();
-
-    // It's important to clear localStorage before each test to ensure isolation
-    localStorage.clear(); 
+    http = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => {
-    // Clear localStorage after each test to ensure no side effects
+    http.verify();
     localStorage.clear();
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  function answerLogin(body: string | object, status = 200, statusText = 'OK') {
+    const request = http.expectOne('/api/login');
+    expect(request.request.method).toBe('POST');
+    request.flush(body, { status, statusText });
+    return request;
+  }
+
+  it('should log in when the login service accepts the password', async () => {
+    const result = service.login('right');
+    const request = answerLogin({ expiresAt: Date.now() + 60_000 });
+
+    expect(request.request.body).toEqual({ password: 'right' });
+    expect(await result).toBe('ok');
+    expect(service.loggedIn()).toBeTrue();
   });
 
-  describe('login() method', () => {
-    it('should return true and set token in localStorage on successful login', () => {
-      // Use the actual environment.memberPassword for the "correct" password input
-      const correctPassword = environment.memberPassword;
-      const result = service.login(correctPassword);
-      
-      expect(result).withContext(`Login failed. Check if environment.memberPassword ('${correctPassword}') is correctly configured for tests.`).toBeTrue();
-      expect(setItemSpy).toHaveBeenCalledWith('token', 'secretToken');
-      expect(removeItemSpy).not.toHaveBeenCalled(); // Should not be called on success
-    });
+  it('should report a wrong password', async () => {
+    const result = service.login('wrong');
+    answerLogin({ error: 'Incorrect password' }, 401, 'Unauthorized');
 
-    it('should return false and remove token from localStorage on failed login', () => {
-      const incorrectPassword = 'wrongPassword';
-      const result = service.login(incorrectPassword);
-
-      expect(result).toBeFalse();
-      expect(removeItemSpy).toHaveBeenCalledWith('token');
-      expect(setItemSpy).not.toHaveBeenCalledWith('token', 'secretToken'); // Should not be called on failure
-    });
-
-    it('should re-hash the input password for comparison', () => {
-      // This test implicitly checks that hashing occurs.
-      // To be very explicit about the input password being hashed:
-      const sha256Spy = spyOn(sha256, 'sha256').and.callThrough();
-      const correctPasswordForHashTest = environment.memberPassword; // Re-define/access here for clarity
-      service.login(correctPasswordForHashTest); 
-      // The first call to sha256 inside login() is for the input userPassword.
-      // The MEMBER_PASSWORD was already hashed at service load time.
-      expect(sha256Spy.calls.allArgs().some(args => args[0] === correctPasswordForHashTest)).toBeTrue();
-    });
+    expect(await result).toBe('invalid');
+    expect(service.loggedIn()).toBeFalse();
   });
 
-  describe('loggedIn() method', () => {
-    it('should return true if token in localStorage is "secretToken"', () => {
-      localStorage.setItem('token', 'secretToken'); // Setup condition
-      expect(service.loggedIn()).toBeTrue();
-      expect(getItemSpy).toHaveBeenCalledWith('token');
-    });
+  it('should report the service as unavailable on a server error', async () => {
+    const result = service.login('right');
+    answerLogin('Bad gateway', 502, 'Bad Gateway');
 
-    it('should return false if token in localStorage is different', () => {
-      localStorage.setItem('token', 'wrongToken'); // Setup condition
-      expect(service.loggedIn()).toBeFalse();
-      expect(getItemSpy).toHaveBeenCalledWith('token');
-    });
-
-    it('should return false if no token exists in localStorage', () => {
-      localStorage.removeItem('token'); // Ensure no token
-      expect(service.loggedIn()).toBeFalse();
-      expect(getItemSpy).toHaveBeenCalledWith('token');
-    });
+    expect(await result).toBe('unavailable');
+    expect(service.loggedIn()).toBeFalse();
   });
 
-  describe('getToken() method', () => {
-    it('should return the token if it exists in localStorage', () => {
-      const testToken = 'myTestTokenValue';
-      localStorage.setItem('token', testToken);
-      expect(service.getToken()).toBe(testToken);
-      expect(getItemSpy).toHaveBeenCalledWith('token');
-    });
+  it('should not treat an HTML page as a login', async () => {
+    const result = service.login('right');
+    answerLogin('<!doctype html><html></html>');
 
-    it('should return null if no token exists in localStorage', () => {
-      localStorage.removeItem('token');
-      expect(service.getToken()).toBeNull();
-      expect(getItemSpy).toHaveBeenCalledWith('token');
-    });
+    expect(await result).toBe('unavailable');
+    expect(service.loggedIn()).toBeFalse();
+  });
+
+  it('should end the session when it expires', async () => {
+    const result = service.login('right');
+    answerLogin({ expiresAt: Date.now() - 1 });
+    await result;
+
+    expect(service.loggedIn()).toBeFalse();
+    expect(localStorage.getItem('kcsapb_auth_token')).toBeNull();
+  });
+
+  it('should ignore the old browser-only session keys', () => {
+    localStorage.setItem('kcsapb_auth_token', 'old');
+    localStorage.setItem('kcsapb_auth_time', Date.now().toString());
+
+    expect(service.loggedIn()).toBeFalse();
+  });
+
+  it('should log out locally and clear the file cookies', async () => {
+    const result = service.login('right');
+    answerLogin({ expiresAt: Date.now() + 60_000 });
+    await result;
+
+    service.logout();
+
+    expect(service.loggedIn()).toBeFalse();
+    http.expectOne(request => request.url === '/api/logout' && request.method === 'POST').flush({ loggedOut: true });
   });
 });

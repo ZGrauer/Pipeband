@@ -90,4 +90,16 @@ describe('MetaService', () => {
   //   });
   //   // ... tests for empty/null/undefined inputs for updateMeta ...
   // });
+
+  describe('updateCanonical()', () => {
+    afterEach(() => document.head.querySelector('link[rel="canonical"]')?.remove());
+
+    it('should set one canonical link on the www host, without query or fragment', () => {
+      service.updateCanonical('/hire?from=home#top');
+      service.updateCanonical('/contact?from=home#top');
+      const links = document.head.querySelectorAll<HTMLLinkElement>('link[rel="canonical"]');
+      expect(links.length).toBe(1);
+      expect(links[0].href).toBe('https://www.kcpipeband.org/contact');
+    });
+  });
 });

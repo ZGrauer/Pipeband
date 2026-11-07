@@ -22,7 +22,14 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              { "glob": "robots.txt", "input": ".", "output": "/" },
+              { "glob": "sitemap.xml", "input": ".", "output": "/" },
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "/assets",
+                "ignore": ["Jim_Photos/**", "Band_Roster.xlsx", "**/*.3mf"]
+              }
             ],
             "styles": [
               "src/custom-theme.scss",

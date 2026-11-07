@@ -60,6 +60,6 @@ export const ARTICLES: ResourceLink[] = [
 ];
 
 export const MODEL_FILES: ModelFile[] = [
-  { title: 'Band Cap Badge 3D & Vector Files', download: 'assets/KCSAPB_Cap_Badge.zip', preview: 'assets/KCSAPB_Cap_Badge.stl' },
-  { title: 'Band Kilt Pin 3D File', download: 'assets/KCSAPB_Kilt_Pin.stl', preview: 'assets/KCSAPB_Kilt_Pin.stl' },
+  { title: 'Band Cap Badge 3D & Vector Files', download: 'assets/members/3d/KCSAPB_Cap_Badge.zip', preview: 'assets/members/3d/KCSAPB_Cap_Badge.stl' },
+  { title: 'Band Kilt Pin 3D File', download: 'assets/members/3d/KCSAPB_Kilt_Pin.stl', preview: 'assets/members/3d/KCSAPB_Kilt_Pin.stl' },
 ];

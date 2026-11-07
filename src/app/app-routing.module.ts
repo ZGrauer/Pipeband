@@ -13,6 +13,10 @@ const routes: Routes = [
     loadChildren: () => import('./hire/hire.module').then(m => m.HireModule)
   },
   {
+    path: 'join',
+    loadChildren: () => import('./join/join.module').then(m => m.JoinModule)
+  },
+  {
     path: 'contact',
     loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule)
   },
@@ -45,10 +49,17 @@ const routes: Routes = [
     path: 'photo',
     loadChildren: () => import('./photos/photos.module').then(m => m.PhotosModule)
   },
+  {
+    path: '**',
+    loadComponent: () => import('./not-found/not-found.component').then(m => m.NotFoundComponent),
+    data: {
+      title: "Page Not Found - Kansas City St. Andrew Pipes & Drums"
+    }
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { anchorScrolling: 'enabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

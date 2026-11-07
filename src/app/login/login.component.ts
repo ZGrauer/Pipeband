@@ -11,6 +11,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   userPassword: string = '';
   hide = true;
   invalidPassword = false;
+  serviceUnavailable = false;
+  loggingIn = false;
   
   // Rate limiting properties
   loginAttempts = 0;
@@ -102,17 +104,24 @@ export class LoginComponent implements OnInit, OnDestroy {
   /**
    * Attempt to log in user
    */
-  loginUser(): void {
-    if (this.isLockedOut) {
+  async loginUser(): Promise<void> {
+    if (this.isLockedOut || this.loggingIn) {
       return;
     }
 
     this.invalidPassword = false;
-    
-    if (this._auth.login(this.userPassword)) {
+    this.serviceUnavailable = false;
+    this.loggingIn = true;
+    const result = await this._auth.login(this.userPassword);
+    this.loggingIn = false;
+
+    if (result === 'ok') {
       // Login successful - clear attempts and navigate
       this.clearLockout();
       this.router.navigate(['/members']);
+    } else if (result === 'unavailable') {
+      // Not the member's fault, so it doesn't count toward the lockout
+      this.serviceUnavailable = true;
     } else {
       // Login failed
       this.invalidPassword = true;
@@ -199,9 +208,4 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.lockoutTimeRemaining = Math.ceil(remainingMs / 1000 / 60);
     }
   }
-}
-
-export interface User {
-  username: string;
-  password: string;
 }

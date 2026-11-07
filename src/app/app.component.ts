@@ -18,6 +18,7 @@ import { filter, map, mergeMap, tap } from 'rxjs/operators';
 })
 export class AppComponent {
   title = 'KC St. Andrews Pipes and Drums';
+  currentYear = new Date().getFullYear();
   currentRoute: string = 'home';
   isMembersRoute: boolean = false;
   public isLoading: boolean = false;
@@ -47,29 +48,34 @@ export class AppComponent {
         index: 2,
       },
       {
+        label: 'Join Us',
+        link: './join',
+        index: 3,
+      },
+      {
         label: 'Music',
         link: './music',
-        index: 3,
+        index: 4,
       },
       {
         label: 'Photo Gallery',
         link: './photo',
-        index: 4,
+        index: 5,
       },
       {
         label: 'Performances',
         link: './schedule',
-        index: 5,
+        index: 6,
       },
       {
         label: 'Contact',
         link: './contact',
-        index: 6,
+        index: 7,
       },
       {
         label: 'Members',
         link: './members',
-        index: 7,
+        index: 8,
       },
     ];
 
@@ -91,7 +97,6 @@ export class AppComponent {
         if (event instanceof NavigationEnd) {
           this.currentRoute = event.url;
           this.isMembersRoute = this.currentRoute == '/members' ? true : false;
-          console.log(event);
         }
       }
     });
@@ -119,6 +124,7 @@ export class AppComponent {
         tap(({ title, description }: Data) => {
           this.metaService.updateTitle(title);
           this.metaService.updateDescription(description);
+          this.metaService.updateCanonical(this.router.url);
         })
       )
       .subscribe();

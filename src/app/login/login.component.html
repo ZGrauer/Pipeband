@@ -25,9 +25,9 @@
                         </mat-form-field>
                     </div>
 
-                    <button mat-raised-button color="primary" [disabled]="!f.form.valid || isLockedOut" type="button"
+                    <button mat-raised-button color="primary" [disabled]="!f.form.valid || isLockedOut || loggingIn" type="submit"
                         (click)="loginUser()" class="btn btn-success float-right">
-                        Submit
+                        {{ loggingIn ? 'Checking...' : 'Submit' }}
                     </button>
                     
                     <!-- Error Messages -->
@@ -35,6 +35,10 @@
                         <p *ngIf="invalidPassword" class="error-text">
                             <mat-icon color="warn" class="error-icon">error</mat-icon>
                             <strong>Error!</strong> Invalid password
+                        </p>
+                        <p *ngIf="serviceUnavailable" class="error-text">
+                            <mat-icon color="warn" class="error-icon">cloud_off</mat-icon>
+                            Couldn't reach the login service. Please try again in a moment.
                         </p>
                         <p *ngIf="invalidPassword && loginAttempts > 0" class="warning-text">
                             {{ getRemainingAttempts() }} attempt(s) remaining before temporary lockout
