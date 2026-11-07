@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import pageMeta from '../page-meta.json';
 import { ContactComponent } from './contact.component';
 
 const routes: Routes = [
   {
     path: '',
     component: ContactComponent,
-    data: {
-      title: "Contact Us - Kansas City St. Andrew Pipes & Drums",
-      description: "Contact the band about Piping or dumming lessons, or booking the band for your event"
-    }
+    data: pageMeta.contact
   }
 ];
 

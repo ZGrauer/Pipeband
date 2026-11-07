@@ -284,6 +284,21 @@ This site is designed to run as a static website on AWS:
    aws cloudfront create-invalidation --distribution-id YOUR_DIST_ID --paths "/*"
    ```
 
+#### Page shells and the CloudFront Function
+
+`npm run build` also runs `scripts/write-page-shells.js`, which writes `hire/index.html`, `join/index.html` and so on with each page's title, description and link-preview tags from `src/app/page-meta.json`. Facebook and other link previews don't run JavaScript, so this is what lets a shared link show the right page. To change a page's title or description, edit `page-meta.json`.
+
+CloudFront needs `cloudfront/rewrite-page-paths.js` to serve `/hire` from `hire/index.html`. One-time setup in the CloudFront console:
+
+1. **Functions → Create function**, name `rewrite-page-paths`, runtime `cloudfront-js-2.0`. Paste in the file's contents and **Save changes**.
+2. On the **Test** tab, check a few viewer request URLs: `/hire` and `/join/` should become `/hire/index.html` and `/join/index.html`; `/assets/tartan.webp` and `/` should be unchanged.
+3. **Publish** the function, then **Add association**: your distribution, the default behavior, event type **Viewer request**.
+4. Once the distribution finishes deploying, invalidate `/*` as above.
+
+Check a page with the [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/): `https://www.kcpipeband.org/join` should show "Join the Band" and its description.
+
+To roll back, remove the association from the default behavior. The site then works exactly as before, and the page shells go unused.
+
 ### Nginx Configuration
 
 The included `nginx.conf` provides SPA routing only. Production runs on S3 and CloudFront, not Nginx.
