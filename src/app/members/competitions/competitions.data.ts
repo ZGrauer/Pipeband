@@ -32,23 +32,23 @@ export const RESULT_DATA: ResultElement[] = [
     ensembleJudge: 1,
     files: [ 
       {
-        path: 'assets/score-sheets/2026-mn_band_results.pdf',
+        path: 'assets/members/score-sheets/2026-mn_band_results.pdf',
         name: 'Band Results',
       },
       {
-        path: 'assets/score-sheets/2026_MN_G4_Medley_KC_St_Andrew_Pipes_Drums_DJ Drumming Judge 01.mp3',
+        path: 'assets/members/score-sheets/2026_MN_G4_Medley_KC_St_Andrew_Pipes_Drums_DJ Drumming Judge 01.mp3',
         name: 'Drumming MP3',
       },
       {
-        path: 'assets/score-sheets/2026_MN_G4_Medley_KC_St_Andrew_Pipes_Drums_EJ Ensemble Judge 01.mp3',
+        path: 'assets/members/score-sheets/2026_MN_G4_Medley_KC_St_Andrew_Pipes_Drums_EJ Ensemble Judge 01.mp3',
         name: 'Ensemble MP3',
       },
       {
-        path: 'assets/score-sheets/2026_MN_G4_Medley_KC_St_Andrew_Pipes_Drums_PJ01 Piping Judge 01.mp3',
+        path: 'assets/members/score-sheets/2026_MN_G4_Medley_KC_St_Andrew_Pipes_Drums_PJ01 Piping Judge 01.mp3',
         name: 'Piping 1 MP3',
       },
       {
-        path: 'assets/score-sheets/2026_MN_G4_Medley_KC_St_Andrew_Pipes_Drums_PJ02 Piping Judge 02.mp3',
+        path: 'assets/members/score-sheets/2026_MN_G4_Medley_KC_St_Andrew_Pipes_Drums_PJ02 Piping Judge 02.mp3',
         name: 'Piping 2 MP3',
       },
      ],
@@ -65,23 +65,23 @@ export const RESULT_DATA: ResultElement[] = [
     ensembleJudge: 1,
     files: [ 
       {
-        path: 'assets/score-sheets/2026-mn_band_results.pdf',
+        path: 'assets/members/score-sheets/2026-mn_band_results.pdf',
         name: 'Band Results',
       },
       {
-        path: 'assets/score-sheets/2026_MN_G4_MSR_KC_St_Andrew_Pipes_Drums_DJ Drumming Judge 01.mp3',
+        path: 'assets/members/score-sheets/2026_MN_G4_MSR_KC_St_Andrew_Pipes_Drums_DJ Drumming Judge 01.mp3',
         name: 'Drumming MP3',
       },
       {
-        path: 'assets/score-sheets/2026_MN_G4_MSR_KC_St_Andrew_Pipes_Drums_EJ Ensemble Judge 01.mp3',
+        path: 'assets/members/score-sheets/2026_MN_G4_MSR_KC_St_Andrew_Pipes_Drums_EJ Ensemble Judge 01.mp3',
         name: 'Ensemble MP3',
       },
       {
-        path: 'assets/score-sheets/2026_MN_G4_MSR_KC_St_Andrew_Pipes_Drums_PJ01 Piping Judge 01.mp3',
+        path: 'assets/members/score-sheets/2026_MN_G4_MSR_KC_St_Andrew_Pipes_Drums_PJ01 Piping Judge 01.mp3',
         name: 'Piping 1 MP3',
       },
       {
-        path: 'assets/score-sheets/2026_MN_G4_MSR_KC_St_Andrew_Pipes_Drums_PJ02 Piping Judge 02.mp3',
+        path: 'assets/members/score-sheets/2026_MN_G4_MSR_KC_St_Andrew_Pipes_Drums_PJ02 Piping Judge 02.mp3',
         name: 'Piping 2 MP3',
       },
      ],
@@ -98,23 +98,23 @@ export const RESULT_DATA: ResultElement[] = [
     ensembleJudge: 4,
     files: [ 
       {
-        path: 'assets/score-sheets/2026-chg-band_results.pdf',
+        path: 'assets/members/score-sheets/2026-chg-band_results.pdf',
         name: 'Band Results',
       },
       {
-        path: 'assets/score-sheets/2026_Chicago_G4_Medley_KC_St_Andrew_Pipes_Drums_DJ Drumming Judge 01.mp3',
+        path: 'assets/members/score-sheets/2026_Chicago_G4_Medley_KC_St_Andrew_Pipes_Drums_DJ Drumming Judge 01.mp3',
         name: 'Drumming MP3',
       },
       {
-        path: 'assets/score-sheets/2026_Chicago_G4_Medley_KC_St_Andrew_Pipes_Drums_EJ Ensemble Judge 01.mp3',
+        path: 'assets/members/score-sheets/2026_Chicago_G4_Medley_KC_St_Andrew_Pipes_Drums_EJ Ensemble Judge 01.mp3',
         name: 'Ensemble MP3',
       },
       {
-        path: 'assets/score-sheets/2026_Chicago_G4_Medley_KC_St_Andrew_Pipes_Drums_PJ01 Piping Judge 01.mp3',
+        path: 'assets/members/score-sheets/2026_Chicago_G4_Medley_KC_St_Andrew_Pipes_Drums_PJ01 Piping Judge 01.mp3',
         name: 'Piping 1 MP3',
       },
       {
-        path: 'assets/score-sheets/2026_Chicago_G4_Medley_KC_St_Andrew_Pipes_Drums_PJ02 Piping Judge 02.mp3',
+        path: 'assets/members/score-sheets/2026_Chicago_G4_Medley_KC_St_Andrew_Pipes_Drums_PJ02 Piping Judge 02.mp3',
         name: 'Piping 2 MP3',
       },
      ],
@@ -131,23 +131,23 @@ export const RESULT_DATA: ResultElement[] = [
     ensembleJudge: 1,
     files: [ 
       {
-        path: 'assets/score-sheets/2026-stl_band_results.pdf',
+        path: 'assets/members/score-sheets/2026-stl_band_results.pdf',
         name: 'Band Results',
       },
       {
-        path: 'assets/score-sheets/2026_St_Louis_G4_Medley_KC_St_Andrew_Pipes_Drums_DJ Drumming Judge 01.mp3',
+        path: 'assets/members/score-sheets/2026_St_Louis_G4_Medley_KC_St_Andrew_Pipes_Drums_DJ Drumming Judge 01.mp3',
         name: 'Drumming MP3',
       },
       {
-        path: 'assets/score-sheets/2026_St_Louis_G4_Medley_KC_St_Andrew_Pipes_Drums_EJ Ensemble Judge 01.mp3',
+        path: 'assets/members/score-sheets/2026_St_Louis_G4_Medley_KC_St_Andrew_Pipes_Drums_EJ Ensemble Judge 01.mp3',
         name: 'Ensemble MP3',
       },
       {
-        path: 'assets/score-sheets/2026_St_Louis_G4_Medley_KC_St_Andrew_Pipes_Drums_PJ01 Piping Judge 01.mp3',
+        path: 'assets/members/score-sheets/2026_St_Louis_G4_Medley_KC_St_Andrew_Pipes_Drums_PJ01 Piping Judge 01.mp3',
         name: 'Piping 1 MP3',
       },
       {
-        path: 'assets/score-sheets/2026_St_Louis_G4_Medley_KC_St_Andrew_Pipes_Drums_PJ02 Piping Judge 02.mp3',
+        path: 'assets/members/score-sheets/2026_St_Louis_G4_Medley_KC_St_Andrew_Pipes_Drums_PJ02 Piping Judge 02.mp3',
         name: 'Piping 2 MP3',
       },
      ],
@@ -164,23 +164,23 @@ export const RESULT_DATA: ResultElement[] = [
     ensembleJudge: 1,
     files: [ 
       {
-        path: 'assets/score-sheets/2026-stl_band_results.pdf',
+        path: 'assets/members/score-sheets/2026-stl_band_results.pdf',
         name: 'Band Results',
       },
       {
-        path: 'assets/score-sheets/2026_St_Louis_G4_MSR_KC_St_Andrew_Pipes_Drums_DJ Drumming Judge 01.mp3',
+        path: 'assets/members/score-sheets/2026_St_Louis_G4_MSR_KC_St_Andrew_Pipes_Drums_DJ Drumming Judge 01.mp3',
         name: 'Drumming MP3',
       },
       {
-        path: 'assets/score-sheets/2026_St_Louis_G4_MSR_KC_St_Andrew_Pipes_Drums_EJ Ensemble Judge 01.mp3',
+        path: 'assets/members/score-sheets/2026_St_Louis_G4_MSR_KC_St_Andrew_Pipes_Drums_EJ Ensemble Judge 01.mp3',
         name: 'Ensemble MP3',
       },
       {
-        path: 'assets/score-sheets/2026_St_Louis_G4_MSR_KC_St_Andrew_Pipes_Drums_PJ01 Piping Judge 01.mp3',
+        path: 'assets/members/score-sheets/2026_St_Louis_G4_MSR_KC_St_Andrew_Pipes_Drums_PJ01 Piping Judge 01.mp3',
         name: 'Piping 1 MP3',
       },
       {
-        path: 'assets/score-sheets/2026_St_Louis_G4_MSR_KC_St_Andrew_Pipes_Drums_PJ02 Piping Judge 02.mp3',
+        path: 'assets/members/score-sheets/2026_St_Louis_G4_MSR_KC_St_Andrew_Pipes_Drums_PJ02 Piping Judge 02.mp3',
         name: 'Piping 2 MP3',
       },
      ],
@@ -197,23 +197,23 @@ export const RESULT_DATA: ResultElement[] = [
     ensembleJudge: 1,
     files: [ 
       {
-        path: 'assets/score-sheets/2025-mn_band_results.pdf',
+        path: 'assets/members/score-sheets/2025-mn_band_results.pdf',
         name: 'Band Results',
       },
       {
-        path: 'assets/score-sheets/MWPBA 1 MN G4 MSR    Kansas City St  Andrew Pipes   Drums DJ Drumming Judge 01.mp3',
+        path: 'assets/members/score-sheets/MWPBA 1 MN G4 MSR    Kansas City St  Andrew Pipes   Drums DJ Drumming Judge 01.mp3',
         name: 'Drumming MP3',
       },
       {
-        path: 'assets/score-sheets/MWPBA 1 MN G4 MSR    Kansas City St  Andrew Pipes   Drums EJ Ensemble Judge 01.mp3',
+        path: 'assets/members/score-sheets/MWPBA 1 MN G4 MSR    Kansas City St  Andrew Pipes   Drums EJ Ensemble Judge 01.mp3',
         name: 'Ensemble MP3',
       },
       {
-        path: 'assets/score-sheets/MWPBA 1 MN G4 MSR    Kansas City St  Andrew Pipes   Drums PJ01 Piping Judge 01.mp3',
+        path: 'assets/members/score-sheets/MWPBA 1 MN G4 MSR    Kansas City St  Andrew Pipes   Drums PJ01 Piping Judge 01.mp3',
         name: 'Piping 1 MP3',
       },
       {
-        path: 'assets/score-sheets/MWPBA 1 MN G4 MSR    Kansas City St  Andrew Pipes   Drums PJ02 Piping Judge 02.mp3',
+        path: 'assets/members/score-sheets/MWPBA 1 MN G4 MSR    Kansas City St  Andrew Pipes   Drums PJ02 Piping Judge 02.mp3',
         name: 'Piping 2 MP3',
       },
      ],
@@ -230,23 +230,23 @@ export const RESULT_DATA: ResultElement[] = [
     ensembleJudge: 1,
     files: [ 
       {
-        path: 'assets/score-sheets/2025-mn_band_results.pdf',
+        path: 'assets/members/score-sheets/2025-mn_band_results.pdf',
         name: 'Band Results',
       },
       {
-        path: 'assets/score-sheets/MWPBA 4 MN G4 Medley    Kansas City St  Andrew Pipes   Drums DJ Drumming Judge 01.mp3',
+        path: 'assets/members/score-sheets/MWPBA 4 MN G4 Medley    Kansas City St  Andrew Pipes   Drums DJ Drumming Judge 01.mp3',
         name: 'Drumming MP3',
       },
       {
-        path: 'assets/score-sheets/MWPBA 4 MN G4 Medley    Kansas City St  Andrew Pipes   Drums EJ Ensemble Judge 01.mp3',
+        path: 'assets/members/score-sheets/MWPBA 4 MN G4 Medley    Kansas City St  Andrew Pipes   Drums EJ Ensemble Judge 01.mp3',
         name: 'Ensemble MP3',
       },
       {
-        path: 'assets/score-sheets/MWPBA 4 MN G4 Medley    Kansas City St  Andrew Pipes   Drums PJ01 Piping Judge 01.mp3',
+        path: 'assets/members/score-sheets/MWPBA 4 MN G4 Medley    Kansas City St  Andrew Pipes   Drums PJ01 Piping Judge 01.mp3',
         name: 'Piping 1 MP3',
       },
       {
-        path: 'assets/score-sheets/MWPBA 4 MN G4 Medley    Kansas City St  Andrew Pipes   Drums PJ02 Piping Judge 02.mp3',
+        path: 'assets/members/score-sheets/MWPBA 4 MN G4 Medley    Kansas City St  Andrew Pipes   Drums PJ02 Piping Judge 02.mp3',
         name: 'Piping 2 MP3',
       },
      ],
@@ -263,23 +263,23 @@ export const RESULT_DATA: ResultElement[] = [
     ensembleJudge: 5,
     files: [ 
       {
-        path: 'assets/score-sheets/2025_Chicago_G4_Results.jpg',
+        path: 'assets/members/score-sheets/2025_Chicago_G4_Results.jpg',
         name: 'Band Results',
       },
       {
-        path: 'assets/score-sheets/2025_Chicago_G4_Medley_KC_St_Andrew_PC_Drumming_Judge.mp3',
+        path: 'assets/members/score-sheets/2025_Chicago_G4_Medley_KC_St_Andrew_PC_Drumming_Judge.mp3',
         name: 'Drumming MP3',
       },
       {
-        path: 'assets/score-sheets/2025_Chicago_G4_Medley_KC_St_Andrew_PC_Ensemble_Judge.mp3',
+        path: 'assets/members/score-sheets/2025_Chicago_G4_Medley_KC_St_Andrew_PC_Ensemble_Judge.mp3',
         name: 'Ensemble MP3',
       },
       {
-        path: 'assets/score-sheets/2025_Chicago_G4_Medley_KC_St_Andrew_PC_Piping_Judge_1.mp3',
+        path: 'assets/members/score-sheets/2025_Chicago_G4_Medley_KC_St_Andrew_PC_Piping_Judge_1.mp3',
         name: 'Piping 1 MP3',
       },
       {
-        path: 'assets/score-sheets/2025_Chicago_G4_Medley_KC_St_Andrew_PC_Piping_Judge_2.mp3',
+        path: 'assets/members/score-sheets/2025_Chicago_G4_Medley_KC_St_Andrew_PC_Piping_Judge_2.mp3',
         name: 'Piping 2 MP3',
       },
      ],
@@ -296,7 +296,7 @@ export const RESULT_DATA: ResultElement[] = [
     ensembleJudge: 1,
     files: [ 
       {
-        path: 'assets/score-sheets/2024_Tulsa_Games_Results.pdf',
+        path: 'assets/members/score-sheets/2024_Tulsa_Games_Results.pdf',
         name: 'PDF',
       },
      ],
@@ -313,19 +313,19 @@ export const RESULT_DATA: ResultElement[] = [
     ensembleJudge: 1,
     files: [
       {
-        path: 'assets/score-sheets/2024_Minnesota_G5_QMM_KC_St_Andrew_Drumming_Judge_1.mp3',
+        path: 'assets/members/score-sheets/2024_Minnesota_G5_QMM_KC_St_Andrew_Drumming_Judge_1.mp3',
         name: 'Drumming MP3',
       },
       {
-        path: 'assets/score-sheets/2024_Minnesota_G5_QMM_KC_St_Andrew_Ensemble_Judge_1.mp3',
+        path: 'assets/members/score-sheets/2024_Minnesota_G5_QMM_KC_St_Andrew_Ensemble_Judge_1.mp3',
         name: 'Ensemble MP3',
       },
       {
-        path: 'assets/score-sheets/2024_Minnesota_G5_QMM_KC_St_Andrew_Piping_Judge_1.mp3',
+        path: 'assets/members/score-sheets/2024_Minnesota_G5_QMM_KC_St_Andrew_Piping_Judge_1.mp3',
         name: 'Piping 1 MP3',
       },
       {
-        path: 'assets/score-sheets/2024_Minnesota_G5_QMM_KC_St_Andrew_Piping_Judge_2.mp3',
+        path: 'assets/members/score-sheets/2024_Minnesota_G5_QMM_KC_St_Andrew_Piping_Judge_2.mp3',
         name: 'Piping 2 MP3',
       },
     ],
@@ -342,19 +342,19 @@ export const RESULT_DATA: ResultElement[] = [
     ensembleJudge: 3,
     files: [
       {
-        path: 'assets/score-sheets/2024_Chicago_G5_QMM_KC_St_Andrew_PC_Drumming_Judge.mp3',
+        path: 'assets/members/score-sheets/2024_Chicago_G5_QMM_KC_St_Andrew_PC_Drumming_Judge.mp3',
         name: 'Drumming MP3',
       },
       {
-        path: 'assets/score-sheets/2024_Chicago_G5_QMM_KC_St_Andrew_PC_Ensemble_Judge.mp3',
+        path: 'assets/members/score-sheets/2024_Chicago_G5_QMM_KC_St_Andrew_PC_Ensemble_Judge.mp3',
         name: 'Ensemble MP3',
       },
       {
-        path: 'assets/score-sheets/2024_Chicago_G5_QMM_KC_St_Andrew_PC_Piping_Judge_1.mp3',
+        path: 'assets/members/score-sheets/2024_Chicago_G5_QMM_KC_St_Andrew_PC_Piping_Judge_1.mp3',
         name: 'Piping 1 MP3',
       },
       {
-        path: 'assets/score-sheets/2024_Chicago_G5_QMM_KC_St_Andrew_PC_Piping_Judge_2.mp3',
+        path: 'assets/members/score-sheets/2024_Chicago_G5_QMM_KC_St_Andrew_PC_Piping_Judge_2.mp3',
         name: 'Piping 2 MP3',
       },
     ],
@@ -371,19 +371,19 @@ export const RESULT_DATA: ResultElement[] = [
     ensembleJudge: 1,
     files: [
       {
-        path: 'assets/score-sheets/2024_St_Louis_G5_QMM_KC_St_Andrew_PD_Drumming_Judge.mp3',
+        path: 'assets/members/score-sheets/2024_St_Louis_G5_QMM_KC_St_Andrew_PD_Drumming_Judge.mp3',
         name: 'Drumming MP3',
       },
       {
-        path: 'assets/score-sheets/2024_St_Louis_G5_QMM_KC_St_Andrew_PD_Ensemble_Judge.mp3',
+        path: 'assets/members/score-sheets/2024_St_Louis_G5_QMM_KC_St_Andrew_PD_Ensemble_Judge.mp3',
         name: 'Ensemble MP3',
       },
       {
-        path: 'assets/score-sheets/2024_St_Louis_G5_QMM_KC_St_Andrew_PD_Piping_Judge_1.mp3',
+        path: 'assets/members/score-sheets/2024_St_Louis_G5_QMM_KC_St_Andrew_PD_Piping_Judge_1.mp3',
         name: 'Piping 1 MP3',
       },
       {
-        path: 'assets/score-sheets/2024_St_Louis_G5_QMM_KC_St_Andrew_PD_Piping_Judge_2.mp3',
+        path: 'assets/members/score-sheets/2024_St_Louis_G5_QMM_KC_St_Andrew_PD_Piping_Judge_2.mp3',
         name: 'Piping 2 MP3',
       },
     ],
@@ -401,7 +401,7 @@ export const RESULT_DATA: ResultElement[] = [
     ensembleJudge: 1,
     files: [
       {
-        path: 'assets/score-sheets/2023_Tulsa_Games_Results.pdf',
+        path: 'assets/members/score-sheets/2023_Tulsa_Games_Results.pdf',
         name: 'PDF',
       },
     ],
@@ -419,7 +419,7 @@ export const RESULT_DATA: ResultElement[] = [
     ensembleJudge: 4,
     files: [
       {
-        path: 'assets/score-sheets/2023_Chicago_Games_Results.pdf',
+        path: 'assets/members/score-sheets/2023_Chicago_Games_Results.pdf',
         name: 'PDF',
       },
     ],

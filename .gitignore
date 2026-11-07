@@ -42,7 +42,7 @@ testem.log
 /src/assets/optimized/*
 /src/assets/Band_Roster.xlsx
 /.member-password-hash
-/src/app/member-hash.generated.ts
+/cloudfront-keys/
 
 # System files
 .DS_Store
